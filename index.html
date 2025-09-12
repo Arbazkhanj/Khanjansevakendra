@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khan Jan Seva Kendra</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f7fbff; }
+    header { background: #0073e6; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+    header h2 { margin: 0; }
+    header nav a { color: white; margin: 0 10px; text-decoration: none; }
+    .login-btn { background: white; color: #0073e6; padding: 5px 10px; border-radius: 5px; }
+    .container { width: 90%; margin: auto; padding: 20px; }
+    h2 { color: #0073e6; margin-bottom: 10px; }
+    .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+    .service-card { background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .icon {
+      font-size: 28px;
+      color: white;
+      width: 50px; height: 50px;
+      line-height: 50px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    /* Colorful Backgrounds */
+    .blue { background: #007bff; }
+    .green { background: #28a745; }
+    .orange { background: #ff8800; }
+    .pink { background: #e83e8c; }
+    .purple { background: #6f42c1; }
+    .teal { background: #20c997; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h2>Jan Seva Kendra</h2>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Services</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#" class="login-btn">Login</a>
+    </nav>
+  </header>
+
+  <!-- Services -->
+  <div class="container">
+    <h2>Our Services</h2>
+    <p>We provide 100+ essential services including Banking, Bill Payments, Govt. Certificates, PAN, Aadhaar, Travel and more.</p>
+
+    <h3>Banking Services</h3>
+    <div class="services">
+      <div class="service-card"><span class="icon blue"><i class="fa-solid fa-fingerprint"></i></span><br>AePS</div>
+      <div class="service-card"><span class="icon green"><i class="fa-solid fa-id-card"></i></span><br>Aadhaar Pay</div>
+      <div class="service-card"><span class="icon orange"><i class="fa-solid fa-piggy-bank"></i></span><br>Cash Deposit</div>
+      <div class="service-card"><span class="icon pink"><i class="fa-solid fa-user-plus"></i></span><br>Account Opening</div>
+      <div class="service-card"><span class="icon purple"><i class="fa-solid fa-money-bill-transfer"></i></span><br>Money Transfer</div>
+    </div>
+
+    <h3>Recharge & Bill Payments</h3>
+    <div class="services">
+      <div class="service-card"><span class="icon teal"><i class="fa-solid fa-mobile-screen"></i></span><br>Mobile Recharge</div>
+      <div class="service-card"><span class="icon orange"><i class="fa-solid fa-tv"></i></span><br>DTH Recharge</div>
+      <div class="service-card"><span class="icon green"><i class="fa-solid fa-bolt"></i></span><br>Electricity Bill</div>
+      <div class="service-card"><span class="icon blue"><i class="fa-solid fa-droplet"></i></span><br>Water Bill</div>
+      <div class="service-card"><span class="icon pink"><i class="fa-solid fa-gas-pump"></i></span><br>Gas Bill</div>
+    </div>
+
+    <h3>Government Services</h3>
+    <div class="services">
+      <div class="service-card"><span class="icon purple"><i class="fa-solid fa-id-badge"></i></span><br>PAN Card</div>
+      <div class="service-card"><span class="icon orange"><i class="fa-solid fa-address-card"></i></span><br>Aadhaar Update</div>
+      <div class="service-card"><span class="icon green"><i class="fa-solid fa-person-booth"></i></span><br>Voter ID</div>
+      <div class="service-card"><span class="icon blue"><i class="fa-solid fa-car"></i></span><br>Driving Licence</div>
+      <div class="service-card"><span class="icon pink"><i class="fa-solid fa-passport"></i></span><br>Passport</div>
+    </div>
+
+    <h3>Travel Services</h3>
+    <div class="services">
+      <div class="service-card"><span class="icon orange"><i class="fa-solid fa-bus"></i></span><br>Bus Booking</div>
+      <div class="service-card"><span class="icon teal"><i class="fa-solid fa-hotel"></i></span><br>Hotel Booking</div>
+      <div class="service-card"><span class="icon blue"><i class="fa-solid fa-plane"></i></span><br>Flight Booking</div>
+      <div class="service-card"><span class="icon green"><i class="fa-solid fa-train"></i></span><br>Train Booking</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>© 2025 Khan Jan Seva Kendra | All Rights Reserved</p>
+    <p>Available across PAN India – Uttar Pradesh | Bihar | Telangana | More States</p>
+  </div>
+
+</body>
+</html>
