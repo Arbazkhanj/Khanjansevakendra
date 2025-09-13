@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Khan Jan Seva Kendra</title>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- ✅ Updated Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f7fbff; }
     header { background: #0073e6; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
@@ -24,20 +23,37 @@
       border-radius: 10px;
       margin-bottom: 8px;
       display: inline-block;
-    }
-    /* Colorful Backgrounds */
-    .blue { background: #007bff; }
-    .green { background: #28a745; }
-    .orange { background: #ff8800; }
-    .pink { background: #e83e8c; }
-    .purple { background: #6f42c1; }
-    .teal { background: #20c997; }
+    }.contact-container {
+  text-align: center;
+  margin: 30px auto;
+  max-width: 600px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.contact-container h2 { color: #0073e6; margin-bottom: 15px; }
+.contact-container a { color: #25d366; text-decoration: none; font-weight: bold; }
+
+.footer {
+  background: #0073e6;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+/* Colorful Backgrounds */
+.blue { background: #007bff; }
+.green { background: #28a745; }
+.orange { background: #ff8800; }
+.pink { background: #e83e8c; }
+.purple { background: #6f42c1; }
+.teal { background: #20c997; }
+
   </style>
 </head>
-<body>
-
-  <!-- Header -->
-  <header>
+<body>  <!-- Header -->  <header>
     <h2>Jan Seva Kendra</h2>
     <nav>
       <a href="#">Home</a>
@@ -46,64 +62,55 @@
       <a href="#">Contact</a>
       <a href="#" class="login-btn">Login</a>
     </nav>
-  </header>
-
-  <!-- Services -->
-  <div class="container">
+  </header>  <!-- Services -->  <div class="container">
     <h2>Our Services</h2>
-    <p>We provide 100+ essential services including Banking, Bill Payments, Govt. Certificates, PAN, Aadhaar, Travel and more.</p>
+    <p>We provide 100+ essential services including Banking, Bill Payments, Govt. Certificates, PAN, Aadhaar, Travel and more.</p><h3>Banking Services</h3>
+<div class="services">
+  <div class="service-card"><span class="icon blue"><i class="fa-solid fa-fingerprint"></i></span><br>AePS</div>
+  <div class="service-card"><span class="icon green"><i class="fa-solid fa-id-card"></i></span><br>Aadhaar Pay</div>
+  <div class="service-card"><span class="icon orange"><i class="fa-solid fa-piggy-bank"></i></span><br>Cash Deposit</div>
+  <div class="service-card"><span class="icon pink"><i class="fa-solid fa-user-plus"></i></span><br>Account Opening</div>
+  <div class="service-card"><span class="icon purple"><i class="fa-solid fa-money-bill-transfer"></i></span><br>Money Transfer</div>
+</div>
 
-    <h3>Banking Services</h3>
-    <div class="services">
-      <div class="service-card"><span class="icon blue"><i class="fa-solid fa-fingerprint"></i></span><br>AePS</div>
-      <div class="service-card"><span class="icon green"><i class="fa-solid fa-id-card"></i></span><br>Aadhaar Pay</div>
-      <div class="service-card"><span class="icon orange"><i class="fa-solid fa-piggy-bank"></i></span><br>Cash Deposit</div>
-      <div class="service-card"><span class="icon pink"><i class="fa-solid fa-user-plus"></i></span><br>Account Opening</div>
-      <div class="service-card"><span class="icon purple"><i class="fa-solid fa-money-bill-transfer"></i></span><br>Money Transfer</div>
+<h3>Recharge & Bill Payments</h3>
+<div class="services">
+  <div class="service-card"><span class="icon teal"><i class="fa-solid fa-mobile-screen"></i></span><br>Mobile Recharge</div>
+  <div class="service-card"><span class="icon orange"><i class="fa-solid fa-tv"></i></span><br>DTH Recharge</div>
+  <div class="service-card"><span class="icon green"><i class="fa-solid fa-bolt"></i></span><br>Electricity Bill</div>
+  <div class="service-card"><span class="icon blue"><i class="fa-solid fa-droplet"></i></span><br>Water Bill</div>
+  <div class="service-card"><span class="icon pink"><i class="fa-solid fa-gas-pump"></i></span><br>Gas Bill</div>
+</div>
+
+<h3>Government Services</h3>
+<div class="services">
+  <div class="service-card"><span class="icon purple"><i class="fa-solid fa-id-badge"></i></span><br>PAN Card</div>
+  <div class="service-card"><span class="icon orange"><i class="fa-solid fa-address-card"></i></span><br>Aadhaar Update</div>
+  <div class="service-card"><span class="icon green"><i class="fa-solid fa-person-booth"></i></span><br>Voter ID</div>
+  <div class="service-card"><span class="icon blue"><i class="fa-solid fa-car"></i></span><br>Driving Licence</div>
+  <div class="service-card"><span class="icon pink"><i class="fa-solid fa-passport"></i></span><br>Passport</div>
+</div>
+
+<h3>Travel Services</h3>
+<div class="services">
+  <div class="service-card"><span class="icon orange"><i class="fa-solid fa-bus"></i></span><br>Bus Booking</div>
+  <div class="service-card"><span class="icon teal"><i class="fa-solid fa-hotel"></i></span><br>Hotel Booking</div>
+  <div class="service-card"><span class="icon blue"><i class="fa-solid fa-plane"></i></span><br>Flight Booking</div>
+  <div class="service-card"><span class="icon green"><i class="fa-solid fa-train"></i></span><br>Train Booking</div>
+</div>
+
+  </div>  <!-- ✅ Contact Us -->  <section id="contact">
+    <div class="contact-container">
+      <h2>Contact Us</h2>
+      <p>📍 Address: District Hospital Gate No. 3, Khan Jan Seva Kendra, Basti, Uttar Pradesh - 272002</p>
+      <p>📞 Phone: +91-7459064328</p>
+      <p>📧 Email: nsdl.khan@email.com</p>
+      <p><a href="https://wa.me/917459064328" target="_blank">💬 WhatsApp Now</a></p>
     </div>
-
-    <h3>Recharge & Bill Payments</h3>
-    <div class="services">
-      <div class="service-card"><span class="icon teal"><i class="fa-solid fa-mobile-screen"></i></span><br>Mobile Recharge</div>
-      <div class="service-card"><span class="icon orange"><i class="fa-solid fa-tv"></i></span><br>DTH Recharge</div>
-      <div class="service-card"><span class="icon green"><i class="fa-solid fa-bolt"></i></span><br>Electricity Bill</div>
-      <div class="service-card"><span class="icon blue"><i class="fa-solid fa-droplet"></i></span><br>Water Bill</div>
-      <div class="service-card"><span class="icon pink"><i class="fa-solid fa-gas-pump"></i></span><br>Gas Bill</div>
-    </div>
-
-    <h3>Government Services</h3>
-    <div class="services">
-      <div class="service-card"><span class="icon purple"><i class="fa-solid fa-id-badge"></i></span><br>PAN Card</div>
-      <div class="service-card"><span class="icon orange"><i class="fa-solid fa-address-card"></i></span><br>Aadhaar Update</div>
-      <div class="service-card"><span class="icon green"><i class="fa-solid fa-person-booth"></i></span><br>Voter ID</div>
-      <div class="service-card"><span class="icon blue"><i class="fa-solid fa-car"></i></span><br>Driving Licence</div>
-      <div class="service-card"><span class="icon pink"><i class="fa-solid fa-passport"></i></span><br>Passport</div>
-    </div>
-
-    <h3>Travel Services</h3>
-    <div class="services">
-      <div class="service-card"><span class="icon orange"><i class="fa-solid fa-bus"></i></span><br>Bus Booking</div>
-      <div class="service-card"><span class="icon teal"><i class="fa-solid fa-hotel"></i></span><br>Hotel Booking</div>
-      <div class="service-card"><span class="icon blue"><i class="fa-solid fa-plane"></i></span><br>Flight Booking</div>
-      <div class="service-card"><span class="icon green"><i class="fa-solid fa-train"></i></span><br>Train Booking</div>
-    </div>
-  </div>
-</section>
-
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <p>📍 Address: District Hospital Gate No. 3, Khan Jan Seva Kendra, Basti, Uttar Pradesh - 272002</p>
-    <p>📞 Phone: +91-7459064328</p>
-    <p>📧 Email: Nsdl.khan@email.com</p>
-    <a href="https://wa.me/7459064328" target="_blank" class="btn">💬 WhatsApp Now</a>
-
-  </section>
-  <!-- Footer -->
-  <div class="footer">
-    <p>© 2025 Khan Jan Seva Kendra | All Rights Reserved</p>
+  </section>  <!-- Footer -->  <div class="footer">
+    <p>©️ 2025 Khan Jan Seva Kendra | All Rights Reserved</p>
     <!-- Google Map Embed -->
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3562.689779463871!2d82.7250730754214!3d26.789798976717668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3991a9a5f0481c6b%3A0x4e0c57a83f1b6d3b!2sDistrict%20Hospital%2C%20Basti%2C%20Uttar%20Pradesh%20272002!5e0!3m2!1sen!2sin!4v1694412345678" allowfullscreen="" loading="lazy"></iframe>
-  </div>
-
-</body>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3562.689779463871!2d82.7250730754214!3d26.789798976717668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3991a9a5f0481c6b%3A0x4e0c57a83f1b6d3b!2sDistrict%20Hospital%2C%20Basti%2C%20Uttar%20Pradesh%20272002!5e0!3m2!1sen!2sin!4v1694412345678"
+      width="300" height="200" style="border:0;" allowfullscreen loading="lazy"></iframe>
+  </div></body>
 </html>
