@@ -1,116 +1,213 @@
-<!DOCTYPE html><html lang="en">
+<!doctype html>
+<html lang='hi'>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Khan Jan Seva Kendra</title>
-  <!-- ✅ Updated Font Awesome -->
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <title>Home - Khan Jan Seva Kendra</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f7fbff; }
-    header { background: #0073e6; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-    header h2 { margin: 0; }
-    header nav a { color: white; margin: 0 10px; text-decoration: none; }
-    .login-btn { background: white; color: #0073e6; padding: 5px 10px; border-radius: 5px; }
-    .container { width: 90%; margin: auto; padding: 20px; }
-    h2 { color: #0073e6; margin-bottom: 10px; }
-    .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
-    .service-card { background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    .icon {
-      font-size: 28px;
-      color: white;
-      width: 50px; height: 50px;
-      line-height: 50px;
-      border-radius: 10px;
-      margin-bottom: 8px;
-      display: inline-block;
-    }.contact-container {
-  text-align: center;
-  margin: 30px auto;
-  max-width: 600px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    body { font-family: Arial, sans-serif; margin: 0; background: #f3fbff; }
+
+    /* Premium Header */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 30px;
+      background: linear-gradient(90deg,#2196f3,#ff5722);
+      color: white; position: sticky; top: 0; z-index: 1000;
+    }
+    header .logo img {
+      width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid white;
+    }
+    header .site-title { font-size: 20px; font-weight: 700; }
+    header nav { display: flex; align-items: center; gap: 18px; }
+    header nav a { color: white; text-decoration: none; font-weight: 500; }
+    header nav a:hover { text-decoration: underline; }
+    header nav .login-btn {
+      background: white; color: #2196f3; padding: 6px 14px;
+      border-radius: 6px; font-weight: 600; text-decoration: none;
+    }
+
+    /* Banner */
+    .banner { text-align: center; padding: 50px 20px; background: #fff; }
+    .banner h1 { color: #0073e6; margin-bottom: 10px; }
+    .banner p { margin: 5px 0; color: #333; }
+    .banner a {
+      display: inline-block; margin-top: 15px; padding: 12px 25px;
+      background: #ff8800; color: white; text-decoration: none;
+      border-radius: 6px; font-weight: bold;
+    }
+
+    /* Services Icons */
+    .services { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 30px 20px; }
+    .service-card { background: white; width: 180px; text-align: center; padding: 20px; border-radius: 10px; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
+    .service-card i { font-size: 35px; margin-bottom: 10px; }
+    .orange { color: #ff8800; } .green { color: #28a745; } .blue { color: #007bff; }
+    .pink { color: #e83e8c; } .purple { color: #6f42c1; }
+
+    /* About */
+    .container { width: 90%; margin: auto; padding: 40px 20px; background: #fff; border-radius: 10px; margin-top: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    h2 { color: #0073e6; margin-bottom: 15px; }
+
+    /* Vision & Mission */
+    .vision-mission { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; }
+    .box { flex: 1; min-width: 250px; padding: 20px; border-radius: 10px; color: white; }
+    .vision { background: linear-gradient(135deg, #00c6ff, #0072ff); }
+    .mission { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+
+    /* Footer */
+    .footer { background: #0073e6; color: white; text-align: center; padding: 15px; margin-top: 30px; }
+    /* Font Setup */
+body {
+  font-family: Arial, sans-serif;
+  font-weight: bold;  /* Arial Bold */
+  margin: 0;
+  background: #f3fbff;
 }
-.contact-container h2 { color: #0073e6; margin-bottom: 15px; }
-.contact-container a { color: #25d366; text-decoration: none; font-weight: bold; }
 
-.footer {
-  background: #0073e6;
-  color: white;
-  text-align: center;
-  padding: 15px;
-  margin-top: 20px;
+/* Premium Header */
+header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 30px;
+  background: linear-gradient(90deg,#2196f3,#ff5722);
+  color: white; position: sticky; top: 0; z-index: 1000;
+}
+header .logo img {
+  width: 42px; height: 42px; border-radius: 50%; 
+  object-fit: cover; border: 2px solid white;
+  transition: transform 0.3s ease;
+}
+header .logo img:hover { transform: rotate(10deg) scale(1.1); }
+
+header .site-title { font-size: 20px; font-weight: bold; letter-spacing: 1px; }
+header nav { display: flex; align-items: center; gap: 18px; }
+header nav a {
+  color: white; text-decoration: none; font-weight: bold;
+  position: relative; padding: 6px 12px; transition: all 0.3s ease;
+}
+header nav a:hover {
+  color: #ffe082;
+  transform: translateY(-3px);
+}
+header nav .login-btn {
+  background: white; color: #2196f3; padding: 6px 14px;
+  border-radius: 6px; font-weight: bold; text-decoration: none;
+  transition: all 0.3s ease;
+}
+header nav .login-btn:hover {
+  background: #ffe082; color: #000;
+  transform: scale(1.05);
 }
 
-/* Colorful Backgrounds */
-.blue { background: #007bff; }
-.green { background: #28a745; }
-.orange { background: #ff8800; }
-.pink { background: #e83e8c; }
-.purple { background: #6f42c1; }
-.teal { background: #20c997; }
-
+/* Services Cards Hover Effect */
+.service-card {
+  background: white; width: 180px; text-align: center; padding: 20px;
+  border-radius: 10px; box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease; cursor: pointer;
+}
+.service-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.service-card i {
+  font-size: 35px; margin-bottom: 10px; transition: transform 0.3s ease;
+}
+.service-card:hover i {
+  transform: scale(1.2) rotate(-5deg);
+}
   </style>
 </head>
-<body>  <!-- Header -->  <header>
-    <h2>Jan Seva Kendra</h2>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Services</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-      <a href="#" class="login-btn">Login</a>
-    </nav>
-  </header>  <!-- Services -->  <div class="container">
-    <h2>Our Services</h2>
-    <p>We provide 100+ essential services including Banking, Bill Payments, Govt. Certificates, PAN, Aadhaar, Travel and more.</p><h3>Banking Services</h3>
-<div class="services">
-  <div class="service-card"><span class="icon blue"><i class="fa-solid fa-fingerprint"></i></span><br>AePS</div>
-  <div class="service-card"><span class="icon green"><i class="fa-solid fa-id-card"></i></span><br>Aadhaar Pay</div>
-  <div class="service-card"><span class="icon orange"><i class="fa-solid fa-piggy-bank"></i></span><br>Cash Deposit</div>
-  <div class="service-card"><span class="icon pink"><i class="fa-solid fa-user-plus"></i></span><br>Account Opening</div>
-  <div class="service-card"><span class="icon purple"><i class="fa-solid fa-money-bill-transfer"></i></span><br>Money Transfer</div>
-</div>
+<body>
 
-<h3>Recharge & Bill Payments</h3>
-<div class="services">
-  <div class="service-card"><span class="icon teal"><i class="fa-solid fa-mobile-screen"></i></span><br>Mobile Recharge</div>
-  <div class="service-card"><span class="icon orange"><i class="fa-solid fa-tv"></i></span><br>DTH Recharge</div>
-  <div class="service-card"><span class="icon green"><i class="fa-solid fa-bolt"></i></span><br>Electricity Bill</div>
-  <div class="service-card"><span class="icon blue"><i class="fa-solid fa-droplet"></i></span><br>Water Bill</div>
-  <div class="service-card"><span class="icon pink"><i class="fa-solid fa-gas-pump"></i></span><br>Gas Bill</div>
-</div>
+<!-- ✅ Premium Header -->
+<header>
+  <div class="logo"><img src="shop.jpg" alt="Khan Jan Seva Kendra Logo"></div>
+  <div class="site-title">Khan Jan Seva Kendra</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html" class="login-btn">Login</a>
+  </nav>
+</header>
 
-<h3>Government Services</h3>
-<div class="services">
-  <div class="service-card"><span class="icon purple"><i class="fa-solid fa-id-badge"></i></span><br>PAN Card</div>
-  <div class="service-card"><span class="icon orange"><i class="fa-solid fa-address-card"></i></span><br>Aadhaar Update</div>
-  <div class="service-card"><span class="icon green"><i class="fa-solid fa-person-booth"></i></span><br>Voter ID</div>
-  <div class="service-card"><span class="icon blue"><i class="fa-solid fa-car"></i></span><br>Driving Licence</div>
-  <div class="service-card"><span class="icon pink"><i class="fa-solid fa-passport"></i></span><br>Passport</div>
-</div>
+<!-- Banner -->
+<!-- ✅ Banner with Slideshow + Text -->
+<section class="banner" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
 
-<h3>Travel Services</h3>
-<div class="services">
-  <div class="service-card"><span class="icon orange"><i class="fa-solid fa-bus"></i></span><br>Bus Booking</div>
-  <div class="service-card"><span class="icon teal"><i class="fa-solid fa-hotel"></i></span><br>Hotel Booking</div>
-  <div class="service-card"><span class="icon blue"><i class="fa-solid fa-plane"></i></span><br>Flight Booking</div>
-  <div class="service-card"><span class="icon green"><i class="fa-solid fa-train"></i></span><br>Train Booking</div>
-</div>
+  <!-- Left: Slideshow -->
+  <div class="slideshow" style="flex:1;min-width:280px;max-width:500px;position:relative;overflow:hidden;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+    <img class="slide" src="shop1.jpg" style="width:100%;display:block;">
+    <img class="slide" src="shop2.jpg" style="width:100%;display:none;">
+    <img class="slide" src="shop3.jpg" style="width:100%;display:none;">
+    <img class="slide" src="shop4.jpg" style="width:100%;display:none;">
+    <img class="slide" src="shop5.jpg" style="width:100%;display:none;">
+    <img class="slide" src="shop6.jpg" style="width:100%;display:none;">
+  </div>
 
-  </div>  <!-- ✅ Contact Us -->  <section id="contact">
-    <div class="contact-container">
-      <h2>Contact Us</h2>
-      <p>📍 Address: District Hospital Gate No. 3, Khan Jan Seva Kendra, Basti, Uttar Pradesh - 272002</p>
-      <p>📞 Phone: +91-7459064328</p>
-      <p>📧 Email: nsdl.khan@email.com</p>
-      <p><a href="https://wa.me/917459064328" target="_blank">💬 WhatsApp Now</a></p>
+  <!-- Right: Text -->
+  <div style="flex:1;min-width:280px;">
+    <h1 style="color:#0073e6;">Khan Jan Seva Kendra</h1>
+    <p>हमारी दुकान पर आपको सभी प्रकार की डिजिटल और सरकारी सेवाएँ एक ही जगह पर मिलती हैं।<br>
+    बैंकिंग, बीमा, पहचान पत्र, पासपोर्ट, बिल भुगतान और बहुत सी सेवाएँ।</p>
+    <a href="contact.html" style="display:inline-block;margin-top:12px;padding:10px 20px;
+      background:#0073e6;color:white;border-radius:6px;text-decoration:none;font-weight:bold;">📞 Contact Us</a>
+  </div>
+
+</section>
+
+<script>
+let slideIndex = 0;
+showSlides();
+function showSlides() {
+  let slides = document.querySelectorAll(".slide");
+  slides.forEach(s => s.style.display = "none");
+  slideIndex++;
+  if (slideIndex > slides.length) { slideIndex = 1 }
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 3000); // हर 3 सेकंड में बदलेगा
+}
+</script>
+
+<!-- Services Icons -->
+<section class="services">
+  <div class="service-card"><i class="fa-solid fa-university orange"></i><br>Banking<br><small>बैंकिंग सेवाएँ</small></div>
+  <div class="service-card"><i class="fa-solid fa-bolt green"></i><br>Bill Payments<br><small>बिल भुगतान</small></div>
+  <div class="service-card"><i class="fa-solid fa-id-card blue"></i><br>Government<br><small>सरकारी सेवाएँ</small></div>
+  <div class="service-card"><i class="fa-solid fa-file-invoice pink"></i><br>Tax / Registration<br><small>कर / पंजीकरण</small></div>
+  <div class="service-card"><i class="fa-solid fa-plane purple"></i><br>Travel<br><small>यात्रा सेवाएँ</small></div>
+</section>
+
+<div class="container" style="text-align:center;">
+  <h2>About Khan Jan Seva Kendra (हमारे बारे में)</h2>
+  <p>
+    Welcome to <b>Khan Jan Seva Kendra</b>, your go-to digital services hub in Basti!  
+    हम 100+ सेवाएँ प्रदान करते हैं जिनमें बैंकिंग, यात्रा बुकिंग, बिजली/पानी के बिल भुगतान,  
+    मतदाता पहचान पत्र, पैन, आधार कार्ड सेवाएँ और बहुत कुछ शामिल है।
+  </p>
+
+  <div class="vision-mission" style="justify-content:center;">
+    <div class="box vision" style="max-width:400px;text-align:center;">
+      <h3>Vision (उद्देश्य)</h3>
+      <p>
+        To be the leading provider of essential services in Basti.  
+        हमारा उद्देश्य है कि हर व्यक्ति को सभी सेवाएँ आसानी और पारदर्शिता के साथ मिलें।
+      </p>
     </div>
-  </section>  <!-- Footer -->  <div class="footer">
-    <p>©️ 2025 Khan Jan Seva Kendra | All Rights Reserved</p>
-    <!-- Google Map Embed -->
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3562.689779463871!2d82.7250730754214!3d26.789798976717668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3991a9a5f0481c6b%3A0x4e0c57a83f1b6d3b!2sDistrict%20Hospital%2C%20Basti%2C%20Uttar%20Pradesh%20272002!5e0!3m2!1sen!2sin!4v1694412345678"
-      width="300" height="200" style="border:0;" allowfullscreen loading="lazy"></iframe>
-  </div></body>
+    <div class="box mission" style="max-width:400px;text-align:center;">
+      <h3>Mission (मिशन)</h3>
+      <p>
+        To empower communities by making services accessible, affordable, and reliable.  
+        हमारा मिशन है लोगों को डिजिटल सेवाओं से जोड़ना और उनके जीवन को सरल बनाना।
+      </p>
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<div class="footer">
+  <p>© 2025 Khan Jan Seva Kendra | All Rights Reserved</p>
+  <p>District Hospital Gate No 3, Khan Jan Seva Kendra Basti</p>
+</div>
+
+</body>
 </html>
