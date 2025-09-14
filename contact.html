@@ -63,13 +63,21 @@
 
     <!-- Contact Form -->
     <form onsubmit="sendToWhatsApp(event)">
-      <h3 style="color:#0073e6;">संदेश भेजें</h3>
+      <h3 style="color:#0073e6;">Send Message WhatsApp </h3>
       <input type="text" id="name" placeholder="नाम" required>
       <input type="text" id="phone" placeholder="फ़ोन" required>
       <textarea id="message" rows="4" placeholder="अपना संदेश लिखें..." required></textarea>
       <button type="submit">📩 Send Message</button>
     </form>
-
+    <!--Contact Form-->
+    <form action="https://formspree.io/f/xkgvawon" method="POST">
+      <h3 style="color:#0073e6;">Send Message Email </h3>
+      <input type="text" name="name" placeholder="नाम" required>
+      <input type="email" name="email" placeholder="ईमेल" required>
+      <input type="text" name="phone" placeholder="फ़ोन नंबर" required>
+      <textarea name="message" placeholder="अपना संदेश लिखें..." required></textarea>
+      <button type="submit">📩 Send Message</button>
+    </form>
     <!-- Map -->
     <!-- Google Map Section -->
 <div class="map" style="margin:30px auto; max-width:900px;">
