@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>भारत सरकारी नौकरी 2026 - Premium Job Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3c72;
+            --secondary: #2a5298;
+            --accent: #f5576c;
+            --gold: #FFD700;
+            --success: #28a745;
+            --bg-light: #f5f7fa;
+            --text-dark: #2d3748;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0,0); }
+            100% { transform: translate(50px,50px); }
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Search Bar */
+        .search-container {
+            background: white;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .search-box {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+            font-size: 1.2em;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        /* State Grid */
+        .states-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .state-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--secondary);
+        }
+
+        .state-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .state-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .state-name {
+            font-size: 1.8em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .state-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .total-jobs {
+            background: white;
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .state-content {
+            padding: 25px;
+        }
+
+        .job-preview {
+            margin-bottom: 20px;
+        }
+
+        .job-preview-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95em;
+        }
+
+        .job-preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .view-all-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--accent) 0%, #f093fb 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .view-all-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            max-width: 900px;
+            border-radius: 20px;
+            overflow: hidden;
+            animation: slideUp 0.4s;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .modal-title {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 0;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Vacancy List in Modal */
+        .vacancy-list {
+            list-style: none;
+        }
+
+        .vacancy-item {
+            padding: 20px 25px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .vacancy-item:hover {
+            background: #f8f9fa;
+            padding-left: 30px;
+        }
+
+        .vacancy-info h3 {
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+
+        .vacancy-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .vacancy-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .vacancy-arrow {
+            color: var(--secondary);
+            font-size: 1.2em;
+        }
+
+        /* Detail View */
+        .detail-view {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.3s;
+        }
+
+        .detail-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .detail-title {
+            font-size: 2em;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .detail-subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .detail-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .detail-card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-card p {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .detail-description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .detail-description h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .detail-description ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .detail-description li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .detail-description li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .apply-section {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+        }
+
+        .apply-btn-large {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: var(--primary);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .apply-btn-large:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        .back-btn {
+            background: #e2e8f0;
+            color: var(--text-dark);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #cbd5e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .states-grid { grid-template-columns: 1fr; }
+            .modal-content { margin: 20px; max-height: 95vh; }
+            .detail-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+     
+<header 
+style="
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 30px;
+  background:linear-gradient(90deg,#044b84,#2f3437);
+  color:white; position:sticky; top:0; z-index:1000;
+">
+  <!-- Logo + Title -->
+  <div style="display:flex;align-items:center;gap:12px;">
+    <img src="shop.jpg" alt="Shop Logo" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid white;">
+    <span style="font-size:20px;font-weight:700;">Khan Jan Seva Kendra</span>
+  </div>
+
+  <!-- Navigation -->
+  <nav style="display:flex;align-items:center;gap:18px;">
+    <a href="index.html" style="color:white;text-decoration:none;font-weight:700;">Home</a>
+    <a href="services.html" style="color:white;text-decoration:none;font-weight:700;">Services</a>
+    <a href="about.html" style="color:white;text-decoration:none;font-weight:700;">About</a>
+    <a href="contact.html" style="color:white;text-decoration:none;font-weight:700;">Contact</a>
+    <a href="Latest job.html" style="color:white;text-decoration:none;font-weight:700;">Latest Job</a>
+    <a href="login.html" style="background:white;color:#2196f3;
+      padding:6px 14px;border-radius:6px;font-weight:800;
+      text-decoration:none;">Login</a>
+  </nav>
+</header>
+    <header
+      class="header">
+        <h1>भारत सरकारी नौकरी 2026</h1>
+        <p>Central & State Government Jobs - Complete Details & Direct Apply Links</p>
+    </header>
+
+    <!-- Search -->
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search jobs by state, post name, qualification..." onkeyup="searchJobs()">
+            <i class="fas fa-search"></i>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2 class="section-title">🎯 राज्य चुनें - सभी नौकरियाँ देखें</h2>
+        
+        <div class="states-grid" id="statesGrid">
+            <!-- Generated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="jobModal" class="modal" onclick="closeModalOnOutside(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">State Jobs</h2>
+                <button class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Complete Job Data for All States
+        const jobsData = {
+            "Uttar Pradesh": {
+                icon: "🏛️",
+                total: "50,000+",
+                vacancies: [
+                    {
+                        id: "up1",
+                        post: "UP Police Constable",
+                        posts: "32,679",
+                        qualification: "12th Pass",
+                        age: "18-22 years",
+                        lastDate: "30-01-2026",
+                        link: "https://uppolice.gov.in",
+                        description: "Uttar Pradesh Police Recruitment Board is recruiting constables for maintaining law and order across the state.",
+                        eligibility: ["12th pass from recognized board", "Physical standards: Height 168cm (Male), 152cm (Female)", "Chest 79-84cm (Male only)", "No criminal record"]
+                    },
+                    {
+                        id: "up2",
+                        post: "UP Lekhpal (Accountant)",
+                        posts: "7,994",
+                        qualification: "12th Pass",
+                        age: "18-40 years",
+                        lastDate: "28-01-2026",
+                        link: "https://upsssc.gov.in",
+                        description: "Revenue Department recruitment for Lekhpal posts in all districts of UP.",
+                        eligibility: ["12th pass with Mathematics", "Basic computer knowledge", "Knowledge of Hindi and English typing"]
+                    },
+                    {
+                        id: "up3",
+                        post: "UPPSC Medical Officer",
+                        posts: "2,158",
+                        qualification: "MBBS/BDS",
+                        age: "21-40 years",
+                        lastDate: "22-01-2026",
+                        link: "https://uppsc.up.nic.in",
+                        description: "Uttar Pradesh Public Service Commission recruiting Medical Officers for health department.",
+                        eligibility: ["MBBS/BDS degree from recognized university", "Registration with Medical Council", "Internship completed"]
+                    },
+                    {
+                        id: "up4",
+                        post: "UP Anganwadi Worker",
+                        posts: "1,581",
+                        qualification: "10th/12th Pass",
+                        age: "18-35 years",
+                        lastDate: "02-02-2026",
+                        link: "https://wcd.up.gov.in",
+                        description: "Women and Child Development Department recruiting Anganwadi workers and helpers.",
+                        eligibility: ["10th or 12th pass", "Resident of same district", "Preference to women candidates"]
+                    },
+                    {
+                        id: "up5",
+                        post: "UPSSSC Forest Guard",
+                        posts: "700+",
+                        qualification: "12th Pass",
+                        age: "18-40 years",
+                        lastDate: "15-02-2026",
+                        link: "https://upsssc.gov.in",
+                        description: "Forest Department recruitment for protecting wildlife and forest resources.",
+                        eligibility: ["12th pass with Biology/Environmental Science", "Physical fitness test mandatory", "Height: 163cm (Male), 150cm (Female)"]
+                    }
+                ]
+            },
+            "Maharashtra": {
+                icon: "🚂",
+                total: "25,000+",
+                vacancies: [
+                    {
+                        id: "mh1",
+                        post: "MPSC Civil Services",
+                        posts: "2,500",
+                        qualification: "Graduation",
+                        age: "19-38 years",
+                        lastDate: "15-02-2026",
+                        link: "https://mpsc.gov.in",
+                        description: "Maharashtra Public Service Commission recruiting for various administrative posts.",
+                        eligibility: ["Graduation in any discipline", "Marathi language proficiency", "Clear MPSC Prelims & Mains"]
+                    },
+                    {
+                        id: "mh2",
+                        post: "RRB Mumbai Group D",
+                        posts: "312",
+                        qualification: "10th Pass/ITI",
+                        age: "18-33 years",
+                        lastDate: "20-02-2026",
+                        link: "https://rrbmumbai.gov.in",
+                        description: "Railway Recruitment Board Mumbai recruiting Group D staff for various departments.",
+                        eligibility: ["10th pass or ITI certificate", "Physical efficiency test", "Medical fitness certificate"]
+                    },
+                    {
+                        id: "mh3",
+                        post: "NMMC Various Posts",
+                        posts: "132",
+                        qualification: "Graduation/Diploma",
+                        age: "18-38 years",
+                        lastDate: "10-02-2026",
+                        link: "https://nmmc.gov.in",
+                        description: "Navi Mumbai Municipal Corporation recruiting engineers, clerks, and health staff.",
+                        eligibility: ["Relevant degree/diploma", "Experience preferred", "Local residents preferred"]
+                    },
+                    {
+                        id: "mh4",
+                        post: "BARC Scientific Officer",
+                        posts: "85",
+                        qualification: "B.E/B.Tech/M.Sc",
+                        age: "26-35 years",
+                        lastDate: "28-01-2026",
+                        link: "https://barc.gov.in",
+                        description: "Bhabha Atomic Research Centre recruiting scientific officers for nuclear research.",
+                        eligibility: ["B.E/B.Tech in relevant field or M.Sc", "GATE score mandatory", "Interview and medical test"]
+                    },
+                    {
+                        id: "mh5",
+                        post: "Latur DCC Bank Clerk",
+                        posts: "375",
+                        qualification: "Graduation",
+                        age: "21-30 years",
+                        lastDate: "05-02-2026",
+                        link: "https://laturdccbank.org",
+                        description: "District Central Cooperative Bank recruiting clerks and assistants.",
+                        eligibility: ["Graduation in any stream", "Computer knowledge essential", "Marathi language proficiency"]
+                    }
+                ]
+            },
+            "Rajasthan": {
+                icon: "🏜️",
+                total: "20,000+",
+                vacancies: [
+                    {
+                        id: "rj1",
+                        post: "RSSB Clerk/Junior Assistant",
+                        posts: "10,644",
+                        qualification: "12th Pass",
+                        age: "18-40 years",
+                        lastDate: "13-02-2026",
+                        link: "https://rssb.rajasthan.gov.in",
+                        description: "Rajasthan Staff Selection Board massive recruitment for clerical posts.",
+                        eligibility: ["12th pass from RBSE/CBSE", "Computer certificate (RS-CIT or equivalent)", "Rajasthan domicile required"]
+                    },
+                    {
+                        id: "rj2",
+                        post: "RPSC Assistant Professor",
+                        posts: "949",
+                        qualification: "Post Graduation/NET",
+                        age: "21-40 years",
+                        lastDate: "26-03-2026",
+                        link: "https://rpsc.rajasthan.gov.in",
+                        description: "Rajasthan Public Service Commission recruiting assistant professors for government colleges.",
+                        eligibility: ["Master's degree with 55% marks", "NET/SLET qualified", "PhD preferred"]
+                    },
+                    {
+                        id: "rj3",
+                        post: "RSSB Agriculture Supervisor",
+                        posts: "1,100",
+                        qualification: "12th with Agriculture",
+                        age: "18-40 years",
+                        lastDate: "20-02-2026",
+                        link: "https://rssb.rajasthan.gov.in",
+                        description: "Agriculture Department recruitment for supervisor posts.",
+                        eligibility: ["12th with Agriculture subject", "Rajasthan domicile", "Knowledge of Hindi and Rajasthani culture"]
+                    },
+                    {
+                        id: "rj4",
+                        post: "RPSC Assistant Engineer",
+                        posts: "32",
+                        qualification: "B.E/B.Tech",
+                        age: "20-40 years",
+                        lastDate: "19-02-2026",
+                        link: "https://rpsc.rajasthan.gov.in",
+                        description: "Public Works Department recruiting civil engineers for infrastructure projects.",
+                        eligibility: ["B.E/B.Tech in Civil Engineering", "Experience preferred", "RPSC exam qualification"]
+                    },
+                    {
+                        id: "rj5",
+                        post: "RPSC Medical Officer",
+                        posts: "130",
+                        qualification: "MBBS",
+                        age: "21-40 years",
+                        lastDate: "15-02-2026",
+                        link: "https://rpsc.rajasthan.gov.in",
+                        description: "Health Department recruiting medical officers for rural health centers.",
+                        eligibility: ["MBBS degree", "Registration with MCI", "Willingness to serve in rural areas"]
+                    }
+                ]
+            },
+            "Bihar": {
+                icon: "📚",
+                total: "15,000+",
+                vacancies: [
+                    {
+                        id: "br1",
+                        post: "BPSC Civil Services",
+                        posts: "2,809",
+                        qualification: "Graduation",
+                        age: "20-37 years",
+                        lastDate: "15-02-2026",
+                        link: "https://bpsc.bih.nic.in",
+                        description: "Bihar Public Service Commission recruiting for SDM, DSP, BDO posts.",
+                        eligibility: ["Graduation in any discipline", "BPSC 67th Prelims qualified", "Physical test for police posts"]
+                    },
+                    {
+                        id: "br2",
+                        post: "BSSC Inter Level",
+                        posts: "5,200",
+                        qualification: "12th Pass",
+                        age: "18-40 years",
+                        lastDate: "25-01-2026",
+                        link: "https://bssc.bih.nic.in",
+                        description: "Bihar Staff Selection Commission recruiting clerks, assistants, and forest guards.",
+                        eligibility: ["12th pass from recognized board", "Computer knowledge", "Bihar domicile mandatory"]
+                    },
+                    {
+                        id: "br3",
+                        post: "BTSC Junior Engineer",
+                        posts: "2,809",
+                        qualification: "Diploma/Degree",
+                        age: "18-37 years",
+                        lastDate: "10-02-2026",
+                        link: "https://btsc.bih.nic.in",
+                        description: "Technical recruitment for engineering posts in various departments.",
+                        eligibility: ["Diploma or B.Tech in relevant branch", "Experience preferred", "Bihar resident certificate"]
+                    },
+                    {
+                        id: "br4",
+                        post: "Bihar Agriculture Dept",
+                        posts: "694",
+                        qualification: "B.Sc Agriculture",
+                        age: "21-37 years",
+                        lastDate: "05-02-2026",
+                        link: "https://agriculture.bih.nic.in",
+                        description: "Agriculture Department recruiting officers and assistants.",
+                        eligibility: ["B.Sc Agriculture or related degree", "Knowledge of Hindi and English", "Field work experience"]
+                    },
+                    {
+                        id: "br5",
+                        post: "AIIMS Patna Senior Resident",
+                        posts: "117",
+                        qualification: "MD/MS/DNB",
+                        age: "Max 45 years",
+                        lastDate: "30-01-2026",
+                        link: "https://aiimspatna.edu.in",
+                        description: "All India Institute of Medical Sciences recruiting senior residents for various departments.",
+                        eligibility: ["MD/MS/DNB in relevant specialty", "3 years experience", "Research publications preferred"]
+                    }
+                ]
+            },
+            "Madhya Pradesh": {
+                icon: "🦁",
+                total: "18,000+",
+                vacancies: [
+                    {
+                        id: "mp1",
+                        post: "MPPSC State Service Exam",
+                        posts: "155",
+                        qualification: "Graduation",
+                        age: "21-40 years",
+                        lastDate: "09-02-2026",
+                        link: "https://mppsc.nic.in",
+                        description: "Madhya Pradesh Public Service Commission recruiting for administrative services.",
+                        eligibility: ["Graduation in any discipline", "MPPSC Prelims qualified", "Interview and medical test"]
+                    },
+                    {
+                        id: "mp2",
+                        post: "MPESB ITI Training Officer",
+                        posts: "1,120",
+                        qualification: "ITI/Diploma",
+                        age: "18-40 years",
+                        lastDate: "15-02-2026",
+                        link: "https://esb.mp.gov.in",
+                        description: "Technical education department recruiting training officers for ITIs.",
+                        eligibility: ["ITI certificate in relevant trade", "5 years industry experience", "Teaching aptitude"]
+                    },
+                    {
+                        id: "mp3",
+                        post: "MP Apex Bank Clerk",
+                        posts: "1,763",
+                        qualification: "Graduation",
+                        age: "18-33 years",
+                        lastDate: "20-02-2026",
+                        link: "https://mpapex.com",
+                        description: "Madhya Pradesh State Cooperative Bank recruiting clerks and officers.",
+                        eligibility: ["Graduation with 50% marks", "Computer knowledge", "MP domicile"]
+                    },
+                    {
+                        id: "mp4",
+                        post: "MP VYAPAM Paramedical",
+                        posts: "4,009",
+                        qualification: "12th/Diploma",
+                        age: "18-40 years",
+                        lastDate: "25-01-2026",
+                        link: "https://peb.mp.gov.in",
+                        description: "Health department recruiting paramedical staff for hospitals.",
+                        eligibility: ["12th with Biology or relevant diploma", "Medical fitness", "MP resident certificate"]
+                    },
+                    {
+                        id: "mp5",
+                        post: "MP Police Constable",
+                        posts: "8,500",
+                        qualification: "12th Pass",
+                        age: "18-33 years",
+                        lastDate: "10-02-2026",
+                        link: "https://mppolice.gov.in",
+                        description: "Police department recruiting constables for maintaining law and order.",
+                        eligibility: ["12th pass", "Height 167cm (Male), 152cm (Female)", "Physical efficiency test mandatory"]
+                    }
+                ]
+            },
+            "Karnataka": {
+                icon: "🏛️",
+                total: "12,000+",
+                vacancies: [
+                    {
+                        id: "ka1",
+                        post: "KPSC Group C Posts",
+                        posts: "2,500",
+                        qualification: "12th/Diploma",
+                        age: "18-35 years",
+                        lastDate: "15-02-2026",
+                        link: "https://kpsc.kar.nic.in",
+                        description: "Karnataka Public Service Commission recruiting for various Group C posts.",
+                        eligibility: ["12th pass or diploma", "Kannada language knowledge", "Karnataka domicile"]
+                    },
+                    {
+                        id: "ka2",
+                        post: "RRB Bangalore NTPC",
+                        posts: "311",
+                        qualification: "Graduation",
+                        age: "18-33 years",
+                        lastDate: "20-02-2026",
+                        link: "https://rrbbnc.gov.in",
+                        description: "Railway Recruitment Board Bangalore recruiting non-technical staff.",
+                        eligibility: ["Graduation in any discipline", "Computer based test", "Document verification"]
+                    },
+                    {
+                        id: "ka3",
+                        post: "NCERT Non-Teaching",
+                        posts: "173",
+                        qualification: "12th/Graduation",
+                        age: "18-35 years",
+                        lastDate: "10-02-2026",
+                        link: "https://ncert.nic.in",
+                        description: "National Council of Educational Research recruiting administrative staff.",
+                        eligibility: ["Relevant qualification as per post", "Experience in educational institutions", "Delhi/ Bangalore posting"]
+                    },
+                    {
+                        id: "ka4",
+                        post: "BEML Executive",
+                        posts: "22",
+                        qualification: "B.E/B.Tech/MBA",
+                        age: "Max 32 years",
+                        lastDate: "28-01-2026",
+                        link: "https://bemlindia.in",
+                        description: "Bharat Earth Movers Limited recruiting engineers and managers.",
+                        eligibility: ["B.E/B.Tech or MBA from reputed institute", "GATE score for technical posts", "Interview"]
+                    },
+                    {
+                        id: "ka5",
+                        post: "Bank of India Officer",
+                        posts: "629",
+                        qualification: "Graduation",
+                        age: "21-30 years",
+                        lastDate: "05-02-2026",
+                        link: "https://bankofindia.co.in",
+                        description: "Bank of India recruiting officers for various branches in Karnataka.",
+                        eligibility: ["Graduation with 55% marks", "IBPS score valid", "Computer knowledge"]
+                    }
+                ]
+            },
+            "Tamil Nadu": {
+                icon: "🌊",
+                total: "30,000+",
+                vacancies: [
+                    {
+                        id: "tn1",
+                        post: "TNPSC Group 1 Services",
+                        posts: "1,200",
+                        qualification: "Graduation",
+                        age: "21-35 years",
+                        lastDate: "15-02-2026",
+                        link: "https://tnpsc.gov.in",
+                        description: "Tamil Nadu Public Service Commission recruiting for IAS equivalent posts.",
+                        eligibility: ["Graduation in any discipline", "Tamil language proficiency", "Prelims, Mains and Interview"]
+                    },
+                    {
+                        id: "tn2",
+                        post: "TN Police Constable",
+                        posts: "10,000",
+                        qualification: "12th Pass",
+                        age: "18-30 years",
+                        lastDate: "20-02-2026",
+                        link: "https://tnusrb.tn.gov.in",
+                        description: "Tamil Nadu Uniformed Services recruiting constables for police department.",
+                        eligibility: ["12th pass from recognized board", "Height 170cm (Male), 159cm (Female)", "Physical test mandatory"]
+                    },
+                    {
+                        id: "tn3",
+                        post: "TNEB Engineering Posts",
+                        posts: "1,500",
+                        qualification: "Diploma/Degree",
+                        age: "18-30 years",
+                        lastDate: "10-02-2026",
+                        link: "https://tnebnet.org",
+                        description: "Tamil Nadu Electricity Board recruiting engineers and technical staff.",
+                        eligibility: ["Diploma or B.E/B.Tech in Electrical/Mechanical", "TNEB exam qualification", "Apprenticeship preferred"]
+                    },
+                    {
+                        id: "tn4",
+                        post: "TN Teaching Recruitment",
+                        posts: "15,000",
+                        qualification: "B.Ed/D.T.Ed",
+                        age: "21-40 years",
+                        lastDate: "28-01-2026",
+                        link: "https://trb.tn.gov.in",
+                        description: "Teachers Recruitment Board recruiting teachers for government schools.",
+                        eligibility: ["B.Ed or D.T.Ed with 50% marks", "TET qualified", "Tamil medium proficiency"]
+                    },
+                    {
+                        id: "tn5",
+                        post: "TN Medical Officer",
+                        posts: "2,000",
+                        qualification: "MBBS",
+                        age: "21-35 years",
+                        lastDate: "05-02-2026",
+                        link: "https://tnmrb.gov.in",
+                        description: "Medical Recruitment Board recruiting doctors for government hospitals.",
+                        eligibility: ["MBBS degree", "Registration with MCI", "Rural service bond"]
+                    }
+                ]
+            },
+            "West Bengal": {
+                icon: "🐅",
+                total: "25,000+",
+                vacancies: [
+                    {
+                        id: "wb1",
+                        post: "WBCS Main Exam",
+                        posts: "500",
+                        qualification: "Graduation",
+                        age: "21-36 years",
+                        lastDate: "15-02-2026",
+                        link: "https://wbpsc.gov.in",
+                        description: "West Bengal Civil Service recruiting for administrative and police services.",
+                        eligibility: ["Graduation in any discipline", "WBCS Prelims qualified", "Interview and medical test"]
+                    },
+                    {
+                        id: "wb2",
+                        post: "WB Police Constable",
+                        posts: "8,000",
+                        qualification: "12th Pass",
+                        age: "18-27 years",
+                        lastDate: "20-02-2026",
+                        link: "https://wbpolice.gov.in",
+                        description: "West Bengal Police recruiting constables for law and order maintenance.",
+                        eligibility: ["12th pass from recognized board", "Height 167cm (Male), 160cm (Female)", "Physical efficiency test"]
+                    },
+                    {
+                        id: "wb3",
+                        post: "WB Primary Teacher",
+                        posts: "15,000",
+                        qualification: "12th/D.El.Ed",
+                        age: "18-40 years",
+                        lastDate: "10-02-2026",
+                        link: "https://wbbpe.org",
+                        description: "West Bengal Board of Primary Education recruiting teachers for primary schools.",
+                        eligibility: ["12th pass with 50% marks", "D.El.Ed or B.Ed", "TET qualified"]
+                    },
+                    {
+                        id: "wb4",
+                        post: "WBHRB Medical Officer",
+                        posts: "4,000",
+                        qualification: "MBBS",
+                        age: "21-36 years",
+                        lastDate: "28-01-2026",
+                        link: "https://wbhrb.in",
+                        description: "Health Recruitment Board recruiting medical officers for state hospitals.",
+                        eligibility: ["MBBS degree from recognized university", "Registration with MCI", "Internship completed"]
+                    },
+                    {
+                        id: "wb5",
+                        post: "WBSSC Krishi Prayukti",
+                        posts: "1,500",
+                        qualification: "B.Sc Agriculture",
+                        age: "18-40 years",
+                        lastDate: "05-02-2026",
+                        link: "https://wbssc.gov.in",
+                        description: "Agriculture department recruiting assistants and officers.",
+                        eligibility: ["B.Sc Agriculture or Horticulture", "Computer knowledge", "Bengali language proficiency"]
+                    }
+                ]
+            },
+            "Central Government": {
+                icon: "🇮🇳",
+                total: "1,50,000+",
+                vacancies: [
+                    {
+                        id: "cg1",
+                        post: "UPSC Civil Services (IAS/IPS/IFS)",
+                        posts: "1,200",
+                        qualification: "Graduation",
+                        age: "21-32 years",
+                        lastDate: "16-02-2026",
+                        link: "https://upsc.gov.in",
+                        description: "Union Public Service Commission recruiting for top administrative positions in India.",
+                        eligibility: ["Graduation in any discipline", "Indian citizenship", "Clear Prelims, Mains & Interview", "Physical standards for IPS"]
+                    },
+                    {
+                        id: "cg2",
+                        post: "SSC CGL (Combined Graduate Level)",
+                        posts: "25,000",
+                        qualification: "Graduation",
+                        age: "18-32 years",
+                        lastDate: "15-02-2026",
+                        link: "https://ssc.nic.in",
+                        description: "Staff Selection Commission recruiting for Group B and C posts in various ministries.",
+                        eligibility: ["Bachelor's degree", "Computer proficiency for some posts", "Tier 1, Tier 2, Tier 3 exams"]
+                    },
+                    {
+                        id: "cg3",
+                        post: "RRB Group D (Railway)",
+                        posts: "1,00,000",
+                        qualification: "10th Pass/ITI",
+                        age: "18-33 years",
+                        lastDate: "20-02-2026",
+                        link: "https://rrbcdg.gov.in",
+                        description: "Railway Recruitment Boards recruiting Group D staff for track maintenance, helper posts.",
+                        eligibility: ["10th pass or ITI certificate", "Physical efficiency test", "Medical fitness certificate"]
+                    },
+                    {
+                        id: "cg4",
+                        post: "SBI PO (Probationary Officer)",
+                        posts: "2,500",
+                        qualification: "Graduation",
+                        age: "21-30 years",
+                        lastDate: "20-02-2026",
+                        link: "https://sbi.co.in",
+                        description: "State Bank of India recruiting probationary officers for branch management.",
+                        eligibility: ["Graduation in any discipline", "No minimum percentage required", "Prelims, Mains & Interview"]
+                    },
+                    {
+                        id: "cg5",
+                        post: "IBPS Clerk",
+                        posts: "12,000",
+                        qualification: "Graduation",
+                        age: "20-28 years",
+                        lastDate: "25-02-2026",
+                        link: "https://ibps.in",
+                        description: "Institute of Banking Personnel recruiting clerks for public sector banks.",
+                        eligibility: ["Bachelor's degree", "Computer knowledge essential", "Prelims and Mains exam", "Language proficiency test"]
+                    },
+                    {
+                        id: "cg6",
+                        post: "RBI Office Attendant",
+                        posts: "572",
+                        qualification: "10th Pass",
+                        age: "18-25 years",
+                        lastDate: "04-02-2026",
+                        link: "https://rbi.org.in",
+                        description: "Reserve Bank of India recruiting office attendants for various offices.",
+                        eligibility: ["10th standard pass", "Local language proficiency", "Online test and language proficiency test"]
+                    },
+                    {
+                        id: "cg7",
+                        post: "SSC CHSL (10+2)",
+                        posts: "12,000",
+                        qualification: "12th Pass",
+                        age: "18-27 years",
+                        lastDate: "10-02-2026",
+                        link: "https://ssc.nic.in",
+                        description: "Staff Selection Commission recruiting for LDC, DEO, Postal Assistant posts.",
+                        eligibility: ["12th pass from recognized board", "Typing skill for some posts", "Tier 1 and Tier 2 exams"]
+                    },
+                    {
+                        id: "cg8",
+                        post: "RRB NTPC",
+                        posts: "35,000",
+                        qualification: "Graduation",
+                        age: "18-33 years",
+                        lastDate: "15-02-2026",
+                        link: "https://rrbcdg.gov.in",
+                        description: "Railway Recruitment recruiting non-technical staff for commercial, traffic departments.",
+                        eligibility: ["Graduation for some posts, 12th for others", "Computer based test", "Typing skill test where applicable"]
+                    }
+                ]
+            }
+        };
+
+        // Initialize Page
+        function init() {
+            renderStates();
+        }
+
+        // Render State Cards
+        function renderStates() {
+            const grid = document.getElementById('statesGrid');
+            grid.innerHTML = '';
+
+            for (const [state, data] of Object.entries(jobsData)) {
+                const card = document.createElement('div');
+                card.className = 'state-card';
+                card.setAttribute('data-state', state);
+                
+                // Get first 3 jobs for preview
+                const previewJobs = data.vacancies.slice(0, 3);
+                
+                card.innerHTML = `
+                    <div class="state-header">
+                        <div class="state-name">
+                            <div class="state-icon">${data.icon}</div>
+                            ${state}
+                        </div>
+                        <span class="total-jobs">${data.total}</span>
+                    </div>
+                    <div class="state-content">
+                        <div class="job-preview">
+                            ${previewJobs.map(job => `
+                                <div class="job-preview-item">
+                                    <span>${job.post}</span>
+                                    <strong>${job.posts}</strong>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="view-all-btn" onclick="openModal('${state}')">
+                            View All Jobs <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            }
+        }
+
+        // Open Modal with Job List
+        function openModal(state) {
+            const modal = document.getElementById('jobModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            const data = jobsData[state];
+            modalTitle.innerHTML = `${data.icon} ${state} - All Vacancies`;
+            
+            let html = '<ul class="vacancy-list">';
+            data.vacancies.forEach(job => {
+                html += `
+                    <li class="vacancy-item" onclick="showDetail('${state}', '${job.id}')">
+                        <div class="vacancy-info">
+                            <h3>${job.post}</h3>
+                            <div class="vacancy-meta">
+                                <span><i class="fas fa-users"></i> ${job.posts} Posts</span>
+                                <span><i class="fas fa-graduation-cap"></i> ${job.qualification}</span>
+                                <span><i class="fas fa-calendar"></i> Last: ${job.lastDate}</span>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right vacancy-arrow"></i>
+                    </li>
+                `;
+            });
+            html += '</ul>';
+            
+            modalBody.innerHTML = html;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Show Detail View
+        function showDetail(state, jobId) {
+            const data = jobsData[state];
+            const job = data.vacancies.find(j => j.id === jobId);
+            const modalBody = document.getElementById('modalBody');
+            
+            const html = `
+                <div class="detail-view" style="display: block;">
+                    <button class="back-btn" onclick="backToList('${state}')">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </button>
+                    
+                    <div class="detail-header">
+                        <h2 class="detail-title">${job.post}</h2>
+                        <p class="detail-subtitle">${state} Government Recruitment 2026</p>
+                    </div>
+                    
+                    <div class="detail-grid">
+                        <div class="detail-card">
+                            <h4><i class="fas fa-users"></i> Total Posts</h4>
+                            <p>${job.posts}</p>
+                        </div>
+                        <div class="detail-card">
+                            <h4><i class="fas fa-graduation-cap"></i> Qualification</h4>
+                            <p>${job.qualification}</p>
+                        </div>
+                        <div class="detail-card">
+                            <h4><i class="fas fa-birthday-cake"></i> Age Limit</h4>
+                            <p>${job.age}</p>
+                        </div>
+                        <div class="detail-card">
+                            <h4><i class="fas fa-calendar-alt"></i> Last Date</h4>
+                            <p>${job.lastDate}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-description">
+                        <h4><i class="fas fa-info-circle"></i> Job Description</h4>
+                        <p style="margin-bottom: 15px;">${job.description}</p>
+                        
+                        <h4><i class="fas fa-check-circle"></i> Eligibility Criteria</h4>
+                        <ul>
+                            ${job.eligibility.map(e => `<li>${e}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="apply-section">
+                        <a href="${job.link}" target="_blank" class="apply-btn-large">
+                            <i class="fas fa-external-link-alt"></i> Apply Online Now
+                        </a>
+                        <p style="color: white; margin-top: 15px; font-size: 0.9em;">
+                            <i class="fas fa-link"></i> Official Website: ${job.link}
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            modalBody.innerHTML = html;
+        }
+
+        // Back to List
+        function backToList(state) {
+            openModal(state);
+        }
+
+        // Close Modal
+        function closeModal() {
+            const modal = document.getElementById('jobModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close on Outside Click
+        function closeModalOnOutside(event) {
+            if (event.target.id === 'jobModal') {
+                closeModal();
+            }
+        }
+
+        // Search Functionality
+        function searchJobs() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.state-card');
+            
+            cards.forEach(card => {
+                const state = card.getAttribute('data-state');
+                const data = jobsData[state];
+                
+                // Search in state name and job posts
+                const matchState = state.toLowerCase().includes(searchTerm);
+                const matchJob = data.vacancies.some(job => 
+                    job.post.toLowerCase().includes(searchTerm) ||
+                    job.qualification.toLowerCase().includes(searchTerm)
+                );
+                
+                if (matchState || matchJob) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>
