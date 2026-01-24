@@ -4,7 +4,7 @@
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <title>Home - Khan Jan Seva Kendra</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css  ">
   <style>
     body { font-family: Arial, sans-serif; margin: 0; background: #f3fbff; }
 
@@ -35,6 +35,356 @@
       display: inline-block; margin-top: 15px; padding: 12px 25px;
       background: #ff8800; color: white; text-decoration: none;
       border-radius: 6px; font-weight: bold;
+    }
+
+    /* Vacancy Ticker */
+    .vacancy-section {
+      background: linear-gradient(90deg, #ff5722, #ff9800);
+      padding: 12px 0;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .vacancy-title {
+      display: inline-block;
+      background: #d32f2f;
+      color: white;
+      padding: 8px 20px;
+      font-weight: bold;
+      font-size: 16px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+    }
+    .vacancy-title i {
+      margin-right: 8px;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .vacancy-marquee {
+      display: flex;
+      animation: scroll 25s linear infinite;
+      white-space: nowrap;
+      padding-left: 160px;
+    }
+    .vacancy-marquee:hover {
+      animation-play-state: paused;
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .vacancy-item {
+      display: inline-flex;
+      align-items: center;
+      background: white;
+      color: #d32f2f;
+      padding: 6px 15px;
+      margin: 0 10px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 14px;
+      border: 2px solid #fff;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .vacancy-item:hover {
+      background: #fff3e0;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .vacancy-item i {
+      margin-right: 8px;
+      color: #ff5722;
+    }
+    .vacancy-item .new-badge {
+      background: #4caf50;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      margin-left: 8px;
+    }
+
+    /* ✅ PREMIUM LIGHT MODAL - Clean & Modern */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(8px);
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .vacancy-modal {
+      background: #ffffff;
+      width: 90%;
+      max-width: 650px;
+      max-height: 90vh;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.05);
+      animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-60px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    /* Modal Header - Blue Gradient */
+    .modal-header {
+      background: linear-gradient(135deg, #2196f3,#ff5722 100%);
+      color: white;
+      padding: 25px;
+      position: relative;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .modal-header h2 {
+      margin: 0;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #ffffff !important;  /* ✅ यह जोड़ें - Force White Color */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);  /* ✅ Optional: बेहतर दिखने के लिए */
+    }
+    .modal-header .close-btn {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.4);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-header .close-btn:hover {
+      background: #ff4757;
+      border-color: #ff4757;
+      transform: translateY(-50%) rotate(90deg) scale(1.1);
+      box-shadow: 0 5px 20px rgba(255,71,87,0.4);
+    }
+    
+    /* Modal Body - Clean White */
+    .modal-body {
+      padding: 30px;
+      overflow-y: auto;
+      max-height: 65vh;
+      background: #ffffff;
+    }
+    
+    /* Detail Banner - Orange Gradient */
+    .detail-banner {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+    }
+    .detail-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+    .detail-banner h3 {
+      margin: 0 0 8px 0;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+    .detail-banner .post-count {
+      font-size: 40px;
+      font-weight: 900;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    /* Detail Grid - Clean Cards */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+    .detail-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s ease;
+      border: 1px solid #e9ecef;
+    }
+    .detail-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+      border-color: #667eea;
+    }
+    .detail-card label {
+      display: block;
+      color: #6c757d;
+      font-size: 11px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .detail-card .value {
+      color: #212529;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .detail-card .value i {
+      color: #667eea;
+      margin-right: 10px;
+      font-size: 18px;
+    }
+    
+    /* Important Dates - Yellow Theme */
+    .important-dates {
+      background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+      border: 2px solid #ffc107;
+      border-radius: 15px;
+      padding: 25px;
+      margin-top: 20px;
+      position: relative;
+    }
+    .important-dates::before {
+      content: '★';
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      background: #ffffff;
+      color: #ffc107;
+      padding: 0 10px;
+      font-size: 20px;
+    }
+    .important-dates h4 {
+      margin: 0 0 15px 0;
+      color: #856404;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .date-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px dashed #ffc107;
+      transition: all 0.3s ease;
+    }
+    .date-row:hover {
+      background: rgba(255,193,7,0.1);
+      margin: 0 -10px;
+      padding: 12px 10px;
+      border-radius: 8px;
+    }
+    .date-row:last-child {
+      border-bottom: none;
+    }
+    .date-row .date-label {
+      color: #6c757d;
+      font-weight: 600;
+    }
+    .date-row .date-value {
+      color: #d32f2f;
+      font-weight: 800;
+    }
+    
+    /* Apply Button - Green Gradient */
+    .apply-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 25px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,184,148,0.3);
+    }
+    .apply-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: 0.5s;
+    }
+    .apply-btn:hover::before {
+      left: 100%;
+    }
+    .apply-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0,184,148,0.4);
     }
 
     /* Services Icons */
@@ -167,6 +517,274 @@ function showSlides() {
   slides[slideIndex-1].style.display = "block";
   setTimeout(showSlides, 3000); // हर 3 सेकंड में बदलेगा
 }
+</script>
+
+<!-- ✅ NEW: नई भर्ती / Latest Vacancies Ticker 2026 -->
+<section class="vacancy-section">
+  <div class="vacancy-title">
+    <i class="fa-solid fa-bullhorn"></i> नई भर्ती 2026
+  </div>
+  <div class="vacancy-marquee">
+    <div class="vacancy-item" onclick="showVacancyDetails('uppolice')">
+      <i class="fa-solid fa-shield-halved"></i> UP Police Constable 2026 <span class="new-badge">NEW</span>
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('rrbgroupd')">
+      <i class="fa-solid fa-train"></i> Railway Group D 2026 <span class="new-badge">NEW</span>
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('haryanapolice')">
+      <i class="fa-solid fa-user-police"></i> Haryana Police 2026
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('sbipo')">
+      <i class="fa-solid fa-building-columns"></i> SBI PO 2026
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('ibpspo')">
+      <i class="fa-solid fa-money-check-dollar"></i> IBPS PO 2026
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('uppsc')">
+      <i class="fa-solid fa-graduation-cap"></i> UPPSC PCS 2026
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('sscchsl')">
+      <i class="fa-solid fa-pen-to-square"></i> SSC CHSL 2026
+    </div>
+    <!-- Duplicate for seamless loop -->
+    <div class="vacancy-item" onclick="showVacancyDetails('uppolice')">
+      <i class="fa-solid fa-shield-halved"></i> UP Police Constable 2026 <span class="new-badge">NEW</span>
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('rrbgroupd')">
+      <i class="fa-solid fa-train"></i> Railway Group D 2026 <span class="new-badge">NEW</span>
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('haryanapolice')">
+      <i class="fa-solid fa-user-police"></i> Haryana Police 2026
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('sbipo')">
+      <i class="fa-solid fa-building-columns"></i> SBI PO 2026
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('ibpspo')">
+      <i class="fa-solid fa-money-check-dollar"></i> IBPS PO 2026
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('uppsc')">
+      <i class="fa-solid fa-graduation-cap"></i> UPPSC PCS 2026
+    </div>
+    <div class="vacancy-item" onclick="showVacancyDetails('sscchsl')">
+      <i class="fa-solid fa-pen-to-square"></i> SSC CHSL 2026
+    </div>
+  </div>
+</section>
+
+<!-- ✅ PREMIUM LIGHT MODAL -->
+<div class="modal-overlay" id="vacancyModal" onclick="closeModal(event)">
+  <div class="vacancy-modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-circle-info"></i> <span id="modalTitle">वैकेंसी विवरण</span></h2>
+      <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-banner">
+        <h3>कुल पद (Total Posts)</h3>
+        <div class="post-count" id="totalPosts">0</div>
+      </div>
+      
+      <div class="detail-grid">
+        <div class="detail-card">
+          <label>पद का नाम (Post Name)</label>
+          <div class="value" id="postName"><i class="fa-solid fa-id-badge"></i> -</div>
+        </div>
+        <div class="detail-card">
+          <label>आयु सीमा (Age Limit)</label>
+          <div class="value" id="ageLimit"><i class="fa-solid fa-cake-candles"></i> -</div>
+        </div>
+        <div class="detail-card">
+          <label>शैक्षिक योग्यता (Qualification)</label>
+          <div class="value" id="qualification"><i class="fa-solid fa-graduation-cap"></i> -</div>
+        </div>
+        <div class="detail-card">
+          <label>वेतनमान (Salary)</label>
+          <div class="value" id="salary"><i class="fa-solid fa-money-bill-wave"></i> -</div>
+        </div>
+        <div class="detail-card">
+          <label>आवेदन शुल्क (Application Fee)</label>
+          <div class="value" id="applicationFee"><i class="fa-solid fa-credit-card"></i> -</div>
+        </div>
+        <div class="detail-card">
+          <label>चयन प्रक्रिया (Selection Process)</label>
+          <div class="value" id="selectionProcess"><i class="fa-solid fa-clipboard-check"></i> -</div>
+        </div>
+      </div>
+
+      <div class="important-dates">
+        <h4><i class="fa-solid fa-calendar-days"></i> महत्वपूर्ण तिथियाँ (Important Dates)</h4>
+        <div class="date-row">
+          <span class="date-label">आवेदन शुरू (Start Date)</span>
+          <span class="date-value" id="startDate">-</span>
+        </div>
+        <div class="date-row">
+          <span class="date-label">अंतिम तिथि (Last Date)</span>
+          <span class="date-value" id="lastDate">-</span>
+        </div>
+        <div class="date-row">
+          <span class="date-label">एडमिट कार्ड (Admit Card)</span>
+          <span class="date-value" id="admitCard">-</span>
+        </div>
+        <div class="date-row">
+          <span class="date-label">परीक्षा तिथि (Exam Date)</span>
+          <span class="date-value" id="examDate">-</span>
+        </div>
+      </div>
+
+      <a href="#" class="apply-btn" id="applyLink" target="_blank">
+        <i class="fa-solid fa-paper-plane"></i> Official Website पर Apply करें
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ✅ 2026 Latest Vacancy Data with Official Links
+const vacancyData = {
+  'uppolice': {
+    title: 'UP Police Constable Recruitment 2026',
+    posts: '32,679',
+    postName: 'Constable (Civil Police, PAC, Jail Warden)',
+    ageLimit: '18-22 वर्ष (पुरुष), 18-25 वर्ष (महिला) | 01.01.2026 तक',
+    qualification: '12वीं (Intermediate) किसी भी मान्यता प्राप्त बोर्ड से',
+    salary: '₹21,700 - ₹69,100 (Level-3) + भत्ते',
+    fee: 'Gen/OBC/EWS: ₹500 | SC/ST/Female: ₹400',
+    selection: 'लिखित परीक्षा → दौड़ (4.8 KM/2.4 KM) → शारीरिक मापन → DV',
+    startDate: '31 दिसंबर 2025',
+    lastDate: '30 जनवरी 2026',
+    admitCard: 'फरवरी 2026',
+    examDate: 'मार्च-अप्रैल 2026',
+    applyLink: 'https://uppbpb.gov.in/'
+  },
+  'rrbgroupd': {
+    title: 'Railway RRB Group D Level-1 2026',
+    posts: '22,000+',
+    postName: 'Track Maintainer, Pointsman, Assistant (Level-1)',
+    ageLimit: '18-33 वर्ष (UR/EWS), 36 वर्ष (OBC), 38 वर्ष (SC/ST) | 01.01.2026 तक',
+    qualification: '10वीं पास + ITI (NCVT/SCVT) या 10वीं पास + NAC',
+    salary: '₹18,000 - ₹56,900 (Level-1) + भत्ते',
+    fee: 'Gen/OBC/EWS: ₹500 (₹400 रिफंड) | SC/ST/Female/ExSM: ₹250 (पूरा रिफंड)',
+    selection: 'CBT परीक्षा → PET (100m वजन उठाना + दौड़) → DV → मेडिकल',
+    startDate: '31 जनवरी 2026',
+    lastDate: '02 मार्च 2026',
+    admitCard: 'अप्रैल 2026',
+    examDate: 'मई-जून 2026',
+    applyLink: 'https://rrbapply.gov.in/'
+  },
+  'haryanapolice': {
+    title: 'Haryana Police Constable 2026',
+    posts: '5,500',
+    postName: 'Constable GD (Male/Female) & Railway Police',
+    ageLimit: '18-28 वर्ष | 01.01.2026 तक',
+    qualification: '10+2 (Intermediate) + हिंदी/संस्कृत मैट्रिक स्तर तक',
+    salary: '₹21,700 - ₹69,100 (Level-3)',
+    fee: '₹0 (निःशुल्क) - HSSC CET Group C Qualified',
+    selection: 'HSSC CET पास → Knowledge Test → PET/PMT → DV',
+    startDate: '11 जनवरी 2026',
+    lastDate: '31 जनवरी 2026',
+    admitCard: 'फरवरी 2026',
+    examDate: 'मार्च 2026',
+    applyLink: 'https://hssc.gov.in/'
+  },
+  'sbipo': {
+    title: 'SBI Probationary Officer (PO) 2026',
+    posts: '2,000+ (अपेक्षित)',
+    postName: 'Probationary Officer (PO)',
+    ageLimit: '21-30 वर्ष | 01.04.2026 तक',
+    qualification: 'स्नातक (Graduate) किसी भी विषय में न्यूनतम 60% अंकों के साथ',
+    salary: '₹36,000 - ₹63,840 (Basic) + DA + HRA + अन्य भत्ते (₹8-10 लाख/वर्ष)',
+    fee: 'Gen/OBC/EWS: ₹750 | SC/ST/PWD: ₹125',
+    selection: 'Prelims (Phase-I) → Mains (Phase-II) → Interview (Phase-III) → DV',
+    startDate: 'सितंबर 2026 (अपेक्षित)',
+    lastDate: 'अक्टूबर 2026 (अपेक्षित)',
+    admitCard: 'नवंबर 2026',
+    examDate: 'नवंबर-दिसंबर 2026',
+    applyLink: 'https://sbi.co.in/web/careers'
+  },
+  'ibpspo': {
+    title: 'IBPS PO/MT Recruitment 2026',
+    posts: '4,500+ (अपेक्षित)',
+    postName: 'Probationary Officer/ Management Trainee (CRP PO/MT-XVI)',
+    ageLimit: '20-30 वर्ष | 01.08.2026 तक',
+    qualification: 'स्नातक (Graduate) किसी भी विषय में',
+    salary: '₹36,000 - ₹63,840 (Scale-I) + भत्ते',
+    fee: 'Gen/OBC/EWS: ₹850 | SC/ST/PWD: ₹175',
+    selection: 'Prelims (22-23 Aug) → Mains (04 Oct) → Interview → DV',
+    startDate: 'जुलाई 2026',
+    lastDate: 'अगस्त 2026',
+    admitCard: 'अगस्त 2026',
+    examDate: '22-23 अगस्त (Prelims), 04 अक्टूबर (Mains)',
+    applyLink: 'https://www.ibps.in/'
+  },
+  'uppsc': {
+    title: 'UPPSC PCS 2026',
+    posts: '250+ (अपेक्षित)',
+    postName: 'Deputy Collector, SDM, BDO, CTO आदि',
+    ageLimit: '21-40 वर्ष | 01.07.2026 तक',
+    qualification: 'स्नातक (Bachelor Degree) किसी भी मान्यता प्राप्त विश्वविद्यालय से',
+    salary: '₹44,900 - ₹1,42,400 (Level-10) + भत्ते',
+    fee: 'Gen/OBC: ₹125 | SC/ST: ₹65 | PH: ₹25',
+    selection: 'Prelims → Mains → Interview → DV → Medical',
+    startDate: 'मार्च 2026 (अपेक्षित)',
+    lastDate: 'अप्रैल 2026 (अपेक्षित)',
+    admitCard: 'मई 2026',
+    examDate: 'जून 2026',
+    applyLink: 'https://uppsc.up.nic.in/'
+  },
+  'sscchsl': {
+    title: 'SSC CHSL 2026',
+    posts: '3,500+ (अपेक्षित)',
+    postName: 'LDC, DEO, PA/SA (Postal Assistant)',
+    ageLimit: '18-27 वर्ष | 01.01.2026 तक',
+    qualification: '12वीं (Intermediate) किसी भी मान्यता प्राप्त बोर्ड से',
+    salary: '₹19,900 - ₹63,200 (Level-2/4) + भत्ते',
+    fee: 'Gen/OBC: ₹100 | SC/ST/PWD/Female: ₹0',
+    selection: 'Tier-I (CBT) → Tier-II (CBT + Skill Test) → DV',
+    startDate: 'अप्रैल 2026 (अपेक्षित)',
+    lastDate: 'मई 2026 (अपेक्षित)',
+    admitCard: 'जून 2026',
+    examDate: 'जुलाई-अगस्त 2026',
+    applyLink: 'https://ssc.gov.in/'
+  }
+};
+
+function showVacancyDetails(vacancyId) {
+  const data = vacancyData[vacancyId];
+  if (!data) return;
+
+  document.getElementById('modalTitle').textContent = data.title;
+  document.getElementById('totalPosts').textContent = data.posts;
+  document.getElementById('postName').innerHTML = `<i class="fa-solid fa-id-badge"></i> ${data.postName}`;
+  document.getElementById('ageLimit').innerHTML = `<i class="fa-solid fa-cake-candles"></i> ${data.ageLimit}`;
+  document.getElementById('qualification').innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${data.qualification}`;
+  document.getElementById('salary').innerHTML = `<i class="fa-solid fa-money-bill-wave"></i> ${data.salary}`;
+  document.getElementById('applicationFee').innerHTML = `<i class="fa-solid fa-credit-card"></i> ${data.fee}`;
+  document.getElementById('selectionProcess').innerHTML = `<i class="fa-solid fa-clipboard-check"></i> ${data.selection}`;
+  document.getElementById('startDate').textContent = data.startDate;
+  document.getElementById('lastDate').textContent = data.lastDate;
+  document.getElementById('admitCard').textContent = data.admitCard;
+  document.getElementById('examDate').textContent = data.examDate;
+  
+  // Set Official Apply Link
+  document.getElementById('applyLink').href = data.applyLink;
+
+  document.getElementById('vacancyModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(event) {
+  if (!event || event.target.id === 'vacancyModal') {
+    document.getElementById('vacancyModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+}
+
+// ESC key से बंद करें
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeModal();
+  }
+});
 </script>
 
 <!-- Services Icons -->
