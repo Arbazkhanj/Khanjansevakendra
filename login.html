@@ -6,28 +6,131 @@
   <title>Login - Khan Jan Seva Kendra</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7fbff;color:#123;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;color:#123;}
+    
+    /* Header */
     header{
       display:flex;align-items:center;justify-content:space-between;
       padding:12px 28px;
       background:linear-gradient(90deg,#2196f3,#ff5722);
       color:white;position:sticky;top:0;z-index:1000;
-      font-weight:700;
+      font-weight:700;box-shadow:0 2px 10px rgba(0,0,0,0.1);
     }
     .header-left{display:flex;align-items:center;gap:12px;}
     .header-left img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid white;}
     .site-title{font-size:20px;font-weight:700;}
     nav{display:flex;align-items:center;gap:16px;}
-    nav a{color:white;text-decoration:none;font-weight:700;transition:.3s;}
-    nav a:hover{color:#ffe082;transform:translateY(-2px);}
+    nav a{color:white;text-decoration:none;font-weight:600;transition:.3s;padding:6px 12px;border-radius:4px;}
+    nav a:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px);}
     .login-btn{background:white;color:#2196f3;padding:6px 14px;border-radius:6px;text-decoration:none;font-weight:700;}
-    .container{max-width:500px;margin:auto;padding:40px 20px;}
-    h1{text-align:center;color:#0073e6;margin-bottom:20px;}
-    form{background:#fff;padding:30px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
-    form input{width:100%;padding:12px;margin:10px 0;border:1px solid #ccc;border-radius:6px;}
-    form button{width:100%;padding:12px;background:#0073e6;color:white;border:none;border-radius:6px;font-weight:700;cursor:pointer;}
-    form button:hover{background:#005bb5;}
-    .footer{background:#0073e6;color:white;text-align:center;padding:15px;margin-top:40px;}
+    
+    /* Main Container */
+    .container{max-width:450px;margin:40px auto;padding:20px;}
+    
+    /* Login Box */
+    .login-box{
+      background:white;padding:40px;border-radius:16px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.3);
+      animation:slideUp 0.5s ease;
+    }
+    @keyframes slideUp{
+      from{opacity:0;transform:translateY(30px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+    
+    h1{text-align:center;color:#333;margin-bottom:10px;font-size:28px;}
+    .subtitle{text-align:center;color:#666;margin-bottom:30px;font-size:14px;}
+    
+    /* Toggle Buttons */
+    .login-toggle{
+      display:flex;background:#f0f0f0;border-radius:8px;padding:4px;margin-bottom:30px;
+    }
+    .toggle-btn{
+      flex:1;padding:12px;border:none;background:transparent;cursor:pointer;
+      border-radius:6px;font-weight:600;transition:0.3s;color:#666;
+    }
+    .toggle-btn.active{background:white;color:#2196f3;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+    
+    /* Forms */
+    .form-section{display:none;}
+    .form-section.active{display:block;animation:fadeIn 0.3s;}
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+    
+    .input-group{
+      position:relative;margin-bottom:20px;
+    }
+    .input-group i{
+      position:absolute;left:12px;top:50%;transform:translateY(-50%);
+      color:#999;font-size:16px;
+    }
+    .input-group input{
+      width:100%;padding:12px 12px 12px 40px;
+      border:2px solid #e0e0e0;border-radius:8px;font-size:14px;
+      transition:0.3s;
+    }
+    .input-group input:focus{
+      outline:none;border-color:#2196f3;
+    }
+    .input-group .toggle-password{
+      position:absolute;right:12px;top:50%;transform:translateY(-50%);
+      cursor:pointer;color:#999;
+    }
+    
+    /* Admin Badge */
+    .admin-badge{
+      background:linear-gradient(90deg,#ff5722,#ff8a65);
+      color:white;padding:8px 16px;border-radius:20px;
+      font-size:12px;font-weight:700;text-align:center;margin-bottom:20px;
+      display:inline-block;width:100%;
+    }
+    
+    /* Buttons */
+    .btn{
+      width:100%;padding:14px;background:linear-gradient(90deg,#2196f3,#21cbf3);
+      color:white;border:none;border-radius:8px;font-size:16px;font-weight:700;
+      cursor:pointer;transition:0.3s;text-transform:uppercase;letter-spacing:1px;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(33,150,243,0.3);}
+    
+    /* Links */
+    .links{
+      display:flex;justify-content:space-between;margin-top:20px;
+      font-size:14px;
+    }
+    .links a{color:#2196f3;text-decoration:none;font-weight:600;}
+    .links a:hover{text-decoration:underline;}
+    
+    /* Signup Link */
+    .signup-link{
+      text-align:center;margin-top:25px;padding-top:20px;
+      border-top:1px solid #eee;
+    }
+    .signup-link p{color:#666;margin-bottom:10px;}
+    .signup-link a{
+      color:#ff5722;font-weight:700;text-decoration:none;font-size:16px;
+    }
+    
+    /* Error/Success Messages */
+    .message{
+      padding:12px;border-radius:6px;margin-bottom:20px;
+      font-size:14px;display:none;
+    }
+    .error{background:#ffebee;color:#c62828;border:1px solid #ef9a9a;}
+    .success{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;}
+    
+    /* Footer */
+    .footer{
+      background:rgba(0,0,0,0.3);color:white;text-align:center;
+      padding:20px;margin-top:60px;font-size:14px;
+    }
+    
+    /* Responsive */
+    @media(max-width:480px){
+      .container{margin:20px;padding:10px;}
+      .login-box{padding:25px;}
+      nav{display:none;}
+    }
   </style>
 </head>
 <body>
@@ -38,28 +141,309 @@
       <span class="site-title">Khan Jan Seva Kendra</span>
     </div>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="services.html">Services</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="Latest job.html">Latest Job</a>
-      <a href="login.html" class="login-btn">Login</a>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+      <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="contact.html"><i class="fas fa-phone"></i> Contact</a>
+      <a href="Latest job.html"><i class="fas fa-briefcase"></i> Jobs</a>
+      <a href="login.html" class="login-btn"><i class="fas fa-user"></i> Login</a>
     </nav>
   </header>
 
-  <!-- Login Content -->
+  <!-- Main Content -->
   <div class="container">
-    <h1>Login</h1>
-    <form>
-      <input type="text" placeholder="Username" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
+    <div class="login-box">
+      <h1><i class="fas fa-lock"></i> Secure Login</h1>
+      <p class="subtitle">Khan Jan Seva Kendra - Admin & Customer Portal</p>
+      
+      <!-- Toggle Buttons -->
+      <div class="login-toggle">
+        <button class="toggle-btn active" onclick="switchLogin('customer')">
+          <i class="fas fa-user"></i> Customer
+        </button>
+        <button class="toggle-btn" onclick="switchLogin('admin')">
+          <i class="fas fa-shield-alt"></i> Admin
+        </button>
+      </div>
+      
+      <!-- Messages -->
+      <div id="messageBox" class="message"></div>
+      
+      <!-- Customer Login Form -->
+      <div id="customerLogin" class="form-section active">
+        <form onsubmit="return loginCustomer(event)">
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" id="custUsername" placeholder="Username" required>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="custPassword" placeholder="Password" required>
+            <i class="fas fa-eye toggle-password" onclick="togglePassword('custPassword')"></i>
+          </div>
+          <div class="links">
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+              <input type="checkbox" style="width:auto;"> Remember me
+            </label>
+            <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+          </div>
+          <button type="submit" class="btn">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+        </form>
+        
+        <div class="signup-link">
+          <p>New Customer?</p>
+          <a href="#" onclick="showSignup()"><i class="fas fa-user-plus"></i> Create Account</a>
+        </div>
+      </div>
+      
+      <!-- Admin Login Form -->
+      <div id="adminLogin" class="form-section">
+        <div class="admin-badge">
+          <i class="fas fa-crown"></i> ADMIN ACCESS ONLY
+        </div>
+        <form onsubmit="return loginAdmin(event)">
+          <div class="input-group">
+            <i class="fas fa-id-card"></i>
+            <input type="text" id="adminId" placeholder="Admin ID" required>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-key"></i>
+            <input type="password" id="adminPass" placeholder="Password" required>
+            <i class="fas fa-eye toggle-password" onclick="togglePassword('adminPass')"></i>
+          </div>
+          <button type="submit" class="btn" style="background:linear-gradient(90deg,#ff5722,#ff8a65);">
+            <i class="fas fa-shield-alt"></i> Admin Login
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div id="signupModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:2000;overflow-y:auto;">
+    <div style="max-width:500px;margin:50px auto;background:white;padding:40px;border-radius:16px;position:relative;">
+      <button onclick="closeSignup()" style="position:absolute;top:15px;right:15px;background:none;border:none;font-size:24px;cursor:pointer;color:#666;">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2 style="text-align:center;color:#333;margin-bottom:10px;"><i class="fas fa-user-plus"></i> Customer Registration</h2>
+      <p style="text-align:center;color:#666;margin-bottom:30px;">Join Khan Jan Seva Kendra</p>
+      
+      <form onsubmit="return registerCustomer(event)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" id="regName" placeholder="Full Name" required>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-phone"></i>
+            <input type="tel" id="regMobile" placeholder="Mobile Number" pattern="[0-9]{10}" required>
+          </div>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="regEmail" placeholder="Email Address" required>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-user-circle"></i>
+          <input type="text" id="regUsername" placeholder="Choose Username" required>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="regPassword" placeholder="Create Password" minlength="6" required>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-check-circle"></i>
+          <input type="password" id="regConfirmPass" placeholder="Confirm Password" required>
+        </div>
+        <button type="submit" class="btn">
+          <i class="fas fa-user-check"></i> Register Now
+        </button>
+      </form>
+      <p style="text-align:center;margin-top:20px;color:#666;font-size:14px;">
+        Already have an account? <a href="#" onclick="closeSignup()" style="color:#2196f3;font-weight:600;">Login here</a>
+      </p>
+    </div>
   </div>
 
   <!-- Footer -->
   <div class="footer">
     <p>© 2025 Khan Jan Seva Kendra | All Rights Reserved</p>
+    <p style="margin-top:5px;font-size:12px;opacity:0.8;">Secure Login System | Admin & Customer Portal</p>
   </div>
+
+  <script>
+    // Admin Credentials (Hardcoded for demo)
+    const ADMIN_CREDENTIALS = {
+      username: 'arbaz9648',
+      password: 'Arbaz@7860'
+    };
+    
+    // Initialize Local Storage
+    if(!localStorage.getItem('customers')) {
+      localStorage.setItem('customers', JSON.stringify([]));
+    }
+    
+    // Switch Login Type
+    function switchLogin(type) {
+      document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.form-section').forEach(form => form.classList.remove('active'));
+      
+      if(type === 'admin') {
+        document.querySelectorAll('.toggle-btn')[1].classList.add('active');
+        document.getElementById('adminLogin').classList.add('active');
+      } else {
+        document.querySelectorAll('.toggle-btn')[0].classList.add('active');
+        document.getElementById('customerLogin').classList.add('active');
+      }
+      hideMessage();
+    }
+    
+    // Show/Hide Password
+    function togglePassword(fieldId) {
+      const field = document.getElementById(fieldId);
+      field.type = field.type === 'password' ? 'text' : 'password';
+    }
+    
+    // Show Message
+    function showMessage(text, type) {
+      const box = document.getElementById('messageBox');
+      box.textContent = text;
+      box.className = 'message ' + type;
+      box.style.display = 'block';
+      setTimeout(hideMessage, 5000);
+    }
+    
+    function hideMessage() {
+      document.getElementById('messageBox').style.display = 'none';
+    }
+    
+    // Admin Login
+    function loginAdmin(e) {
+      e.preventDefault();
+      const id = document.getElementById('adminId').value;
+      const pass = document.getElementById('adminPass').value;
+      
+      if(id === ADMIN_CREDENTIALS.username && pass === ADMIN_CREDENTIALS.password) {
+        showMessage('✓ Admin login successful! Redirecting...', 'success');
+        localStorage.setItem('currentUser', JSON.stringify({type: 'admin', name: 'Admin'}));
+        setTimeout(() => {
+          window.location.href = 'admin/dashboard.html'; // Admin Panel
+        }, 1500);
+      } else {
+        showMessage('✗ Invalid Admin ID or Password!', 'error');
+      }
+      return false;
+    }
+    
+    // Customer Login
+    function loginCustomer(e) {
+      e.preventDefault();
+      const username = document.getElementById('custUsername').value;
+      const password = document.getElementById('custPassword').value;
+      
+      const customers = JSON.parse(localStorage.getItem('customers'));
+      const customer = customers.find(c => c.username === username && c.password === password);
+      
+      if(customer) {
+        showMessage('✓ Welcome back, ' + customer.name + '!', 'success');
+        localStorage.setItem('currentUser', JSON.stringify({type: 'customer', ...customer}));
+        setTimeout(() => {
+          window.location.href = 'customer/dashboard.html'; // Customer Panel
+        }, 1500);
+      } else {
+        showMessage('✗ Invalid username or password!', 'error');
+      }
+      return false;
+    }
+    
+    // Show Signup Modal
+    function showSignup() {
+      document.getElementById('signupModal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeSignup() {
+      document.getElementById('signupModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Register Customer
+    function registerCustomer(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('regName').value;
+      const mobile = document.getElementById('regMobile').value;
+      const email = document.getElementById('regEmail').value;
+      const username = document.getElementById('regUsername').value;
+      const password = document.getElementById('regPassword').value;
+      const confirmPass = document.getElementById('regConfirmPass').value;
+      
+      // Validation
+      if(password !== confirmPass) {
+        alert('Passwords do not match!');
+        return false;
+      }
+      
+      const customers = JSON.parse(localStorage.getItem('customers'));
+      
+      // Check if username exists
+      if(customers.find(c => c.username === username)) {
+        alert('Username already exists! Choose another.');
+        return false;
+      }
+      
+      // Check if mobile exists
+      if(customers.find(c => c.mobile === mobile)) {
+        alert('Mobile number already registered!');
+        return false;
+      }
+      
+      // Add new customer
+      customers.push({
+        name, mobile, email, username, password,
+        createdAt: new Date().toISOString()
+      });
+      
+      localStorage.setItem('customers', JSON.stringify(customers));
+      
+      alert('✓ Registration successful! Please login.');
+      closeSignup();
+      
+      // Auto-fill login
+      document.getElementById('custUsername').value = username;
+      document.getElementById('custPassword').value = '';
+      
+      return false;
+    }
+    
+    // Forgot Password
+    function showForgotPassword() {
+      const mobile = prompt('Enter your registered mobile number:');
+      if(mobile) {
+        const customers = JSON.parse(localStorage.getItem('customers'));
+        const customer = customers.find(c => c.mobile === mobile);
+        if(customer) {
+          alert('Your username is: ' + customer.username + '\nPlease contact admin to reset password.');
+        } else {
+          alert('Mobile number not found!');
+        }
+      }
+    }
+    
+    // Check if already logged in
+    window.onload = function() {
+      const currentUser = localStorage.getItem('currentUser');
+      if(currentUser) {
+        const user = JSON.parse(currentUser);
+        if(user.type === 'admin') {
+          window.location.href = 'admin/dashboard.html';
+        } else {
+          window.location.href = 'customer/dashboard.html';
+        }
+      }
+    };
+  </script>
 </body>
 </html>
