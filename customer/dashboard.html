@@ -358,18 +358,6 @@
         .action-btn.download { background: #e8f5e9; color: #4caf50; }
         .action-btn:hover { transform: scale(1.1); }
         
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-        }
-        
-        .empty-state i {
-            font-size: 64px;
-            margin-bottom: 20px;
-            color: #ddd;
-        }
-        
         /* Track Status Section */
         .track-container {
             background: white;
@@ -815,6 +803,19 @@
         }
         
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
     </style>
 </head>
 <body>
@@ -917,13 +918,11 @@
                         <div class="filter-tab" onclick="filterApplications('completed')">Completed</div>
                     </div>
                 </div>
-                <div class="applications-grid" id="applicationsList">
-                    <!-- Dynamic Content -->
-                </div>
+                <div class="applications-grid" id="applicationsList"></div>
                 <div class="empty-state" id="emptyState" style="display: none;">
                     <i class="fas fa-inbox"></i>
                     <h3>No applications found</h3>
-                    <p>You haven't applied for any services yet. Browse our services and apply now!</p>
+                    <p>You haven't applied for any services yet.</p>
                     <button class="apply-btn" onclick="showSection('services')" style="margin-top: 20px;">
                         Browse Services
                     </button>
@@ -992,7 +991,7 @@
                         <i class="fas fa-phone-alt"></i>
                     </div>
                     <h3>Call Us</h3>
-                    <p>Speak directly with our support team for immediate assistance</p>
+                    <p>Speak directly with our support team</p>
                     <p style="font-size: 18px; font-weight: 700; color: #2196f3; margin-bottom: 20px;">+91 74590 64328</p>
                     <button class="support-btn" onclick="window.location.href='tel:+917459064328'">
                         <i class="fas fa-phone"></i> Call Now
@@ -1004,8 +1003,8 @@
                         <i class="fab fa-whatsapp"></i>
                     </div>
                     <h3>WhatsApp</h3>
-                    <p>Chat with us on WhatsApp for quick queries and updates</p>
-                    <p style="font-size: 18px; font-weight: 700; color: #4caf50; margin-bottom: 20px;">+91 7459 64328</p>
+                    <p>Chat with us on WhatsApp</p>
+                    <p style="font-size: 18px; font-weight: 700; color: #4caf50; margin-bottom: 20px;">+91 74590 64328</p>
                     <button class="support-btn" style="background: linear-gradient(90deg, #4caf50, #45a049);" onclick="window.open('https://wa.me/917459064328', '_blank')">
                         <i class="fab fa-whatsapp"></i> Chat Now
                     </button>
@@ -1016,7 +1015,7 @@
                         <i class="fas fa-envelope"></i>
                     </div>
                     <h3>Email Support</h3>
-                    <p>Send us an email for detailed queries and documentation</p>
+                    <p>Send us an email for detailed queries</p>
                     <p style="font-size: 16px; font-weight: 700; color: #ff9800; margin-bottom: 20px;">nsdl.arbaz@gmail.com</p>
                     <button class="support-btn" style="background: linear-gradient(90deg, #ff9800, #f57c00);" onclick="window.location.href='mailto:nsdl.arbaz@gmail.com'">
                         <i class="fas fa-envelope"></i> Send Email
@@ -1028,33 +1027,11 @@
                         <i class="fas fa-comments"></i>
                     </div>
                     <h3>Live Chat</h3>
-                    <p>Start a live chat session with our support agents</p>
+                    <p>Start a live chat session</p>
                     <p style="font-size: 14px; color: #9c27b0; margin-bottom: 20px;">Available 9 AM - 6 PM</p>
-                    <button class="support-btn" style="background: linear-gradient(90deg, #9c27b0, #7b1fa2);" onclick="startLiveChat()">
+                    <button class="support-btn" style="background: linear-gradient(90deg, #9c27b0, #7b1fa2);" onclick="alert('Live chat coming soon!')">
                         <i class="fas fa-comments"></i> Start Chat
                     </button>
-                </div>
-                
-                <div class="support-card" style="grid-column: 1 / -1;">
-                    <div class="support-icon" style="background: #ffebee; color: #f44336;">
-                        <i class="fas fa-question-circle"></i>
-                    </div>
-                    <h3>Frequently Asked Questions</h3>
-                    <p>Find answers to common questions about our services</p>
-                    <div style="text-align: left; max-width: 600px; margin: 20px auto;">
-                        <details style="margin-bottom: 10px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                            <summary style="font-weight: 600; cursor: pointer;">How long does it take to process my application?</summary>
-                            <p style="margin-top: 10px; color: #666;">Most applications are processed within 3-5 working days. Some services like Passport may take longer.</p>
-                        </details>
-                        <details style="margin-bottom: 10px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                            <summary style="font-weight: 600; cursor: pointer;">What documents do I need to apply?</summary>
-                            <p style="margin-top: 10px; color: #666;">Required documents vary by service. Check the service details for specific requirements.</p>
-                        </details>
-                        <details style="margin-bottom: 10px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                            <summary style="font-weight: 600; cursor: pointer;">How can I track my application status?</summary>
-                            <p style="margin-top: 10px; color: #666;">Use the "Track Status" feature and enter your Application ID to check real-time status.</p>
-                        </details>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1365,6 +1342,11 @@
             renderServices();
             loadUserData();
             loadProfileData();
+            
+            // Initialize file storage
+            if(!localStorage.getItem('uploadedFilesStore')) {
+                localStorage.setItem('uploadedFilesStore', JSON.stringify({}));
+            }
         };
 
         function checkLogin() {
@@ -1460,7 +1442,7 @@
                 'applications': 'nav-applications',
                 'track': 'nav-track',
                 'support': 'nav-support',
-                'profile': 'nav-services' // Profile doesn't have nav, default to services
+                'profile': 'nav-services'
             };
             
             if(navMap[sectionName]) {
@@ -1658,10 +1640,6 @@ Thank you for using our services!
             document.getElementById('trackingResult').classList.add('show');
         }
 
-        function startLiveChat() {
-            alert('Live chat feature coming soon!\n\nFor now, please call us at +91 74590 64328 or WhatsApp at +91 74590 64328');
-        }
-
         function saveProfile(e) {
             e.preventDefault();
             
@@ -1726,7 +1704,7 @@ Thank you for using our services!
                             <i class="fas ${config.icon}"></i>
                             <div>
                                 <div style="font-weight: 600; color: #333;">${config.name}</div>
-                                <div style="font-size: 12px; color: #666; margin-top: 3px;">Click to upload</div>
+                                <div style="font-size: 12px; color: #666; margin-top: 3px;">Click to upload (Max 5MB)</div>
                             </div>
                             <input type="file" id="doc_${index}" accept="${config.accept}" onchange="handleFileUpload('${doc}', '${index}', this)">
                         </label>
@@ -1771,6 +1749,14 @@ Thank you for using our services!
         function handleFileUpload(docType, index, input) {
             if(input.files && input.files[0]) {
                 const file = input.files[0];
+                
+                // Validate file size (max 5MB)
+                if(file.size > 5 * 1024 * 1024) {
+                    alert('File size too large. Maximum 5MB allowed.');
+                    input.value = '';
+                    return;
+                }
+                
                 uploadedFiles[docType] = file;
                 
                 const fileNameDiv = document.getElementById(`filename_${index}`);
@@ -1787,12 +1773,14 @@ Thank you for using our services!
         }
 
         function submitApplication() {
+            // Validate form
             const terms = document.getElementById('appTerms');
             if(!terms.checked) {
                 alert('Please accept the terms and conditions');
                 return;
             }
             
+            // Check required files
             if(currentService && currentService.docs) {
                 const missingDocs = currentService.docs.filter(doc => !uploadedFiles[doc]);
                 if(missingDocs.length > 0) {
@@ -1801,11 +1789,13 @@ Thank you for using our services!
                 }
             }
             
+            // Show loading
             const btn = document.querySelector('.submit-btn');
             btn.disabled = true;
             btn.querySelector('span').textContent = 'Submitting...';
             btn.querySelector('.spinner').style.display = 'inline-block';
             
+            // Collect form data
             const formData = {
                 id: Date.now().toString(),
                 serviceId: currentService.id,
@@ -1828,19 +1818,48 @@ Thank you for using our services!
                 documents: Object.keys(uploadedFiles),
                 notes: document.getElementById('appNotes').value,
                 status: 'pending',
-                submittedAt: new Date().toISOString(),
-                files: uploadedFiles
+                submittedAt: new Date().toISOString()
             };
             
-            let myApps = JSON.parse(localStorage.getItem('myApplications')) || [];
-            myApps.push(formData);
-            localStorage.setItem('myApplications', JSON.stringify(myApps));
+            // Convert files to Base64 and store
+            const filePromises = Object.keys(uploadedFiles).map(docType => {
+                return new Promise((resolve) => {
+                    const file = uploadedFiles[docType];
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        // Get existing store or create new
+                        let fileStore = JSON.parse(localStorage.getItem('uploadedFilesStore') || '{}');
+                        
+                        // Store file with unique key
+                        const storeKey = `${formData.id}_${docType}`;
+                        fileStore[storeKey] = {
+                            name: file.name,
+                            type: file.type,
+                            data: e.target.result,
+                            size: file.size
+                        };
+                        
+                        localStorage.setItem('uploadedFilesStore', JSON.stringify(fileStore));
+                        resolve();
+                    };
+                    
+                    reader.readAsDataURL(file);
+                });
+            });
             
-            let adminApps = JSON.parse(localStorage.getItem('adminApplications')) || [];
-            adminApps.push(formData);
-            localStorage.setItem('adminApplications', JSON.stringify(adminApps));
-            
-            setTimeout(() => {
+            // Wait for all files to be processed
+            Promise.all(filePromises).then(() => {
+                // Save to customer applications
+                let myApps = JSON.parse(localStorage.getItem('myApplications')) || [];
+                myApps.push(formData);
+                localStorage.setItem('myApplications', JSON.stringify(myApps));
+                
+                // Save to admin applications
+                let adminApps = JSON.parse(localStorage.getItem('adminApplications')) || [];
+                adminApps.push(formData);
+                localStorage.setItem('adminApplications', JSON.stringify(adminApps));
+                
                 alert(`Application submitted successfully!\n\nApplication ID: ${formData.id}\nService: ${currentService.name}\n\nPlease save this ID for tracking.`);
                 
                 btn.disabled = false;
@@ -1849,7 +1868,7 @@ Thank you for using our services!
                 
                 closeModal();
                 updateStats();
-            }, 2000);
+            });
         }
 
         // User Menu Functions
