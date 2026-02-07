@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Khan Jan Seva Kendra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 0;
+            transition: 0.3s;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid white;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-header h3 { font-size: 18px; margin-bottom: 5px; }
+        .sidebar-header p { font-size: 12px; opacity: 0.8; }
+        
+        .nav-menu { list-style: none; padding: 20px 0; }
+        
+        .nav-menu li {
+            padding: 12px 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .nav-menu li:hover, .nav-menu li.active {
+            background: rgba(255,255,255,0.1);
+            border-left: 4px solid #ff5722;
+        }
+        
+        .nav-menu i { width: 20px; }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 20px;
+        }
+        
+        /* Top Header */
+        .top-header {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .search-box {
+            position: relative;
+            width: 350px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .notification {
+            position: relative;
+            cursor: pointer;
+            font-size: 20px;
+            color: #666;
+            width: 45px;
+            height: 45px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        
+        .notification:hover { background: #e3f2fd; color: #2196f3; }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff5722;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+        
+        .admin-profile:hover { background: #f5f5f5; }
+        
+        .admin-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #2196f3;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .stat-icon.blue { background: #e3f2fd; color: #2196f3; }
+        .stat-icon.green { background: #e8f5e9; color: #4caf50; }
+        .stat-icon.orange { background: #fff3e0; color: #ff9800; }
+        .stat-icon.red { background: #ffebee; color: #f44336; }
+        .stat-icon.purple { background: #f3e5f5; color: #9c27b0; }
+        
+        .stat-info h3 { font-size: 28px; color: #333; margin-bottom: 5px; }
+        .stat-info p { color: #666; font-size: 14px; }
+        
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-header h2 { font-size: 20px; color: #333; display: flex; align-items: center; gap: 10px; }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        
+        .btn-primary { background: #2196f3; color: white; }
+        .btn-success { background: #4caf50; color: white; }
+        .btn-danger { background: #f44336; color: white; }
+        .btn-warning { background: #ff9800; color: white; }
+        .btn-sm:hover { opacity: 0.9; transform: translateY(-2px); }
+        
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th, .data-table td {
+            padding: 15px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table th {
+            color: #666;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            background: #f8f9fa;
+        }
+        
+        .data-table tr:hover { background: #f8f9fa; }
+        
+        .customer-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .customer-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .status-pending { background: #fff3e0; color: #ef6c00; }
+        .status-progress { background: #e3f2fd; color: #1565c0; }
+        .status-completed { background: #e8f5e9; color: #2e7d32; }
+        .status-rejected { background: #ffebee; color: #c62828; }
+        
+        .action-btns { display: flex; gap: 8px; }
+        
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        
+        .action-btn.view { background: #e3f2fd; color: #2196f3; }
+        .action-btn.download { background: #e8f5e9; color: #4caf50; }
+        .action-btn.edit { background: #fff3e0; color: #ff9800; }
+        .action-btn.delete { background: #ffebee; color: #f44336; }
+        .action-btn:hover { transform: scale(1.1); }
+        
+        /* Recent Activity */
+        .activity-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .activity-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .activity-content { flex: 1; }
+        .activity-content h4 { font-size: 14px; color: #333; margin-bottom: 3px; }
+        .activity-content p { font-size: 12px; color: #999; }
+        .activity-time { font-size: 12px; color: #999; white-space: nowrap; }
+        
+        /* Application Detail Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 900px;
+            margin: 30px auto;
+            position: relative;
+            animation: slideUp 0.3s;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-header {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 { font-size: 24px; }
+        
+        .close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+        
+        .close-btn:hover { background: rgba(255,255,255,0.3); }
+        
+        .modal-body {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .detail-section {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-section:last-child { border-bottom: none; margin-bottom: 0; }
+        
+        .detail-section h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .detail-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .detail-item label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .detail-item value {
+            display: block;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        /* Document List in Modal */
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .document-card {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        
+        .document-card:hover {
+            border-color: #2196f3;
+            background: #f0f7ff;
+        }
+        
+        .document-card i {
+            font-size: 40px;
+            color: #2196f3;
+            margin-bottom: 10px;
+        }
+        
+        .document-card h4 {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+        
+        .download-doc-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            width: 100%;
+            transition: 0.3s;
+        }
+        
+        .download-doc-btn:hover { background: #45a049; }
+        
+        /* Status Update */
+        .status-update {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .status-update select {
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            flex: 1;
+        }
+        
+        .update-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        
+        .update-btn:hover { background: #1976d2; }
+        
+        /* Footer */
+        .footer {
+            background: rgba(0,0,0,0.3);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+        }
+        
+        /* Logout Button */
+        .logout-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        
+        .logout-btn:hover { background: rgba(255,255,255,0.2); }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar { width: 80px; }
+            .sidebar-header h3, .sidebar-header p, .nav-menu span { display: none; }
+            .main-content { margin-left: 80px; }
+            .content-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .search-box { width: 200px; }
+            .detail-grid { grid-template-columns: 1fr; }
+        }
+        
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-tab {
+            padding: 8px 16px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        
+        .filter-tab:hover, .filter-tab.active {
+            background: #2196f3;
+            color: white;
+            border-color: #2196f3;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .empty-state h3 { color: #666; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="../shop.jpg" alt="Admin">
+            <h3>Admin Panel</h3>
+            <p>Khan Jan Seva Kendra</p>
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="active" onclick="showSection('dashboard')">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </li>
+            <li onclick="showSection('applications')">
+                <i class="fas fa-file-alt"></i>
+                <span>Applications</span>
+            </li>
+            <li onclick="showSection('customers')">
+                <i class="fas fa-users"></i>
+                <span>Customers</span>
+            </li>
+            <li onclick="showSection('services')">
+                <i class="fas fa-cogs"></i>
+                <span>Services</span>
+            </li>
+            <li onclick="showSection('documents')">
+                <i class="fas fa-folder-open"></i>
+                <span>Documents</span>
+            </li>
+            <li onclick="showSection('payments')">
+                <i class="fas fa-rupee-sign"></i>
+                <span>Payments</span>
+            </li>
+            <li onclick="showSection('reports')">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+            </li>
+            <li onclick="showSection('settings')">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </li>
+        </ul>
+        
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Header -->
+        <div class="top-header">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search applications, customers..." onkeyup="searchApplications()">
+            </div>
+            
+            <div class="header-actions">
+                <div class="notification" onclick="showNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" id="notifCount">0</span>
+                </div>
+                <div class="notification" onclick="showMessages()">
+                    <i class="fas fa-envelope"></i>
+                    <span class="notification-badge" id="msgCount">0</span>
+                </div>
+                <div class="admin-profile">
+                    <img src="../shop.jpg" alt="Admin">
+                    <div>
+                        <p style="font-weight: 600; font-size: 14px;">Arbaz Khan</p>
+                        <p style="font-size: 12px; color: #666;">Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalApps">0</h3>
+                    <p>Total Applications</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="pendingApps">0</h3>
+                    <p>Pending</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <i class="fas fa-spinner"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="progressApps">0</h3>
+                    <p>In Progress</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="completedApps">0</h3>
+                    <p>Completed</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon red">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalCustomers">0</h3>
+                    <p>Total Customers</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Applications Section -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-list"></i> Recent Applications</h2>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-sm btn-primary" onclick="exportData()">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                    <button class="btn-sm btn-success" onclick="refreshData()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <div class="filter-tab active" onclick="filterApps('all')">All</div>
+                <div class="filter-tab" onclick="filterApps('pending')">Pending</div>
+                <div class="filter-tab" onclick="filterApps('progress')">In Progress</div>
+                <div class="filter-tab" onclick="filterApps('completed')">Completed</div>
+                <div class="filter-tab" onclick="filterApps('rejected')">Rejected</div>
+            </div>
+            
+            <!-- Applications Table -->
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Application ID</th>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Submitted</th>
+                            <th>Status</th>
+                            <th>Documents</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicationsTable">
+                        <!-- Dynamic Content -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-inbox"></i>
+                <h3>No applications found</h3>
+                <p>Applications will appear here when customers submit them.</p>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid" style="margin-top: 25px;">
+            <!-- Recent Customers -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-user-clock"></i> Recent Customers</h2>
+                    <button class="btn-sm btn-primary" onclick="viewAllCustomers()">View All</button>
+                </div>
+                <div id="recentCustomers">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+
+            <!-- Activity Log -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-history"></i> Activity Log</h2>
+                </div>
+                <div id="activityLog">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Detail Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2><i class="fas fa-file-alt"></i> Application Details</h2>
+                    <p id="modalAppId" style="opacity: 0.9; margin-top: 5px; font-size: 14px;">ID: #12345</p>
+                </div>
+                <button class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Khan Jan Seva Kendra | Admin Portal</p>
+    </div>
+
+    <script>
+        // Check Admin Login
+        window.onload = function() {
+            const currentUser = localStorage.getItem('currentUser');
+            if(!currentUser) {
+                window.location.href = '../login.html';
+                return;
+            }
+            
+            const user = JSON.parse(currentUser);
+            if(user.type !== 'admin') {
+                window.location.href = '../login.html';
+                return;
+            }
+            
+            loadDashboardData();
+            setInterval(loadDashboardData, 5000); // Auto refresh every 5 seconds
+        };
+        
+        // Load Dashboard Data
+        function loadDashboardData() {
+            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
+            const customers = JSON.parse(localStorage.getItem('customers')) || [];
+            
+            // Update stats
+            document.getElementById('totalApps').textContent = applications.length;
+            document.getElementById('pendingApps').textContent = applications.filter(a => a.status === 'pending').length;
+            document.getElementById('progressApps').textContent = applications.filter(a => a.status === 'progress').length;
+            document.getElementById('completedApps').textContent = applications.filter(a => a.status === 'completed').length;
+            document.getElementById('totalCustomers').textContent = customers.length;
+            
+            // Update notifications
+            document.getElementById('notifCount').textContent = applications.filter(a => a.status === 'pending').length;
+            
+            // Render applications table
+            renderApplicationsTable(applications);
+            
+            // Render recent customers
+            renderRecentCustomers(customers);
+            
+            // Render activity log
+            renderActivityLog(applications);
+        }
+        
+        function renderApplicationsTable(applications) {
+            const tbody = document.getElementById('applicationsTable');
+            const emptyState = document.getElementById('emptyState');
+            
+            if(applications.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            tbody.innerHTML = applications.slice().reverse().map(app => {
+                const customer = app.customer || {};
+                const statusClass = {
+                    'pending': 'status-pending',
+                    'progress': 'status-progress',
+                    'completed': 'status-completed',
+                    'rejected': 'status-rejected'
+                }[app.status] || 'status-pending';
+                
+                const statusText = {
+                    'pending': 'Pending',
+                    'progress': 'In Progress',
+                    'completed': 'Completed',
+                    'rejected': 'Rejected'
+                }[app.status] || 'Pending';
+                
+                return `
+                    <tr>
+                        <td><strong>#${app.id}</strong></td>
+                        <td>
+                            <div class="customer-cell">
+                                <div class="customer-avatar">${(customer.name || 'U').charAt(0)}</div>
+                                <div>
+                                    <div style="font-weight: 600;">${customer.name || 'Unknown'}</div>
+                                    <div style="font-size: 12px; color: #666;">${customer.mobile || ''}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${app.serviceName}</td>
+                        <td>${new Date(app.submittedAt).toLocaleDateString()}</td>
+                        <td><span class="status-badge ${statusClass}"><i class="fas fa-circle" style="font-size: 6px;"></i> ${statusText}</span></td>
+                        <td>${app.documents ? app.documents.length : 0} files</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="action-btn view" onclick="viewApplication('${app.id}')" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn download" onclick="downloadApplication('${app.id}')" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="action-btn edit" onclick="editStatus('${app.id}')" title="Update Status">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        function renderRecentCustomers(customers) {
+            const container = document.getElementById('recentCustomers');
+            
+            if(customers.length === 0) {
+                container.innerHTML = '<p style="color: #999; text-align: center;">No customers yet</p>';
+                return;
+            }
+            
+            container.innerHTML = customers.slice(-5).reverse().map(customer => `
+                <div class="activity-item">
+                    <div class="activity-icon" style="background: #e3f2fd; color: #2196f3;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>${customer.name}</h4>
+                        <p>${customer.mobile} • ${customer.email}</p>
+                    </div>
+                    <span class="activity-time">${new Date(customer.createdAt).toLocaleDateString()}</span>
+                </div>
+            `).join('');
+        }
+        
+        function renderActivityLog(applications) {
+            const container = document.getElementById('activityLog');
+            
+            if(applications.length === 0) {
+                container.innerHTML = '<p style="color: #999; text-align: center;">No recent activity</p>';
+                return;
+            }
+            
+            const recentApps = applications.slice(-5).reverse();
+            container.innerHTML = recentApps.map(app => {
+                const icons = {
+                    'pending': { icon: 'fa-clock', color: '#ff9800', bg: '#fff3e0' },
+                    'progress': { icon: 'fa-spinner', color: '#2196f3', bg: '#e3f2fd' },
+                    'completed': { icon: 'fa-check', color: '#4caf50', bg: '#e8f5e9' }
+                };
+                const style = icons[app.status] || icons['pending'];
+                
+                return `
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: ${style.bg}; color: ${style.color};">
+                            <i class="fas ${style.icon}"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>${app.serviceName}</h4>
+                            <p>By ${app.customer ? app.customer.name : 'Unknown'}</p>
+                        </div>
+                        <span class="activity-time">${new Date(app.submittedAt).toLocaleTimeString()}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // View Application Details
+        function viewApplication(appId) {
+            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
+            const app = applications.find(a => a.id === appId);
+            
+            if(!app) {
+                alert('Application not found');
+                return;
+            }
+            
+            document.getElementById('modalAppId').textContent = 'Application ID: #' + app.id;
+            
+            const personalInfo = app.personalInfo || {};
+            const customer = app.customer || {};
+            
+            document.getElementById('modalBody').innerHTML = `
+                <div class="detail-section">
+                    <h3><i class="fas fa-user"></i> Personal Information</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Full Name</label>
+                            <value>${personalInfo.name || customer.name || 'N/A'}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>Father's/Husband's Name</label>
+                            <value>${personalInfo.fatherName || 'N/A'}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>Date of Birth</label>
+                            <value>${personalInfo.dob || 'N/A'}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>Gender</label>
+                            <value>${personalInfo.gender ? personalInfo.gender.charAt(0).toUpperCase() + personalInfo.gender.slice(1) : 'N/A'}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>Mobile Number</label>
+                            <value>${personalInfo.mobile || customer.mobile || 'N/A'}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>Email Address</label>
+                            <value>${personalInfo.email || customer.email || 'N/A'}</value>
+                        </div>
+                        <div class="detail-item" style="grid-column: 1 / -1;">
+                            <label>Complete Address</label>
+                            <value>${personalInfo.address || 'N/A'}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>District</label>
+                            <value>${personalInfo.district || 'N/A'}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>State</label>
+                            <value>${personalInfo.state || 'N/A'}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>PIN Code</label>
+                            <value>${personalInfo.pincode || 'N/A'}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>Aadhaar Number</label>
+                            <value>${personalInfo.aadhaar || 'N/A'}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>PAN Number</label>
+                            <value>${personalInfo.pan || 'N/A'}</value>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3><i class="fas fa-cog"></i> Service Details</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Service Name</label>
+                            <value>${app.serviceName}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>Application Date</label>
+                            <value>${new Date(app.submittedAt).toLocaleString()}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>Current Status</label>
+                            <value style="color: ${getStatusColor(app.status)}; text-transform: uppercase;">${app.status}</value>
+                        </div>
+                        <div class="detail-item">
+                            <label>Service ID</label>
+                            <value>${app.serviceId}</value>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3><i class="fas fa-folder-open"></i> Uploaded Documents</h3>
+                    <div class="document-grid">
+                        ${app.documents ? app.documents.map((doc, idx) => `
+                            <div class="document-card">
+                                <i class="fas fa-file-pdf"></i>
+                                <h4>${doc.replace(/_/g, ' ').toUpperCase()}</h4>
+                                <button class="download-doc-btn" onclick="downloadDocument('${app.id}', '${doc}', ${idx})">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            </div>
+                        `).join('') : '<p>No documents uploaded</p>'}
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3><i class="fas fa-sticky-note"></i> Additional Notes</h3>
+                    <p style="background: #f8f9fa; padding: 15px; border-radius: 8px; color: #666;">
+                        ${app.notes || 'No additional notes provided'}
+                    </p>
+                </div>
+                
+                <div class="detail-section">
+                    <h3><i class="fas fa-exchange-alt"></i> Update Status</h3>
+                    <div class="status-update">
+                        <select id="newStatus">
+                            <option value="pending" ${app.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="progress" ${app.status === 'progress' ? 'selected' : ''}>In Progress</option>
+                            <option value="completed" ${app.status === 'completed' ? 'selected' : ''}>Completed</option>
+                            <option value="rejected" ${app.status === 'rejected' ? 'selected' : ''}>Rejected</option>
+                        </select>
+                        <button class="update-btn" onclick="updateStatus('${app.id}')">
+                            <i class="fas fa-save"></i> Update Status
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('detailModal').style.display = 'block';
+        }
+        
+        function getStatusColor(status) {
+            const colors = {
+                'pending': '#ff9800',
+                'progress': '#2196f3',
+                'completed': '#4caf50',
+                'rejected': '#f44336'
+            };
+            return colors[status] || '#666';
+        }
+        
+        function closeModal() {
+            document.getElementById('detailModal').style.display = 'none';
+        }
+        
+        function updateStatus(appId) {
+            const newStatus = document.getElementById('newStatus').value;
+            let applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
+            
+            const appIndex = applications.findIndex(a => a.id === appId);
+            if(appIndex !== -1) {
+                applications[appIndex].status = newStatus;
+                localStorage.setItem('adminApplications', JSON.stringify(applications));
+                
+                // Also update in customer applications
+                let customerApps = JSON.parse(localStorage.getItem('myApplications')) || [];
+                const custAppIndex = customerApps.findIndex(a => a.id === appId);
+                if(custAppIndex !== -1) {
+                    customerApps[custAppIndex].status = newStatus;
+                    localStorage.setItem('myApplications', JSON.stringify(customerApps));
+                }
+                
+                alert('Status updated successfully!');
+                closeModal();
+                loadDashboardData();
+            }
+        }
+        
+        function downloadDocument(appId, docType, index) {
+            // In real implementation, this would download the actual file
+            // For demo, we'll create a text file with document info
+            const content = `Document: ${docType}\nApplication ID: ${appId}\nDownloaded: ${new Date().toLocaleString()}`;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${docType}_${appId}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert(`Downloading ${docType}...`);
+        }
+        
+        function downloadApplication(appId) {
+            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
+            const app = applications.find(a => a.id === appId);
+            
+            if(app) {
+                const dataStr = JSON.stringify(app, null, 2);
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `application_${appId}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+        
+        function editStatus(appId) {
+            viewApplication(appId);
+        }
+        
+        function filterApps(filter) {
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
+            let filtered = applications;
+            
+            if(filter !== 'all') {
+                filtered = applications.filter(a => a.status === filter);
+            }
+            
+            renderApplicationsTable(filtered);
+        }
+        
+        function searchApplications() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
+            
+            const filtered = applications.filter(app => {
+                const customer = app.customer || {};
+                return (app.id && app.id.toString().includes(searchTerm)) ||
+                       (app.serviceName && app.serviceName.toLowerCase().includes(searchTerm)) ||
+                       (customer.name && customer.name.toLowerCase().includes(searchTerm)) ||
+                       (customer.mobile && customer.mobile.includes(searchTerm));
+            });
+            
+            renderApplicationsTable(filtered);
+        }
+        
+        function exportData() {
+            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
+            const csvContent = convertToCSV(applications);
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `applications_export_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function convertToCSV(data) {
+            if(data.length === 0) return '';
+            const headers = Object.keys(data[0]).join(',');
+            const rows = data.map(obj => Object.values(obj).map(v => 
+                typeof v === 'object' ? JSON.stringify(v) : v
+            ).join(','));
+            return headers + '\n' + rows.join('\n');
+        }
+        
+        function refreshData() {
+            loadDashboardData();
+            alert('Data refreshed!');
+        }
+        
+        function viewAllCustomers() {
+            const customers = JSON.parse(localStorage.getItem('customers')) || [];
+            let html = '<h2>All Customers</h2><table class="data-table">';
+            html += '<tr><th>Name</th><th>Mobile</th><th>Email</th><th>Username</th><th>Joined</th></tr>';
+            customers.forEach(c => {
+                html += `<tr>
+                    <td>${c.name}</td>
+                    <td>${c.mobile}</td>
+                    <td>${c.email}</td>
+                    <td>${c.username}</td>
+                    <td>${new Date(c.createdAt).toLocaleDateString()}</td>
+                </tr>`;
+            });
+            html += '</table>';
+            
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(`
+                <html>
+                <head>
+                    <title>All Customers</title>
+                    <style>
+                        body { font-family: Arial; padding: 20px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+                        th { background: #f5f5f5; }
+                        tr:hover { background: #f9f9f9; }
+                    </style>
+                </head>
+                <body>${html}</body>
+                </html>
+            `);
+        }
+        
+        function showNotifications() {
+            alert('Notifications panel:\n\n• 5 new applications pending\n• 3 documents need verification\n• 2 payments received');
+        }
+        
+        function showMessages() {
+            alert('Messages panel:\n\n• Customer inquiry about PAN status\n• Support ticket #1234 resolved');
+        }
+        
+        function showSection(section) {
+            if(section === 'dashboard') {
+                loadDashboardData();
+            } else {
+                alert(section + ' section coming soon!');
+            }
+        }
+        
+        function logout() {
+            if(confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = '../login.html';
+            }
+        }
+        
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('detailModal');
+            if(event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
