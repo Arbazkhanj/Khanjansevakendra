@@ -14,6 +14,52 @@
             color: #333;
         }
         
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 10000;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            max-width: 350px;
+        }
+        
+        .toast.show { transform: translateX(0); }
+        .toast.success { background: #4caf50; }
+        .toast.error { background: #f44336; }
+        .toast.info { background: #2196f3; }
+        
         /* Mobile Header */
         .mobile-header {
             display: none;
@@ -54,9 +100,7 @@
             overflow-y: auto;
         }
         
-        .sidebar.mobile-open {
-            transform: translateX(0);
-        }
+        .sidebar.mobile-open { transform: translateX(0); }
         
         .sidebar-header {
             text-align: center;
@@ -374,55 +418,40 @@
         }
         
         .action-btn.view { background: #e3f2fd; color: #2196f3; }
-        .action-btn.download { background: #e8f5e9; color: #4caf50; }
         .action-btn.edit { background: #fff3e0; color: #ff9800; }
         .action-btn.delete { background: #ffebee; color: #f44336; }
         .action-btn:hover { transform: scale(1.1); }
+        
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-tab {
+            padding: 8px 16px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        
+        .filter-tab:hover, .filter-tab.active {
+            background: #2196f3;
+            color: white;
+            border-color: #2196f3;
+        }
         
         /* Grid Layouts */
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 25px;
-        }
-        
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-        
-        /* Service Cards */
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .service-card {
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 20px;
-            transition: 0.3s;
-        }
-        
-        .service-card:hover {
-            border-color: #2196f3;
-            transform: translateY(-3px);
-        }
-        
-        .service-card h4 { color: #333; margin-bottom: 10px; }
-        .service-card p { color: #666; font-size: 14px; margin-bottom: 15px; }
-        
-        .service-price {
-            display: inline-block;
-            background: #e3f2fd;
-            color: #2196f3;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 14px;
         }
         
         /* Document Gallery */
@@ -508,93 +537,6 @@
         .doc-btn.download {
             background: #e8f5e9;
             color: #4caf50;
-        }
-        
-        /* Payment Cards */
-        .payment-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            border-left: 4px solid #4caf50;
-            margin-bottom: 15px;
-        }
-        
-        .payment-card.pending {
-            border-left-color: #ff9800;
-        }
-        
-        .payment-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .payment-amount {
-            font-size: 24px;
-            font-weight: 700;
-            color: #4caf50;
-        }
-        
-        .payment-amount.pending {
-            color: #ff9800;
-        }
-        
-        /* Report Cards */
-        .report-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            transition: 0.3s;
-        }
-        
-        .report-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .report-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            margin: 0 auto 20px;
-        }
-        
-        /* Settings Form */
-        .settings-form {
-            max-width: 600px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #2196f3;
         }
         
         /* Activity Log */
@@ -794,31 +736,6 @@
             font-size: 20px;
         }
         
-        /* Filter Tabs */
-        .filter-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .filter-tab {
-            padding: 8px 16px;
-            border: 2px solid #e0e0e0;
-            background: white;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-        
-        .filter-tab:hover, .filter-tab.active {
-            background: #2196f3;
-            color: white;
-            border-color: #2196f3;
-        }
-        
         /* Empty State */
         .empty-state {
             text-align: center;
@@ -831,8 +748,6 @@
             margin-bottom: 20px;
             color: #ddd;
         }
-        
-        .empty-state h3 { color: #666; margin-bottom: 10px; }
         
         /* Logout Button */
         .logout-btn {
@@ -882,7 +797,7 @@
                 display: flex;
             }
             
-            .grid-2, .grid-3 {
+            .grid-2 {
                 grid-template-columns: 1fr;
             }
             
@@ -952,6 +867,15 @@
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p style="margin-top: 20px; color: #667eea; font-weight: 600;">Loading...</p>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer"></div>
+
     <!-- Mobile Header -->
     <div class="mobile-header">
         <button class="menu-toggle" onclick="toggleSidebar()">
@@ -967,7 +891,7 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <img src="../shop.jpg" alt="Admin">
+            <img src="../shop.jpg" alt="Admin" onerror="this.src='https://via.placeholder.com/80'">
             <h3>Admin Panel</h3>
             <p>Khan Jan Seva Kendra</p>
         </div>
@@ -985,21 +909,9 @@
                 <i class="fas fa-users"></i>
                 <span>Customers</span>
             </li>
-            <li onclick="showSection('services')">
-                <i class="fas fa-cogs"></i>
-                <span>Services</span>
-            </li>
             <li onclick="showSection('documents')">
                 <i class="fas fa-folder-open"></i>
                 <span>Documents</span>
-            </li>
-            <li onclick="showSection('payments')">
-                <i class="fas fa-rupee-sign"></i>
-                <span>Payments</span>
-            </li>
-            <li onclick="showSection('reports')">
-                <i class="fas fa-chart-bar"></i>
-                <span>Reports</span>
             </li>
             <li onclick="showSection('settings')">
                 <i class="fas fa-cog"></i>
@@ -1027,14 +939,10 @@
                     <i class="fas fa-bell"></i>
                     <span class="notification-badge" id="notifCount">0</span>
                 </div>
-                <div class="notification" onclick="showMessages()">
-                    <i class="fas fa-envelope"></i>
-                    <span class="notification-badge" id="msgCount">0</span>
-                </div>
                 <div class="admin-profile">
-                    <img src="../shop.jpg" alt="Admin">
+                    <img src="../shop.jpg" alt="Admin" onerror="this.src='https://via.placeholder.com/40'">
                     <div>
-                        <p style="font-weight: 600; font-size: 14px;">Arbaz Khan</p>
+                        <p style="font-weight: 600; font-size: 14px;" id="adminName">Admin</p>
                         <p style="font-size: 12px; color: #666;">Administrator</p>
                     </div>
                 </div>
@@ -1217,121 +1125,15 @@
             </div>
         </div>
 
-        <!-- SERVICES SECTION -->
-        <div id="section-services" class="content-section">
-            <div class="card">
-                <div class="card-header">
-                    <h2><i class="fas fa-cogs"></i> Manage Services</h2>
-                    <button class="btn-sm btn-primary" onclick="addNewService()">
-                        <i class="fas fa-plus"></i> Add Service
-                    </button>
-                </div>
-                
-                <div class="service-grid" id="servicesGrid">
-                    <!-- Dynamic Service Cards -->
-                </div>
-            </div>
-        </div>
-
         <!-- DOCUMENTS SECTION -->
         <div id="section-documents" class="content-section">
             <div class="card">
                 <div class="card-header">
                     <h2><i class="fas fa-folder-open"></i> All Documents</h2>
-                    <div class="filter-tabs">
-                        <div class="filter-tab active" onclick="filterDocs('all')">All</div>
-                        <div class="filter-tab" onclick="filterDocs('pdf')">PDF</div>
-                        <div class="filter-tab" onclick="filterDocs('image')">Images</div>
-                    </div>
                 </div>
                 
                 <div class="doc-gallery" id="documentsGallery">
                     <!-- Dynamic Documents -->
-                </div>
-            </div>
-        </div>
-
-        <!-- PAYMENTS SECTION -->
-        <div id="section-payments" class="content-section">
-            <div class="grid-3">
-                <div class="card text-center">
-                    <div class="stat-icon green" style="margin: 0 auto 15px;">
-                        <i class="fas fa-rupee-sign"></i>
-                    </div>
-                    <h3 style="font-size: 32px; color: #4caf50;" id="totalRevenue">₹0</h3>
-                    <p>Total Revenue</p>
-                </div>
-                
-                <div class="card text-center">
-                    <div class="stat-icon orange" style="margin: 0 auto 15px;">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3 style="font-size: 32px; color: #ff9800;" id="pendingPayments">₹0</h3>
-                    <p>Pending Payments</p>
-                </div>
-                
-                <div class="card text-center">
-                    <div class="stat-icon blue" style="margin: 0 auto 15px;">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <h3 style="font-size: 32px; color: #2196f3;" id="completedPayments">0</h3>
-                    <p>Completed</p>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2><i class="fas fa-list"></i> Recent Payments</h2>
-                </div>
-                <div id="paymentsList"></div>
-            </div>
-        </div>
-
-        <!-- REPORTS SECTION -->
-        <div id="section-reports" class="content-section">
-            <div class="grid-2">
-                <div class="report-card">
-                    <div class="report-icon" style="background: #e3f2fd; color: #2196f3;">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3>Applications Report</h3>
-                    <p>Download detailed report of all applications</p>
-                    <button class="btn-sm btn-primary mt-20" onclick="generateReport('applications')">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-                
-                <div class="report-card">
-                    <div class="report-icon" style="background: #e8f5e9; color: #4caf50;">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Customers Report</h3>
-                    <p>Download customer database report</p>
-                    <button class="btn-sm btn-success mt-20" onclick="generateReport('customers')">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-                
-                <div class="report-card">
-                    <div class="report-icon" style="background: #fff3e0; color: #ff9800;">
-                        <i class="fas fa-rupee-sign"></i>
-                    </div>
-                    <h3>Revenue Report</h3>
-                    <p>Download financial and revenue report</p>
-                    <button class="btn-sm btn-warning mt-20" onclick="generateReport('revenue')">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-                
-                <div class="report-card">
-                    <div class="report-icon" style="background: #f3e5f5; color: #9c27b0;">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <h3>Analytics Report</h3>
-                    <p>Download service analytics and statistics</p>
-                    <button class="btn-sm btn-primary mt-20" style="background: #9c27b0;" onclick="generateReport('analytics')">
-                        <i class="fas fa-download"></i> Download
-                    </button>
                 </div>
             </div>
         </div>
@@ -1343,35 +1145,20 @@
                     <h2><i class="fas fa-cog"></i> System Settings</h2>
                 </div>
                 
-                <form class="settings-form" onsubmit="saveSettings(event)">
-                    <div class="form-group">
-                        <label>Center Name</label>
-                        <input type="text" id="settingCenterName" value="Khan Jan Seva Kendra">
+                <form class="settings-form" onsubmit="saveSettings(event)" style="max-width: 600px;">
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Center Name</label>
+                        <input type="text" id="settingCenterName" value="Khan Jan Seva Kendra" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px;">
                     </div>
                     
-                    <div class="form-group">
-                        <label>Contact Email</label>
-                        <input type="email" id="settingEmail" value="support@khanjanseva.com">
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Contact Email</label>
+                        <input type="email" id="settingEmail" value="support@khanjanseva.com" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px;">
                     </div>
                     
-                    <div class="form-group">
-                        <label>Contact Phone</label>
-                        <input type="tel" id="settingPhone" value="+91 98765 43210">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Address</label>
-                        <textarea id="settingAddress" rows="3">Main Road, Near Bus Stand, District - 123456</textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Working Hours</label>
-                        <input type="text" id="settingHours" value="9:00 AM - 6:00 PM (Mon-Sat)">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Notification Email</label>
-                        <input type="email" id="settingNotifEmail" value="admin@khanjanseva.com">
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Contact Phone</label>
+                        <input type="tel" id="settingPhone" value="+91 98765 43210" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px;">
                     </div>
                     
                     <button type="submit" class="btn-sm btn-success" style="padding: 12px 30px; font-size: 16px;">
@@ -1411,90 +1198,106 @@
         <p>&copy; 2025 Khan Jan Seva Kendra | Admin Portal</p>
     </div>
 
-    <script>
-        // Store uploaded files with their data
-        let uploadedFilesStore = {};
-        
-        // Check Admin Login
-        window.onload = function() {
-            const currentUser = localStorage.getItem('currentUser');
-            if(!currentUser) {
-                window.location.href = '../login.html';
-                return;
-            }
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { 
+            auth, database, storage, ref, set, get, update, onValue, query, orderByChild,
+            storageRef, getDownloadURL, signOut, onAuthStateChanged 
+        } from './firebase-config.js';
+
+        // Global Variables
+        let currentUser = null;
+        let allApplications = {};
+        let allUsers = {};
+        let currentFilter = 'all';
+
+        // Toast Notification System
+        window.showToast = function(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
+            container.appendChild(toast);
             
-            const user = JSON.parse(currentUser);
-            if(user.type !== 'admin') {
-                window.location.href = '../login.html';
-                return;
-            }
-            
-            // Load stored files
-            const stored = localStorage.getItem('uploadedFilesStore');
-            if(stored) {
-                uploadedFilesStore = JSON.parse(stored);
-            }
-            
-            loadDashboardData();
-            loadAllSections();
-            setInterval(loadDashboardData, 5000);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         };
-        
-        // Mobile Sidebar Toggle
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('mobile-open');
-            document.querySelector('.sidebar-overlay').classList.toggle('show');
+
+        // Show/Hide Loading
+        window.showLoading = function(show) {
+            document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
+        };
+
+        // Check Auth State
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // Check if admin
+                const userRef = ref(database, `users/${user.uid}`);
+                const snapshot = await get(userRef);
+                
+                if (snapshot.exists() && snapshot.val().role === 'admin') {
+                    currentUser = user;
+                    document.getElementById('adminName').textContent = snapshot.val().name || 'Admin';
+                    setupRealtimeListeners();
+                    showLoading(false);
+                } else {
+                    showToast('Access denied. Admins only.', 'error');
+                    await signOut(auth);
+                    window.location.href = '../login.html';
+                }
+            } else {
+                window.location.href = '../login.html';
+            }
+        });
+
+        // Setup Real-time Listeners
+        function setupRealtimeListeners() {
+            // Listen for all applications
+            const appsRef = ref(database, 'allApplications');
+            onValue(appsRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    allApplications = snapshot.val();
+                    updateDashboard();
+                } else {
+                    allApplications = {};
+                    updateDashboard();
+                }
+            });
+
+            // Listen for all users
+            const usersRef = ref(database, 'users');
+            onValue(usersRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    allUsers = snapshot.val();
+                    updateCustomersList();
+                }
+            });
         }
-        
-        // Section Navigation
-        function showSection(section) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-menu li').forEach(l => l.classList.remove('active'));
+
+        // Update Dashboard
+        function updateDashboard() {
+            const apps = Object.values(allApplications);
             
-            // Show selected
-            document.getElementById('section-' + section).classList.add('active');
-            event.currentTarget.classList.add('active');
+            // Update stats
+            document.getElementById('totalApps').textContent = apps.length;
+            document.getElementById('pendingApps').textContent = apps.filter(a => a.status === 'pending').length;
+            document.getElementById('progressApps').textContent = apps.filter(a => a.status === 'progress').length;
+            document.getElementById('completedApps').textContent = apps.filter(a => a.status === 'completed').length;
+            document.getElementById('totalCustomers').textContent = Object.keys(allUsers).length;
+            document.getElementById('notifCount').textContent = apps.filter(a => a.status === 'pending').length;
             
-            // Close mobile sidebar
-            document.getElementById('sidebar').classList.remove('mobile-open');
-            document.querySelector('.sidebar-overlay').classList.remove('show');
+            // Render recent apps
+            renderRecentApps(apps.slice(-5).reverse());
             
-            // Load section data
-            if(section === 'documents') loadDocuments();
-            if(section === 'customers') loadCustomers();
-            if(section === 'services') loadServices();
-            if(section === 'payments') loadPayments();
+            // Render all apps if on applications section
+            if (document.getElementById('section-applications').classList.contains('active')) {
+                renderAllApps(apps);
+            }
         }
-        
-        // Load Dashboard Data
-        function loadDashboardData() {
-            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
-            const customers = JSON.parse(localStorage.getItem('customers')) || [];
-            
-            // Stats
-            document.getElementById('totalApps').textContent = applications.length;
-            document.getElementById('pendingApps').textContent = applications.filter(a => a.status === 'pending').length;
-            document.getElementById('progressApps').textContent = applications.filter(a => a.status === 'progress').length;
-            document.getElementById('completedApps').textContent = applications.filter(a => a.status === 'completed').length;
-            document.getElementById('totalCustomers').textContent = customers.length;
-            document.getElementById('notifCount').textContent = applications.filter(a => a.status === 'pending').length;
-            
-            // Recent apps table
-            renderRecentApps(applications.slice(-5).reverse());
-            
-            // Recent customers
-            renderRecentCustomers(customers.slice(-5).reverse());
-            
-            // Activity log
-            renderActivityLog(applications.slice(-5).reverse());
-        }
-        
-        function loadAllSections() {
-            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
-            renderAllApps(applications);
-        }
-        
+
         function renderRecentApps(apps) {
             const tbody = document.getElementById('recentAppsTable');
             if(apps.length === 0) {
@@ -1504,23 +1307,27 @@
             
             tbody.innerHTML = apps.map(app => createAppRow(app)).join('');
         }
-        
+
         function renderAllApps(apps) {
             const tbody = document.getElementById('allAppsTable');
             const emptyState = document.getElementById('appsEmptyState');
             
-            if(apps.length === 0) {
+            let filteredApps = apps;
+            if(currentFilter !== 'all') {
+                filteredApps = apps.filter(a => a.status === currentFilter);
+            }
+            
+            if(filteredApps.length === 0) {
                 tbody.innerHTML = '';
                 emptyState.style.display = 'block';
                 return;
             }
             
             emptyState.style.display = 'none';
-            tbody.innerHTML = apps.map(app => createAppRow(app, true)).join('');
+            tbody.innerHTML = filteredApps.map(app => createAppRow(app, true)).join('');
         }
-        
+
         function createAppRow(app, detailed = false) {
-            const customer = app.customer || {};
             const statusClass = {
                 'pending': 'status-pending',
                 'progress': 'status-progress',
@@ -1535,28 +1342,31 @@
                 'rejected': 'Rejected'
             }[app.status] || 'Pending';
             
+            const customerName = app.personalInfo?.name || 'Unknown';
+            const customerMobile = app.personalInfo?.mobile || '';
+            
             return `
                 <tr>
-                    <td><strong>#${app.id}</strong></td>
+                    <td><strong>#${app.applicationId}</strong></td>
                     <td>
                         <div class="customer-cell">
-                            <div class="customer-avatar">${(customer.name || 'U').charAt(0)}</div>
+                            <div class="customer-avatar">${customerName.charAt(0)}</div>
                             <div>
-                                <div style="font-weight: 600;">${customer.name || 'Unknown'}</div>
-                                ${detailed ? `<div style="font-size: 12px; color: #666;">${customer.mobile || ''}</div>` : ''}
+                                <div style="font-weight: 600;">${escapeHtml(customerName)}</div>
+                                ${detailed ? `<div style="font-size: 12px; color: #666;">${customerMobile}</div>` : ''}
                             </div>
                         </div>
                     </td>
-                    <td>${app.serviceName}</td>
+                    <td>${escapeHtml(app.serviceName)}</td>
                     <td>${new Date(app.submittedAt).toLocaleDateString()}</td>
                     <td><span class="status-badge ${statusClass}">${statusText}</span></td>
                     ${detailed ? `<td>${app.documents ? app.documents.length : 0} files</td>` : ''}
                     <td>
                         <div class="action-btns">
-                            <button class="action-btn view" onclick="viewApplication('${app.id}')" title="View">
+                            <button class="action-btn view" onclick="viewApplication('${app.applicationId}')" title="View">
                                 <i class="fas fa-eye"></i>
                             </button>
-                            <button class="action-btn edit" onclick="editStatus('${app.id}')" title="Edit Status">
+                            <button class="action-btn edit" onclick="editStatus('${app.applicationId}')" title="Edit Status">
                                 <i class="fas fa-edit"></i>
                             </button>
                         </div>
@@ -1564,85 +1374,66 @@
                 </tr>
             `;
         }
-        
-        function renderRecentCustomers(customers) {
-            const container = document.getElementById('recentCustomersList');
-            if(customers.length === 0) {
-                container.innerHTML = '<p class="text-center" style="color: #999;">No customers yet</p>';
-                return;
-            }
-            
-            container.innerHTML = customers.map(c => `
-                <div class="activity-item">
-                    <div class="activity-icon" style="background: #e3f2fd; color: #2196f3;">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="activity-content">
-                        <h4>${c.name}</h4>
-                        <p>${c.mobile}</p>
-                    </div>
-                    <span class="activity-time">${new Date(c.createdAt).toLocaleDateString()}</span>
-                </div>
-            `).join('');
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
-        
-        function renderActivityLog(apps) {
-            const container = document.getElementById('activityLogList');
-            if(apps.length === 0) {
-                container.innerHTML = '<p class="text-center" style="color: #999;">No activity yet</p>';
-                return;
-            }
+
+        // Section Navigation
+        window.showSection = function(section) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-menu li').forEach(l => l.classList.remove('active'));
             
-            container.innerHTML = apps.map(app => `
-                <div class="activity-item">
-                    <div class="activity-icon" style="background: #e8f5e9; color: #4caf50;">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div class="activity-content">
-                        <h4>${app.serviceName}</h4>
-                        <p>By ${app.customer?.name || 'Unknown'}</p>
-                    </div>
-                    <span class="activity-time">${new Date(app.submittedAt).toLocaleTimeString()}</span>
-                </div>
-            `).join('');
-        }
-        
+            document.getElementById('section-' + section).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            document.getElementById('sidebar').classList.remove('mobile-open');
+            document.querySelector('.sidebar-overlay').classList.remove('show');
+            
+            if(section === 'customers') {
+                updateCustomersList();
+            } else if(section === 'documents') {
+                loadDocuments();
+            }
+        };
+
         // View Application
-        function viewApplication(appId) {
-            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
-            const app = applications.find(a => a.id === appId);
-            
+        window.viewApplication = async function(appId) {
+            const app = allApplications[appId];
             if(!app) return;
             
-            document.getElementById('modalAppId').textContent = 'Application ID: #' + app.id;
+            document.getElementById('modalAppId').textContent = 'Application ID: #' + appId;
             
             const personalInfo = app.personalInfo || {};
-            const customer = app.customer || {};
             
             let docsHtml = '';
             if(app.documents && app.documents.length > 0) {
-                docsHtml = `<div class="document-grid">` + app.documents.map((doc, idx) => {
-                    const fileData = uploadedFilesStore[`${app.id}_${doc}`];
-                    const isImage = fileData && fileData.type.startsWith('image/');
-                    const icon = isImage ? 'fa-image' : 'fa-file-pdf';
-                    
-                    return `
-                        <div class="document-card">
-                            <i class="fas ${icon}" style="font-size: 48px; color: #2196f3; margin-bottom: 10px;"></i>
-                            <h4>${doc.replace(/_/g, ' ').toUpperCase()}</h4>
-                            <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                ${isImage ? `
-                                    <button class="doc-btn view" onclick="viewImage('${app.id}', '${doc}')">
-                                        <i class="fas fa-eye"></i> View
-                                    </button>
-                                ` : ''}
-                                <button class="doc-btn download" onclick="downloadRealFile('${app.id}', '${doc}')">
-                                    <i class="fas fa-download"></i> Download
-                                </button>
+                docsHtml = `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">` + 
+                    app.documents.map((doc, idx) => {
+                        const isImage = doc.type && doc.type.startsWith('image/');
+                        const icon = isImage ? 'fa-image' : 'fa-file-pdf';
+                        
+                        return `
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center;">
+                                <i class="fas ${icon}" style="font-size: 48px; color: #2196f3; margin-bottom: 10px;"></i>
+                                <h4 style="font-size: 14px; margin-bottom: 5px;">${escapeHtml(doc.name)}</h4>
+                                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                    ${isImage ? `
+                                        <button class="btn-sm btn-primary" onclick="viewImage('${escapeHtml(doc.url)}')" style="flex: 1;">
+                                            <i class="fas fa-eye"></i> View
+                                        </button>
+                                    ` : ''}
+                                    <a href="${escapeHtml(doc.url)}" target="_blank" class="btn-sm btn-success" style="flex: 1; text-decoration: none; text-align: center;">
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    `;
-                }).join('') + `</div>`;
+                        `;
+                    }).join('') + 
+                `</div>`;
             } else {
                 docsHtml = '<p>No documents uploaded</p>';
             }
@@ -1653,19 +1444,19 @@
                     <div class="detail-grid">
                         <div class="detail-item">
                             <label>Full Name</label>
-                            <value>${personalInfo.name || customer.name || 'N/A'}</value>
+                            <value>${escapeHtml(personalInfo.name)}</value>
                         </div>
                         <div class="detail-item">
                             <label>Mobile</label>
-                            <value>${personalInfo.mobile || customer.mobile || 'N/A'}</value>
+                            <value>${escapeHtml(personalInfo.mobile)}</value>
                         </div>
                         <div class="detail-item">
                             <label>Email</label>
-                            <value>${personalInfo.email || customer.email || 'N/A'}</value>
+                            <value>${escapeHtml(personalInfo.email)}</value>
                         </div>
                         <div class="detail-item">
                             <label>Address</label>
-                            <value>${personalInfo.address || 'N/A'}</value>
+                            <value>${escapeHtml(personalInfo.address)}</value>
                         </div>
                     </div>
                 </div>
@@ -1684,7 +1475,7 @@
                             <option value="completed" ${app.status === 'completed' ? 'selected' : ''}>Completed</option>
                             <option value="rejected" ${app.status === 'rejected' ? 'selected' : ''}>Rejected</option>
                         </select>
-                        <button class="update-btn" onclick="updateStatus('${app.id}')">
+                        <button class="update-btn" onclick="updateStatus('${appId}')">
                             <i class="fas fa-save"></i> Update
                         </button>
                     </div>
@@ -1692,99 +1483,86 @@
             `;
             
             document.getElementById('detailModal').style.display = 'block';
-        }
-        
-        // View Image
-        function viewImage(appId, docType) {
-            const fileData = uploadedFilesStore[`${appId}_${docType}`];
-            if(fileData && fileData.data) {
-                document.getElementById('viewerImage').src = fileData.data;
-                document.getElementById('imageViewer').classList.add('show');
-            }
-        }
-        
-        function closeImageViewer() {
-            document.getElementById('imageViewer').classList.remove('show');
-        }
-        
-        // Download Real File
-        function downloadRealFile(appId, docType) {
-            const fileData = uploadedFilesStore[`${appId}_${docType}`];
-            
-            if(fileData && fileData.data) {
-                // Create download link
-                const a = document.createElement('a');
-                a.href = fileData.data;
-                a.download = fileData.name || `${docType}_${appId}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            } else {
-                alert('File not found in storage');
-            }
-        }
-        
-        function closeModal() {
-            document.getElementById('detailModal').style.display = 'none';
-        }
-        
-        function updateStatus(appId) {
+        };
+
+        // Update Status
+        window.updateStatus = async function(appId) {
             const newStatus = document.getElementById('newStatus').value;
-            let applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
             
-            const idx = applications.findIndex(a => a.id === appId);
-            if(idx !== -1) {
-                applications[idx].status = newStatus;
-                localStorage.setItem('adminApplications', JSON.stringify(applications));
+            try {
+                showLoading(true);
                 
-                let customerApps = JSON.parse(localStorage.getItem('myApplications')) || [];
-                const cIdx = customerApps.findIndex(a => a.id === appId);
-                if(cIdx !== -1) {
-                    customerApps[cIdx].status = newStatus;
-                    localStorage.setItem('myApplications', JSON.stringify(customerApps));
+                // Update in allApplications
+                await update(ref(database, `allApplications/${appId}`), {
+                    status: newStatus,
+                    updatedAt: Date.now()
+                });
+                
+                // Update in user's applications
+                const app = allApplications[appId];
+                if(app && app.customerId) {
+                    await update(ref(database, `applications/${app.customerId}/${appId}`), {
+                        status: newStatus,
+                        updatedAt: Date.now()
+                    });
                 }
                 
-                alert('Status updated!');
+                showToast('Status updated successfully!', 'success');
                 closeModal();
-                loadDashboardData();
-                loadAllSections();
+                showLoading(false);
+            } catch (error) {
+                console.error('Error updating status:', error);
+                showToast('Failed to update status', 'error');
+                showLoading(false);
             }
-        }
-        
-        // Load Customers Section
-        function loadCustomers() {
-            const customers = JSON.parse(localStorage.getItem('customers')) || [];
-            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
-            
+        };
+
+        // View Image
+        window.viewImage = function(url) {
+            document.getElementById('viewerImage').src = url;
+            document.getElementById('imageViewer').classList.add('show');
+        };
+
+        window.closeImageViewer = function() {
+            document.getElementById('imageViewer').classList.remove('show');
+        };
+
+        window.closeModal = function() {
+            document.getElementById('detailModal').style.display = 'none';
+        };
+
+        // Update Customers List
+        function updateCustomersList() {
             const tbody = document.getElementById('customersTable');
+            const customers = Object.entries(allUsers).filter(([uid, user]) => user.role !== 'admin');
             
             if(customers.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="6" class="text-center">No customers found</td></tr>';
                 return;
             }
             
-            tbody.innerHTML = customers.map(c => {
-                const appCount = applications.filter(a => a.customer?.username === c.username).length;
+            tbody.innerHTML = customers.map(([uid, user]) => {
+                const appCount = Object.values(allApplications).filter(a => a.customerId === uid).length;
                 return `
                     <tr>
                         <td>
                             <div class="customer-cell">
-                                <div class="customer-avatar">${c.name.charAt(0)}</div>
+                                <div class="customer-avatar">${(user.name || 'U').charAt(0)}</div>
                                 <div>
-                                    <div style="font-weight: 600;">${c.name}</div>
-                                    <div style="font-size: 12px; color: #666;">${c.username}</div>
+                                    <div style="font-weight: 600;">${escapeHtml(user.name)}</div>
+                                    <div style="font-size: 12px; color: #666;">${uid}</div>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <div>${c.mobile}</div>
-                            <div style="font-size: 12px; color: #666;">${c.email}</div>
+                            <div>${escapeHtml(user.mobile)}</div>
+                            <div style="font-size: 12px; color: #666;">${escapeHtml(user.email)}</div>
                         </td>
-                        <td>${c.district || 'N/A'}, ${c.state || 'N/A'}</td>
-                        <td>${new Date(c.createdAt).toLocaleDateString()}</td>
+                        <td>${escapeHtml(user.district || 'N/A')}, ${escapeHtml(user.state || 'N/A')}</td>
+                        <td>${user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</td>
                         <td>${appCount}</td>
                         <td>
-                            <button class="action-btn view" onclick="viewCustomerApps('${c.username}')">
+                            <button class="action-btn view" onclick="viewCustomerApps('${uid}')">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </td>
@@ -1792,57 +1570,20 @@
                 `;
             }).join('');
         }
-        
-        // Load Services Section
-        function loadServices() {
-            const services = [
-                { name: 'GST Filing Online', price: '₹400', count: 12, icon: 'fa-file-invoice-dollar', color: '#ff9800' },
-                { name: 'Income Tax Filing Online', price: '₹250', count: 8, icon: 'fa-calculator', color: '#4caf50' },
-                { name: 'PAN Card Online', price: '₹107', count: 25, icon: 'fa-id-card', color: '#ff5722' },
-                { name: 'Aadhaar Update Online', price: '₹50', count: 18, icon: 'fa-fingerprint', color: '#2196f3' },
-                { name: 'Passport Online', price: '₹1500', count: 5, icon: 'fa-passport', color: '#607d8b' },
-                { name: 'Voter ID Online', price: 'Free', count: 10, icon: 'fa-vote-yea', color: '#9c27b0' }
-            ];
-            
-            document.getElementById('servicesGrid').innerHTML = services.map(s => `
-                <div class="service-card">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                        <div style="width: 50px; height: 50px; background: ${s.color}20; color: ${s.color}; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                            <i class="fas ${s.icon}"></i>
-                        </div>
-                        <div>
-                            <h4>${s.name}</h4>
-                            <span class="service-price">${s.price}</span>
-                        </div>
-                    </div>
-                    <p style="color: #666; font-size: 14px; margin-bottom: 15px;">${s.count} applications this month</p>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="btn-sm btn-primary" style="flex: 1;">Edit</button>
-                        <button class="btn-sm btn-danger">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        // Load Documents Section
-        function loadDocuments() {
-            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
+
+        // Load Documents
+        window.loadDocuments = function() {
             const gallery = document.getElementById('documentsGallery');
+            const allDocs = [];
             
-            let allDocs = [];
-            applications.forEach(app => {
+            Object.values(allApplications).forEach(app => {
                 if(app.documents) {
                     app.documents.forEach(doc => {
-                        const fileData = uploadedFilesStore[`${app.id}_${doc}`];
-                        if(fileData) {
-                            allDocs.push({
-                                appId: app.id,
-                                docType: doc,
-                                fileData: fileData,
-                                customer: app.customer?.name || 'Unknown',
-                                date: app.submittedAt
-                            });
-                        }
+                        allDocs.push({
+                            ...doc,
+                            appId: app.applicationId,
+                            customerName: app.personalInfo?.name
+                        });
                     });
                 }
             });
@@ -1853,9 +1594,9 @@
             }
             
             gallery.innerHTML = allDocs.map(doc => {
-                const isImage = doc.fileData.type.startsWith('image/');
+                const isImage = doc.type && doc.type.startsWith('image/');
                 const icon = isImage ? 'fa-image' : 'fa-file-pdf';
-                const preview = isImage ? `<img src="${doc.fileData.data}" alt="${doc.docType}">` : `<i class="fas ${icon}" style="font-size: 64px; color: #f44336;"></i>`;
+                const preview = isImage ? `<img src="${escapeHtml(doc.url)}" alt="${escapeHtml(doc.name)}" style="max-width: 100%; max-height: 100%;">` : `<i class="fas ${icon}" style="font-size: 64px; color: #f44336;"></i>`;
                 
                 return `
                     <div class="doc-item">
@@ -1863,97 +1604,61 @@
                             ${preview}
                         </div>
                         <div class="doc-info">
-                            <h4>${doc.docType.replace(/_/g, ' ').toUpperCase()}</h4>
-                            <p>By ${doc.customer}</p>
+                            <h4>${escapeHtml(doc.name)}</h4>
+                            <p>By ${escapeHtml(doc.customerName)}</p>
                             <div class="doc-actions">
-                                ${isImage ? `<button class="doc-btn view" onclick="viewImage('${doc.appId}', '${doc.docType}')">View</button>` : ''}
-                                <button class="doc-btn download" onclick="downloadRealFile('${doc.appId}', '${doc.docType}')">Download</button>
+                                ${isImage ? `<button class="doc-btn view" onclick="viewImage('${escapeHtml(doc.url)}')">View</button>` : ''}
+                                <a href="${escapeHtml(doc.url)}" target="_blank" class="doc-btn download" style="text-decoration: none; text-align: center;">Download</a>
                             </div>
                         </div>
                     </div>
                 `;
             }).join('');
-        }
-        
-        function filterDocs(type) {
-            // Filter implementation
-            document.querySelectorAll('#section-documents .filter-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            loadDocuments(); // Reload with filter
-        }
-        
-        // Load Payments Section
-        function loadPayments() {
-            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
-            
-            // Calculate totals (mock data for demo)
-            const total = applications.length * 200;
-            const pending = applications.filter(a => a.status === 'pending').length * 200;
-            
-            document.getElementById('totalRevenue').textContent = '₹' + total;
-            document.getElementById('pendingPayments').textContent = '₹' + pending;
-            document.getElementById('completedPayments').textContent = applications.filter(a => a.status === 'completed').length;
-            
-            // Recent payments list
-            document.getElementById('paymentsList').innerHTML = applications.slice(-5).reverse().map(app => `
-                <div class="payment-card ${app.status === 'pending' ? 'pending' : ''}">
-                    <div class="payment-header">
-                        <div>
-                            <h4>${app.serviceName}</h4>
-                            <p style="color: #666; font-size: 14px;">By ${app.customer?.name || 'Unknown'}</p>
-                        </div>
-                        <div class="payment-amount ${app.status === 'pending' ? 'pending' : ''}">₹200</div>
-                    </div>
-                    <p style="color: #999; font-size: 12px;">
-                        <i class="fas fa-calendar"></i> ${new Date(app.submittedAt).toLocaleDateString()}
-                        <span style="margin-left: 15px;"><i class="fas fa-circle" style="font-size: 8px; color: ${app.status === 'completed' ? '#4caf50' : '#ff9800'};"></i> ${app.status}</span>
-                    </p>
-                </div>
-            `).join('');
-        }
-        
-        // Other Functions
-        function filterApps(filter) {
+        };
+
+        // Filter Apps
+        window.filterApps = function(filter) {
+            currentFilter = filter;
             document.querySelectorAll('#section-applications .filter-tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
             
-            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
-            let filtered = applications;
-            
-            if(filter !== 'all') {
-                filtered = applications.filter(a => a.status === filter);
-            }
-            
-            renderAllApps(filtered);
-        }
-        
-        function searchData() {
+            const apps = Object.values(allApplications);
+            renderAllApps(apps);
+        };
+
+        // Search Data
+        window.searchData = function() {
             const term = document.getElementById('searchInput').value.toLowerCase();
-            const applications = JSON.parse(localStorage.getItem('adminApplications')) || [];
+            const apps = Object.values(allApplications);
             
-            const filtered = applications.filter(app => {
-                const c = app.customer || {};
-                return (app.id?.includes(term)) || 
+            const filtered = apps.filter(app => {
+                const p = app.personalInfo || {};
+                return (app.applicationId?.toLowerCase().includes(term)) || 
                        (app.serviceName?.toLowerCase().includes(term)) ||
-                       (c.name?.toLowerCase().includes(term)) ||
-                       (c.mobile?.includes(term));
+                       (p.name?.toLowerCase().includes(term)) ||
+                       (p.mobile?.includes(term));
             });
             
             renderRecentApps(filtered.slice(-5).reverse());
-        }
-        
-        function exportData() {
-            const apps = JSON.parse(localStorage.getItem('adminApplications')) || [];
+        };
+
+        // Export Data
+        window.exportData = function() {
+            const apps = Object.values(allApplications);
             const csv = convertToCSV(apps);
             downloadFile(csv, 'applications.csv', 'text/csv');
-        }
-        
-        function exportCustomers() {
-            const customers = JSON.parse(localStorage.getItem('customers')) || [];
+            showToast('Data exported successfully!', 'success');
+        };
+
+        window.exportCustomers = function() {
+            const customers = Object.entries(allUsers)
+                .filter(([uid, user]) => user.role !== 'admin')
+                .map(([uid, user]) => ({ uid, ...user }));
             const csv = convertToCSV(customers);
             downloadFile(csv, 'customers.csv', 'text/csv');
-        }
-        
+            showToast('Data exported successfully!', 'success');
+        };
+
         function convertToCSV(data) {
             if(data.length === 0) return '';
             const headers = Object.keys(data[0]).join(',');
@@ -1962,7 +1667,7 @@
             ).join(','));
             return headers + '\n' + rows.join('\n');
         }
-        
+
         function downloadFile(content, filename, type) {
             const blob = new Blob([content], { type });
             const url = URL.createObjectURL(blob);
@@ -1972,53 +1677,50 @@
             a.click();
             URL.revokeObjectURL(url);
         }
-        
-        function generateReport(type) {
-            alert(`Generating ${type} report...`);
-        }
-        
-        function addNewService() {
-            alert('Add new service feature coming soon!');
-        }
-        
-        function viewCustomerApps(username) {
-            const apps = JSON.parse(localStorage.getItem('adminApplications')) || [];
-            const customerApps = apps.filter(a => a.customer?.username === username);
-            alert(`Customer has ${customerApps.length} applications`);
-        }
-        
-        function saveSettings(e) {
+
+        // Other Functions
+        window.viewCustomerApps = function(uid) {
+            const count = Object.values(allApplications).filter(a => a.customerId === uid).length;
+            showToast(`Customer has ${count} applications`, 'info');
+        };
+
+        window.saveSettings = function(e) {
             e.preventDefault();
-            alert('Settings saved successfully!');
-        }
-        
-        function refreshData() {
-            loadDashboardData();
-            loadAllSections();
-            alert('Data refreshed!');
-        }
-        
-        function showNotifications() {
-            alert('5 new pending applications\n3 documents to verify');
-        }
-        
-        function showMessages() {
-            alert('No new messages');
-        }
-        
-        function logout() {
-            if(confirm('Logout?')) {
-                localStorage.removeItem('currentUser');
+            showToast('Settings saved successfully!', 'success');
+        };
+
+        window.refreshData = function() {
+            showToast('Data refreshed!', 'success');
+        };
+
+        window.showNotifications = function() {
+            const pending = Object.values(allApplications).filter(a => a.status === 'pending').length;
+            showToast(`${pending} pending applications`, 'info');
+        };
+
+        // Mobile Sidebar Toggle
+        window.toggleSidebar = function() {
+            document.getElementById('sidebar').classList.toggle('mobile-open');
+            document.querySelector('.sidebar-overlay').classList.toggle('show');
+        };
+
+        // Logout
+        window.logout = async function() {
+            try {
+                await signOut(auth);
                 window.location.href = '../login.html';
+            } catch (error) {
+                console.error('Error signing out:', error);
+                showToast('Failed to logout', 'error');
             }
-        }
-        
+        };
+
         // Close modals on outside click
         window.onclick = function(e) {
             if(e.target === document.getElementById('detailModal')) {
                 closeModal();
             }
-        }
+        };
     </script>
 </body>
 </html>
