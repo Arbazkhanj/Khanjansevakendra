@@ -22,9 +22,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             z-index: 9999;
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -821,6 +821,33 @@
             margin-bottom: 20px;
             color: #ddd;
         }
+        
+        /* Remarks Display */
+        .remarks-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+        
+        .remarks-box.rejected {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+        
+        .remarks-box label {
+            font-weight: 600;
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        
+        .remarks-box p {
+            color: #333;
+            margin-top: 5px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -836,7 +863,7 @@
     <!-- Header -->
     <header class="customer-header">
         <div class="logo-section" onclick="showSection('services')">
-            <img src="../shop.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/50'">
+            <img src="shop.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/50'">
             <div>
                 <h1 style="font-size: 20px;">Khan Jan Seva Kendra</h1>
                 <p style="font-size: 12px; color: #666;">Customer Portal</p>
@@ -855,7 +882,7 @@
                 <p style="font-weight: 600;" id="userName">Loading...</p>
                 <p style="font-size: 12px; color: #4caf50;"><i class="fas fa-circle" style="font-size: 8px;"></i> Online</p>
             </div>
-            <img src="../shop.jpg" alt="User" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #4caf50;" onerror="this.src='https://via.placeholder.com/40'">
+            <img src="shop.jpg" alt="User" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #4caf50;" onerror="this.src='https://via.placeholder.com/40'">
             
             <div class="dropdown-menu" id="userDropdown">
                 <a href="#" onclick="showSection('profile'); return false;"><i class="fas fa-user"></i> My Profile</a>
@@ -927,6 +954,7 @@
                         <div class="filter-tab" onclick="filterApplications('pending')">Pending</div>
                         <div class="filter-tab" onclick="filterApplications('progress')">In Progress</div>
                         <div class="filter-tab" onclick="filterApplications('completed')">Completed</div>
+                        <div class="filter-tab" onclick="filterApplications('rejected')">Rejected</div>
                     </div>
                 </div>
                 <div class="applications-grid" id="applicationsList"></div>
@@ -950,7 +978,7 @@
                     <p style="color: #666; margin-bottom: 30px;">Enter your Application ID to check the current status</p>
                     
                     <div class="track-input-group">
-                        <input type="text" class="track-input" id="trackAppId" placeholder="Enter Application ID (e.g., APP123456)">
+                        <input type="text" class="track-input" id="trackAppId" placeholder="Enter Application ID (e.g., -APP123456)">
                         <button class="track-btn" onclick="trackApplication()">
                             <i class="fas fa-search"></i> Track
                         </button>
@@ -964,6 +992,10 @@
                         <p><strong>Service:</strong> <span id="resultService"></span></p>
                         <p><strong>Applied Date:</strong> <span id="resultDate"></span></p>
                         <p><strong>Current Status:</strong> <span id="resultStatus" style="font-weight: 600;"></span></p>
+                        <div id="resultRemarks" class="remarks-box" style="display: none;">
+                            <label>Admin Remarks</label>
+                            <p id="remarksText"></p>
+                        </div>
                     </div>
                     
                     <div class="progress-bar" id="progressBar">
@@ -1051,7 +1083,7 @@
         <div id="section-profile" class="section">
             <div class="profile-container">
                 <div class="profile-header">
-                    <img src="../shop.jpg" alt="Profile" class="profile-avatar" id="profileAvatar" onerror="this.src='https://via.placeholder.com/120'">
+                    <img src="shop.jpg" alt="Profile" class="profile-avatar" id="profileAvatar" onerror="this.src='https://via.placeholder.com/120'">
                     <h2 id="profileNameDisplay">Customer Name</h2>
                     <p style="color: #666;" id="profileEmailDisplay">customer@email.com</p>
                 </div>
@@ -1341,7 +1373,7 @@
             setTimeout(() => {
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            }, 5000);
         };
 
         // Show/Hide Loading
@@ -1358,7 +1390,7 @@
                 setupRealtimeListeners();
                 showLoading(false);
             } else {
-                window.location.href = '../login.html';
+                window.location.href = 'login.html';
             }
         });
 
@@ -1538,12 +1570,20 @@
                         'rejected': 'Rejected'
                     }[app.status] || 'Pending';
                     
+                    let remarksHtml = '';
+                    if(app.remarks) {
+                        remarksHtml = `<div class="remarks-box ${app.status === 'rejected' ? 'rejected' : ''}" style="margin-top: 10px; font-size: 12px;">
+                            <strong>Remarks:</strong> ${escapeHtml(app.remarks)}
+                        </div>`;
+                    }
+                    
                     return `
                         <div class="application-card">
                             <div class="app-info">
                                 <h4>${escapeHtml(app.serviceName)}</h4>
                                 <p><i class="fas fa-hashtag"></i> Application ID: <strong>${app.firebaseKey}</strong></p>
                                 <p><i class="fas fa-calendar"></i> Applied: ${new Date(app.submittedAt).toLocaleDateString()}</p>
+                                ${remarksHtml}
                             </div>
                             <div style="text-align: center;">
                                 <span class="app-status ${statusClass}">${statusText}</span>
@@ -1592,6 +1632,9 @@
                 details += `ID: ${appKey}\n`;
                 details += `Service: ${app.serviceName}\n`;
                 details += `Status: ${app.status.toUpperCase()}\n`;
+                if(app.remarks) {
+                    details += `Remarks: ${app.remarks}\n`;
+                }
                 details += `Applied: ${new Date(app.submittedAt).toLocaleString()}\n\n`;
                 details += `Personal Info:\n`;
                 details += `Name: ${app.personalInfo.name}\n`;
@@ -1623,6 +1666,7 @@ Application ID: ${appKey}
 Service: ${app.serviceName}
 Date: ${new Date(app.submittedAt).toLocaleString()}
 Status: ${app.status.toUpperCase()}
+${app.remarks ? `Remarks: ${app.remarks}` : ''}
 
 Applicant Details:
 Name: ${app.personalInfo.name}
@@ -1662,21 +1706,14 @@ Thank you for using our services!
             try {
                 showLoading(true);
                 // Search in all applications
-                const appsRef = ref(database, 'applications');
+                const appsRef = ref(database, 'allApplications');
                 const snapshot = await get(appsRef);
                 
                 let foundApp = null;
-                let foundUserId = null;
                 
                 if (snapshot.exists()) {
-                    const users = snapshot.val();
-                    for (const [userId, userApps] of Object.entries(users)) {
-                        if (userApps[appId]) {
-                            foundApp = userApps[appId];
-                            foundUserId = userId;
-                            break;
-                        }
-                    }
+                    const apps = snapshot.val();
+                    foundApp = apps[appId];
                 }
                 
                 if(!foundApp) {
@@ -1701,6 +1738,16 @@ Thank you for using our services!
                 statusElement.textContent = foundApp.status.toUpperCase();
                 statusElement.style.color = statusColors[foundApp.status] || '#666';
                 
+                // Show remarks if exists
+                const remarksBox = document.getElementById('resultRemarks');
+                if(foundApp.remarks) {
+                    document.getElementById('remarksText').textContent = foundApp.remarks;
+                    remarksBox.className = 'remarks-box ' + (foundApp.status === 'rejected' ? 'rejected' : '');
+                    remarksBox.style.display = 'block';
+                } else {
+                    remarksBox.style.display = 'none';
+                }
+                
                 // Update progress bar
                 document.querySelectorAll('.progress-step').forEach(s => {
                     s.classList.remove('active', 'completed');
@@ -1717,13 +1764,15 @@ Thank you for using our services!
                     ['stepReview', 'stepProcess', 'stepComplete'].forEach(id => {
                         document.getElementById(id).classList.add('completed');
                     });
+                } else if(foundApp.status === 'rejected') {
+                    document.getElementById('stepReview').classList.add('completed');
                 }
                 
                 const messages = {
                     'pending': 'Your application has been received and is pending review.',
                     'progress': 'Your application is currently being processed.',
                     'completed': 'Your application has been completed successfully!',
-                    'rejected': 'Unfortunately, your application was rejected. Please contact support.'
+                    'rejected': 'Unfortunately, your application was rejected. Please check remarks or contact support.'
                 };
                 
                 document.getElementById('statusMessage').textContent = messages[foundApp.status] || 'Status unknown.';
@@ -1851,12 +1900,23 @@ Thank you for using our services!
             currentService = null;
         };
 
-        // Submit Application to Firebase
+        // Submit Application to Firebase - FIXED VERSION
         window.submitApplication = async function() {
             const terms = document.getElementById('appTerms');
             if(!terms.checked) {
                 showToast('Please accept the terms and conditions', 'error');
                 return;
+            }
+            
+            // Validate required fields
+            const requiredFields = ['appName', 'appFatherName', 'appDob', 'appGender', 'appMobile', 'appEmail', 'appAddress', 'appDistrict', 'appState', 'appPincode'];
+            for(let fieldId of requiredFields) {
+                const field = document.getElementById(fieldId);
+                if(!field.value.trim()) {
+                    showToast(`Please fill in all required fields`, 'error');
+                    field.focus();
+                    return;
+                }
             }
             
             if(currentService && currentService.docs) {
@@ -1869,22 +1929,29 @@ Thank you for using our services!
             
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>Uploading...</span>';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+            showLoading(true);
             
             try {
                 // Upload files to Firebase Storage
                 const uploadedDocUrls = [];
                 
                 for (const [docType, file] of Object.entries(uploadedFiles)) {
-                    const fileRef = storageRef(storage, `documents/${currentUser.uid}/${Date.now()}_${docType}_${file.name}`);
-                    await uploadBytes(fileRef, file);
-                    const downloadURL = await getDownloadURL(fileRef);
-                    uploadedDocUrls.push({
-                        type: docType,
-                        name: file.name,
-                        url: downloadURL,
-                        uploadedAt: Date.now()
-                    });
+                    try {
+                        const fileRef = storageRef(storage, `documents/${currentUser.uid}/${Date.now()}_${docType}_${file.name}`);
+                        const uploadResult = await uploadBytes(fileRef, file);
+                        const downloadURL = await getDownloadURL(uploadResult.ref);
+                        uploadedDocUrls.push({
+                            type: docType,
+                            name: file.name,
+                            url: downloadURL,
+                            uploadedAt: Date.now()
+                        });
+                    } catch (uploadError) {
+                        console.error('File upload error:', uploadError);
+                        showToast(`Failed to upload ${file.name}`, 'error');
+                        throw uploadError;
+                    }
                 }
                 
                 // Create application data
@@ -1904,27 +1971,30 @@ Thank you for using our services!
                         district: document.getElementById('appDistrict').value,
                         state: document.getElementById('appState').value,
                         pincode: document.getElementById('appPincode').value,
-                        aadhaar: document.getElementById('appAadhaar').value,
-                        pan: document.getElementById('appPan').value
+                        aadhaar: document.getElementById('appAadhaar').value || '',
+                        pan: document.getElementById('appPan').value || ''
                     },
                     documents: uploadedDocUrls,
-                    notes: document.getElementById('appNotes').value,
+                    notes: document.getElementById('appNotes').value || '',
                     status: 'pending',
+                    remarks: '',
                     submittedAt: Date.now(),
                     updatedAt: Date.now()
                 };
                 
-                // Save to Firebase Realtime Database
-                const newAppRef = push(ref(database, `applications/${currentUser.uid}`));
-                await set(newAppRef, applicationData);
+                // Generate application ID
+                const appId = 'APP' + Date.now();
                 
-                // Also add to global applications list for admin
-                await set(ref(database, `allApplications/${newAppRef.key}`), {
+                // Save to customer's applications
+                await set(ref(database, `applications/${currentUser.uid}/${appId}`), applicationData);
+                
+                // Save to allApplications for admin access
+                await set(ref(database, `allApplications/${appId}`), {
                     ...applicationData,
-                    applicationId: newAppRef.key
+                    applicationId: appId
                 });
                 
-                showToast(`Application submitted successfully! ID: ${newAppRef.key}`, 'success');
+                showToast(`Application submitted successfully! ID: ${appId}`, 'success');
                 
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<span>Submit Application</span>';
@@ -1934,12 +2004,15 @@ Thank you for using our services!
                 
                 // Switch to applications section
                 showSection('applications');
+                
             } catch (error) {
                 console.error('Error submitting application:', error);
                 showToast('Failed to submit application: ' + error.message, 'error');
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<span>Submit Application</span>';
             }
+            
+            showLoading(false);
         };
 
         // User Menu Functions
@@ -1951,7 +2024,7 @@ Thank you for using our services!
         window.logout = async function() {
             try {
                 await signOut(auth);
-                window.location.href = '../login.html';
+                window.location.href = 'login.html';
             } catch (error) {
                 console.error('Error signing out:', error);
                 showToast('Failed to logout', 'error');
