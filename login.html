@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="hi">
 <head>
   <meta charset="utf-8"/>
@@ -8,6 +8,30 @@
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
     body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;color:#123;}
+    
+    /* Loading Overlay */
+    .loading-overlay{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(255,255,255,0.95);z-index:9999;
+      display:none;flex-direction:column;justify-content:center;align-items:center;
+    }
+    .spinner{
+      width:50px;height:50px;border:5px solid #f3f3f3;
+      border-top:5px solid #667eea;border-radius:50%;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+    
+    /* Toast Notifications */
+    .toast{
+      position:fixed;top:20px;right:20px;padding:15px 25px;
+      border-radius:8px;color:white;font-weight:600;z-index:10000;
+      transform:translateX(400px);transition:transform 0.3s;max-width:350px;
+    }
+    .toast.show{transform:translateX(0);}
+    .toast.success{background:#4caf50;}
+    .toast.error{background:#f44336;}
+    .toast.info{background:#2196f3;}
     
     /* Header */
     header{
@@ -90,8 +114,10 @@
       width:100%;padding:14px;background:linear-gradient(90deg,#2196f3,#21cbf3);
       color:white;border:none;border-radius:8px;font-size:16px;font-weight:700;
       cursor:pointer;transition:0.3s;text-transform:uppercase;letter-spacing:1px;
+      display:flex;align-items:center;justify-content:center;gap:10px;
     }
     .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(33,150,243,0.3);}
+    .btn:disabled{background:#ccc;cursor:not-allowed;transform:none;}
     
     /* Links */
     .links{
@@ -134,10 +160,19 @@
   </style>
 </head>
 <body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <p style="margin-top:20px;color:#667eea;font-weight:600;">Please wait...</p>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer"></div>
+
   <!-- Header -->
   <header>
     <div class="header-left">
-      <img src="shop.jpg" alt="Shop Logo">
+      <img src="shop.jpg" alt="Shop Logo" onerror="this.src='https://via.placeholder.com/44'">
       <span class="site-title">Khan Jan Seva Kendra</span>
     </div>
     <nav>
@@ -173,8 +208,8 @@
       <div id="customerLogin" class="form-section active">
         <form onsubmit="return loginCustomer(event)">
           <div class="input-group">
-            <i class="fas fa-user"></i>
-            <input type="text" id="custUsername" placeholder="Username" required>
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="custEmail" placeholder="Email Address" required>
           </div>
           <div class="input-group">
             <i class="fas fa-lock"></i>
@@ -183,11 +218,11 @@
           </div>
           <div class="links">
             <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
-              <input type="checkbox" style="width:auto;"> Remember me
+              <input type="checkbox" id="rememberMe" style="width:auto;"> Remember me
             </label>
             <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
           </div>
-          <button type="submit" class="btn">
+          <button type="submit" class="btn" id="custLoginBtn">
             <i class="fas fa-sign-in-alt"></i> Login
           </button>
         </form>
@@ -205,15 +240,15 @@
         </div>
         <form onsubmit="return loginAdmin(event)">
           <div class="input-group">
-            <i class="fas fa-id-card"></i>
-            <input type="text" id="adminId" placeholder="Admin ID" required>
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="adminEmail" placeholder="Admin Email" required>
           </div>
           <div class="input-group">
             <i class="fas fa-key"></i>
-            <input type="password" id="adminPass" placeholder="Password" required>
-            <i class="fas fa-eye toggle-password" onclick="togglePassword('adminPass')"></i>
+            <input type="password" id="adminPassword" placeholder="Password" required>
+            <i class="fas fa-eye toggle-password" onclick="togglePassword('adminPassword')"></i>
           </div>
-          <button type="submit" class="btn" style="background:linear-gradient(90deg,#ff5722,#ff8a65);">
+          <button type="submit" class="btn" id="adminLoginBtn" style="background:linear-gradient(90deg,#ff5722,#ff8a65);">
             <i class="fas fa-shield-alt"></i> Admin Login
           </button>
         </form>
@@ -246,10 +281,6 @@
           <input type="email" id="regEmail" placeholder="Email Address" required>
         </div>
         <div class="input-group">
-          <i class="fas fa-user-circle"></i>
-          <input type="text" id="regUsername" placeholder="Choose Username" required>
-        </div>
-        <div class="input-group">
           <i class="fas fa-lock"></i>
           <input type="password" id="regPassword" placeholder="Create Password" minlength="6" required>
         </div>
@@ -257,7 +288,7 @@
           <i class="fas fa-check-circle"></i>
           <input type="password" id="regConfirmPass" placeholder="Confirm Password" required>
         </div>
-        <button type="submit" class="btn">
+        <button type="submit" class="btn" id="regBtn">
           <i class="fas fa-user-check"></i> Register Now
         </button>
       </form>
@@ -273,20 +304,77 @@
     <p style="margin-top:5px;font-size:12px;opacity:0.8;">Secure Login System | Admin & Customer Portal</p>
   </div>
 
-  <script>
-    // Admin Credentials (Hardcoded for demo)
-    const ADMIN_CREDENTIALS = {
-      username: 'arbaz9648',
-      password: 'Arbaz@7860'
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Firebase Configuration
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { 
+      getAuth, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged,
+      updateProfile,
+      sendPasswordResetEmail
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { 
+      getDatabase, 
+      ref, 
+      set, 
+      get, 
+      child,
+      update 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyACbkpT74plbA6REQnbF1775ZbwbnhJemk",
+      authDomain: "khan-jan-seva-kendra-ac2f2.firebaseapp.com",
+      databaseURL: "https://khan-jan-seva-kendra-ac2f2-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "khan-jan-seva-kendra-ac2f2",
+      storageBucket: "khan-jan-seva-kendra-ac2f2.firebasestorage.app",
+      messagingSenderId: "894379656916",
+      appId: "1:894379656916:web:a45feb916031b5a3afdd41",
+      measurementId: "G-6EKFZXQFCS"
     };
-    
-    // Initialize Local Storage
-    if(!localStorage.getItem('customers')) {
-      localStorage.setItem('customers', JSON.stringify([]));
-    }
-    
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+
+    // Global Variables
+    let currentMode = 'customer';
+
+    // Toast Notification
+    window.showToast = function(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.add('show'), 10);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
+    };
+
+    // Show/Hide Loading
+    window.showLoading = function(show) {
+      document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
+    };
+
+    // Show Message
+    window.showMessage = function(text, type) {
+      const box = document.getElementById('messageBox');
+      box.textContent = text;
+      box.className = 'message ' + type;
+      box.style.display = 'block';
+      setTimeout(() => box.style.display = 'none', 5000);
+    };
+
     // Switch Login Type
-    function switchLogin(type) {
+    window.switchLogin = function(type) {
+      currentMode = type;
       document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.form-section').forEach(form => form.classList.remove('active'));
       
@@ -297,151 +385,249 @@
         document.querySelectorAll('.toggle-btn')[0].classList.add('active');
         document.getElementById('customerLogin').classList.add('active');
       }
-      hideMessage();
-    }
-    
-    // Show/Hide Password
-    function togglePassword(fieldId) {
+    };
+
+    // Toggle Password
+    window.togglePassword = function(fieldId) {
       const field = document.getElementById(fieldId);
       field.type = field.type === 'password' ? 'text' : 'password';
-    }
-    
-    // Show Message
-    function showMessage(text, type) {
-      const box = document.getElementById('messageBox');
-      box.textContent = text;
-      box.className = 'message ' + type;
-      box.style.display = 'block';
-      setTimeout(hideMessage, 5000);
-    }
-    
-    function hideMessage() {
-      document.getElementById('messageBox').style.display = 'none';
-    }
-    
-    // Admin Login
-    function loginAdmin(e) {
-      e.preventDefault();
-      const id = document.getElementById('adminId').value;
-      const pass = document.getElementById('adminPass').value;
-      
-      if(id === ADMIN_CREDENTIALS.username && pass === ADMIN_CREDENTIALS.password) {
-        showMessage('✓ Admin login successful! Redirecting...', 'success');
-        localStorage.setItem('currentUser', JSON.stringify({type: 'admin', name: 'Admin'}));
-        setTimeout(() => {
-          window.location.href = 'admin/dashboard.html'; // Admin Panel
-        }, 1500);
-      } else {
-        showMessage('✗ Invalid Admin ID or Password!', 'error');
-      }
-      return false;
-    }
-    
+    };
+
     // Customer Login
-    function loginCustomer(e) {
+    window.loginCustomer = async function(e) {
       e.preventDefault();
-      const username = document.getElementById('custUsername').value;
+      const email = document.getElementById('custEmail').value;
       const password = document.getElementById('custPassword').value;
+      const btn = document.getElementById('custLoginBtn');
       
-      const customers = JSON.parse(localStorage.getItem('customers'));
-      const customer = customers.find(c => c.username === username && c.password === password);
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+      showLoading(true);
       
-      if(customer) {
-        showMessage('✓ Welcome back, ' + customer.name + '!', 'success');
-        localStorage.setItem('currentUser', JSON.stringify({type: 'customer', ...customer}));
-        setTimeout(() => {
-          window.location.href = 'customer/dashboard.html'; // Customer Panel
-        }, 1500);
-      } else {
-        showMessage('✗ Invalid username or password!', 'error');
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // Get user data from database
+        const userRef = ref(database, `users/${user.uid}`);
+        const snapshot = await get(userRef);
+        
+        if(snapshot.exists()) {
+          const userData = snapshot.val();
+          
+          // Check if customer
+          if(userData.role !== 'customer') {
+            showToast('This account is not registered as customer!', 'error');
+            await signOut(auth);
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            showLoading(false);
+            return false;
+          }
+          
+          showToast(`Welcome back, ${userData.name}!`, 'success');
+          
+          // Redirect to customer dashboard
+          setTimeout(() => {
+            window.location.href = 'customer/dashboard.html';
+          }, 1500);
+        } else {
+          showToast('User data not found!', 'error');
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        let errorMsg = 'Login failed!';
+        if(error.code === 'auth/user-not-found') errorMsg = 'Email not registered!';
+        else if(error.code === 'auth/wrong-password') errorMsg = 'Wrong password!';
+        else if(error.code === 'auth/invalid-email') errorMsg = 'Invalid email!';
+        else errorMsg = error.message;
+        
+        showToast(errorMsg, 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
       }
+      
+      showLoading(false);
       return false;
-    }
-    
+    };
+
+    // Admin Login
+    window.loginAdmin = async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('adminEmail').value;
+      const password = document.getElementById('adminPassword').value;
+      const btn = document.getElementById('adminLoginBtn');
+      
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+      showLoading(true);
+      
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // Get user data from database
+        const userRef = ref(database, `users/${user.uid}`);
+        const snapshot = await get(userRef);
+        
+        if(snapshot.exists()) {
+          const userData = snapshot.val();
+          
+          // Check if admin
+          if(userData.role !== 'admin') {
+            showToast('Access denied! Not an admin account.', 'error');
+            await signOut(auth);
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-shield-alt"></i> Admin Login';
+            showLoading(false);
+            return false;
+          }
+          
+          showToast('Admin login successful!', 'success');
+          
+          // Redirect to admin dashboard
+          setTimeout(() => {
+            window.location.href = 'admin/dashboard.html';
+          }, 1500);
+        } else {
+          showToast('Admin data not found!', 'error');
+        }
+      } catch (error) {
+        console.error('Admin login error:', error);
+        let errorMsg = 'Login failed!';
+        if(error.code === 'auth/user-not-found') errorMsg = 'Admin email not found!';
+        else if(error.code === 'auth/wrong-password') errorMsg = 'Wrong password!';
+        else errorMsg = error.message;
+        
+        showToast(errorMsg, 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-shield-alt"></i> Admin Login';
+      }
+      
+      showLoading(false);
+      return false;
+    };
+
     // Show Signup Modal
-    function showSignup() {
+    window.showSignup = function() {
       document.getElementById('signupModal').style.display = 'block';
       document.body.style.overflow = 'hidden';
-    }
-    
-    function closeSignup() {
+    };
+
+    window.closeSignup = function() {
       document.getElementById('signupModal').style.display = 'none';
       document.body.style.overflow = 'auto';
-    }
-    
+    };
+
     // Register Customer
-    function registerCustomer(e) {
+    window.registerCustomer = async function(e) {
       e.preventDefault();
       
       const name = document.getElementById('regName').value;
       const mobile = document.getElementById('regMobile').value;
       const email = document.getElementById('regEmail').value;
-      const username = document.getElementById('regUsername').value;
       const password = document.getElementById('regPassword').value;
       const confirmPass = document.getElementById('regConfirmPass').value;
+      const btn = document.getElementById('regBtn');
       
       // Validation
       if(password !== confirmPass) {
-        alert('Passwords do not match!');
+        showToast('Passwords do not match!', 'error');
         return false;
       }
       
-      const customers = JSON.parse(localStorage.getItem('customers'));
-      
-      // Check if username exists
-      if(customers.find(c => c.username === username)) {
-        alert('Username already exists! Choose another.');
+      if(password.length < 6) {
+        showToast('Password must be at least 6 characters!', 'error');
         return false;
       }
       
-      // Check if mobile exists
-      if(customers.find(c => c.mobile === mobile)) {
-        alert('Mobile number already registered!');
-        return false;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+      showLoading(true);
+      
+      try {
+        // Create user in Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // Update profile
+        await updateProfile(user, { displayName: name });
+        
+        // Save user data in Realtime Database
+        await set(ref(database, `users/${user.uid}`), {
+          name: name,
+          email: email,
+          mobile: mobile,
+          role: 'customer',
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        });
+        
+        showToast('Registration successful! Please login.', 'success');
+        closeSignup();
+        
+        // Auto-fill login
+        document.getElementById('custEmail').value = email;
+        document.getElementById('custPassword').value = '';
+        
+        // Switch to customer login
+        switchLogin('customer');
+        
+      } catch (error) {
+        console.error('Registration error:', error);
+        let errorMsg = 'Registration failed!';
+        if(error.code === 'auth/email-already-in-use') errorMsg = 'Email already registered!';
+        else if(error.code === 'auth/invalid-email') errorMsg = 'Invalid email!';
+        else if(error.code === 'auth/weak-password') errorMsg = 'Password too weak!';
+        else errorMsg = error.message;
+        
+        showToast(errorMsg, 'error');
       }
       
-      // Add new customer
-      customers.push({
-        name, mobile, email, username, password,
-        createdAt: new Date().toISOString()
-      });
-      
-      localStorage.setItem('customers', JSON.stringify(customers));
-      
-      alert('✓ Registration successful! Please login.');
-      closeSignup();
-      
-      // Auto-fill login
-      document.getElementById('custUsername').value = username;
-      document.getElementById('custPassword').value = '';
-      
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-user-check"></i> Register Now';
+      showLoading(false);
       return false;
-    }
-    
+    };
+
     // Forgot Password
-    function showForgotPassword() {
-      const mobile = prompt('Enter your registered mobile number:');
-      if(mobile) {
-        const customers = JSON.parse(localStorage.getItem('customers'));
-        const customer = customers.find(c => c.mobile === mobile);
-        if(customer) {
-          alert('Your username is: ' + customer.username + '\nPlease contact admin to reset password.');
-        } else {
-          alert('Mobile number not found!');
+    window.showForgotPassword = async function() {
+      const email = prompt('Enter your registered email address:');
+      if(email) {
+        try {
+          await sendPasswordResetEmail(auth, email);
+          showToast('Password reset email sent! Check your inbox.', 'success');
+        } catch (error) {
+          showToast('Failed to send reset email: ' + error.message, 'error');
         }
       }
-    }
-    
+    };
+
     // Check if already logged in
-    window.onload = function() {
-      const currentUser = localStorage.getItem('currentUser');
-      if(currentUser) {
-        const user = JSON.parse(currentUser);
-        if(user.type === 'admin') {
-          window.location.href = 'admin/dashboard.html';
-        } else {
-          window.location.href = 'customer/dashboard.html';
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // Get user role
+        const userRef = ref(database, `users/${user.uid}`);
+        const snapshot = await get(userRef);
+        
+        if(snapshot.exists()) {
+          const userData = snapshot.val();
+          
+          // Auto redirect based on role
+          if(userData.role === 'admin') {
+            window.location.href = 'admin/dashboard.html';
+          } else {
+            window.location.href = 'customer/dashboard.html';
+          }
         }
+      }
+    });
+
+    // Close modal on outside click
+    window.onclick = function(event) {
+      const modal = document.getElementById('signupModal');
+      if(event.target === modal) {
+        closeSignup();
       }
     };
   </script>
