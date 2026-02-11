@@ -1062,6 +1062,7 @@
       }
     }
   </style>
+
 <base target="_blank">
 </head>
 <body>
@@ -1581,6 +1582,19 @@
         nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
       }
     }
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const nav = document.querySelector('.main-nav');
+      nav.classList.toggle('active');
+    }
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelector('.main-nav').classList.remove('active');
+      });
+    });
 
     // Initialize
     document.addEventListener('DOMContentLoaded', () => renderServices('all'));
