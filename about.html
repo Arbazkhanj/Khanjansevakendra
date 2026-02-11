@@ -3,77 +3,1546 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>About - Khan Jan Seva Kendra</title>
+  <title>About Us - Khan Jan Seva Kendra | 2018 से आपकी सेवा में</title>
+  <meta name="description" content="Khan Jan Seva Kendra - बस्ती का सबसे विश्वसनीय जन सेवा केंद्र। 2018 से लगातार सेवारत। सरकारी योजनाएं, आधार, पैन कार्ड, बैंकिंग सेवाएं।">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7fbff;color:#123;}
-    header{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:12px 28px;
-      background:linear-gradient(90deg,#2196f3,#ff5722);
-      color:white;position:sticky;top:0;z-index:1000;
-      font-weight:700;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .header-left{display:flex;align-items:center;gap:12px;}
-    .header-left img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid white;}
-    .site-title{font-size:20px;font-weight:700;}
-    nav{display:flex;align-items:center;gap:16px;}
-    nav a{color:white;text-decoration:none;font-weight:700;transition:.3s;}
-    nav a:hover{color:#ffe082;transform:translateY(-2px);}
-    .login-btn{background:white;color:#2196f3;padding:6px 14px;border-radius:6px;text-decoration:none;font-weight:700;}
-    .container{max-width:900px;margin:auto;padding:40px 20px;}
-    h1{color:#0073e6;text-align:center;margin-bottom:20px;}
-    p{line-height:1.6;font-size:16px;}
-    .footer{background:#0073e6;color:white;text-align:center;padding:15px;margin-top:40px;}
+
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #f97316;
+      --accent: #10b981;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --shadow: 0 10px 40px rgba(0,0,0,0.1);
+      --shadow-hover: 0 20px 60px rgba(0,0,0,0.15);
+    }
+
+    body {
+      font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.4;
+    }
+
+    .bg-animation span {
+      position: absolute;
+      display: block;
+      width: 20px;
+      height: 20px;
+      background: rgba(37, 99, 235, 0.1);
+      animation: move 25s linear infinite;
+      bottom: -150px;
+      border-radius: 50%;
+    }
+
+    .bg-animation span:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+    .bg-animation span:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+    .bg-animation span:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+    .bg-animation span:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+    .bg-animation span:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+    .bg-animation span:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+    .bg-animation span:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+    .bg-animation span:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+    .bg-animation span:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+    .bg-animation span:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+
+    @keyframes move {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+      100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+    }
+
+    /* EXACT Header from index.html - Sticky White Header */
+    .main-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: white;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      padding: 15px 40px;
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Logo Section with Animated Border */
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-wrapper {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #667eea;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70px;
+      height: 70px;
+      border: 3px dashed #ff6b6b;
+      border-radius: 50%;
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .logo-text h1 {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .logo-text p {
+      font-size: 16px;
+      color: #666;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* Navigation - Exact from Screenshot */
+    .main-nav {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 20px;
+      border-radius: 30px;
+      transition: all 0.3s;
+    }
+
+    .nav-item:hover {
+      color: #667eea;
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white !important;
+    }
+
+    .nav-item i {
+      font-size: 16px;
+    }
+
+    /* Mobile Menu Button */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #667eea;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient);
+      padding: 100px 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .hero h2 {
+      font-size: 52px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero p {
+      font-size: 22px;
+      opacity: 0.95;
+      animation: fadeInUp 1s ease 0.2s both;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1400px;
+      margin: -60px auto 50px;
+      padding: 0 30px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Story Section */
+    .story-section {
+      background: white;
+      padding: 60px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-section::before {
+      content: 'Est. 2018';
+      position: absolute;
+      top: 30px;
+      right: -60px;
+      background: var(--secondary);
+      color: white;
+      padding: 10px 80px;
+      transform: rotate(45deg);
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+      font-size: 36px;
+      color: var(--dark);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .section-header p {
+      color: var(--gray);
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .story-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .story-text h3 {
+      font-size: 28px;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .story-text p {
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-left: 5px solid var(--secondary);
+      padding: 25px;
+      border-radius: 15px;
+      margin: 25px 0;
+    }
+
+    .highlight-box h4 {
+      color: #92400e;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .highlight-box p {
+      color: #78350f;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: var(--gradient);
+      color: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-card i {
+      font-size: 40px;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    .stat-number {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* Timeline Section */
+    .timeline-section {
+      background: white;
+      padding: 60px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 50px;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 50px auto 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: var(--gradient);
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 50%;
+      position: relative;
+      margin-bottom: 50px;
+    }
+
+    .timeline-item:nth-child(even) {
+      justify-content: flex-start;
+      padding-right: 0;
+      padding-left: 50%;
+    }
+
+    .timeline-content {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      max-width: 350px;
+      position: relative;
+      border: 2px solid #f1f5f9;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      transform: scale(1.05);
+      border-color: var(--primary);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::after {
+      content: '';
+      position: absolute;
+      right: -20px;
+      top: 30px;
+      border: 10px solid transparent;
+      border-left-color: white;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::after {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 30px;
+      border: 10px solid transparent;
+      border-right-color: white;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 30px;
+      background: var(--gradient);
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.2);
+      z-index: 1;
+    }
+
+    .timeline-year {
+      display: inline-block;
+      background: var(--gradient);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .timeline-content h3 {
+      color: var(--dark);
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .timeline-content p {
+      color: var(--gray);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Vision Mission Section */
+    .vision-mission-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .vm-card {
+      background: white;
+      padding: 50px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .vm-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+    }
+
+    .vm-card.vision::before {
+      background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+
+    .vm-card.mission::before {
+      background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .vm-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .vm-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin-bottom: 25px;
+      color: white;
+    }
+
+    .vm-card.vision .vm-icon {
+      background: var(--gradient);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .vm-card.mission .vm-icon {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+    }
+
+    .vm-card h3 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .vm-card p {
+      color: var(--gray);
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .vm-card ul {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .vm-card ul li {
+      padding: 10px 0;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .vm-card ul li i {
+      color: var(--accent);
+    }
+
+    /* Services Preview */
+    .services-preview {
+      background: white;
+      padding: 60px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .service-item {
+      padding: 30px 20px;
+      background: #f8fafc;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .service-item:hover {
+      background: white;
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .service-item i {
+      font-size: 40px;
+      color: var(--primary);
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .service-item h4 {
+      color: var(--dark);
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .service-item p {
+      color: var(--gray);
+      font-size: 13px;
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+      background: var(--gradient);
+      padding: 60px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 50px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonials-section::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 30px;
+      font-size: 200px;
+      opacity: 0.1;
+      font-family: serif;
+      line-height: 1;
+    }
+
+    .testimonials-section .section-header h2,
+    .testimonials-section .section-header p {
+      color: white;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .testimonial-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .author-info h4 {
+      font-size: 16px;
+      margin-bottom: 3px;
+    }
+
+    .author-info span {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    .stars {
+      color: #fbbf24;
+      margin-bottom: 15px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: white;
+      padding: 60px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-size: 36px;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      color: var(--gray);
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      padding: 16px 40px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cta-btn.primary {
+      background: var(--gradient);
+      color: white;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .cta-btn.primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+    }
+
+    .cta-btn.secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .cta-btn.secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Dark Footer - Same as index.html */
+    .main-footer {
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 60px 20px 0;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      padding-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      color: #ffffff;
+      margin-bottom: 25px;
+      font-size: 1.2em;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: #f97316;
+      border-radius: 2px;
+    }
+
+    .footer-section p {
+      margin-bottom: 12px;
+      line-height: 1.6;
+      font-size: 0.95em;
+    }
+
+    .footer-section a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-section a:hover {
+      color: #f97316;
+      padding-left: 5px;
+    }
+
+    .footer-section a i {
+      font-size: 0.8em;
+      color: #f97316;
+    }
+
+    .footer-section p i {
+      margin-right: 10px;
+      color: #f97316;
+      width: 16px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: #334155;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: #f97316;
+      transform: translateY(-3px);
+      padding-left: 0;
+    }
+
+    .social-links a i {
+      color: #ffffff;
+      font-size: 1em;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #334155;
+      margin-top: 20px;
+    }
+
+    .footer-bottom p {
+      color: #64748b;
+      font-size: 0.9em;
+      margin: 0;
+    }
+
+    .footer-bottom .heart {
+      color: #ef4444;
+      display: inline-block;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* Quick Action Buttons */
+    .quick-actions {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 999;
+    }
+
+    .quick-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .quick-btn.whatsapp {
+      background: #25d366;
+    }
+
+    .quick-btn.call {
+      background: var(--primary);
+    }
+
+    .quick-btn:hover {
+      transform: scale(1.1) rotate(10deg);
+    }
+
+    .quick-btn::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      right: 70px;
+      background: var(--dark);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+    }
+
+    .quick-btn:hover::after {
+      opacity: 1;
+      right: 75px;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .story-content,
+      .vision-mission-section {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline::before {
+        left: 30px;
+      }
+
+      .timeline-item,
+      .timeline-item:nth-child(even) {
+        justify-content: flex-start;
+        padding-left: 80px;
+        padding-right: 0;
+      }
+
+      .timeline-dot {
+        left: 30px;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content::after,
+      .timeline-item:nth-child(even) .timeline-content::after {
+        left: -20px;
+        right: auto;
+        border-left-color: transparent;
+        border-right-color: white;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-header { padding: 15px 20px; }
+      .main-nav { display: none; }
+      .logo-text h1 { font-size: 24px; }
+      .mobile-menu-btn { display: block; }
+
+      .hero h2 {
+        font-size: 36px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .container {
+        padding: 0 20px;
+        margin-top: -30px;
+      }
+
+      .story-section,
+      .timeline-section,
+      .services-preview,
+      .testimonials-section,
+      .cta-section {
+        padding: 30px;
+      }
+
+      .section-header h2 {
+        font-size: 28px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-actions {
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .quick-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+    }
+
+    /* Counter Animation */
+    .counter {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .counter.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="header-left">
-      <img src="shop.jpg" alt="Shop Logo">
-      <span class="site-title">Khan Jan Seva Kendra</span>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- EXACT Header from index.html - Sticky White Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <!-- Logo Section -->
+      <div class="logo-section">
+        <div class="logo-wrapper">
+          <div class="logo-border"></div>
+          <img src="shop.jpg" alt="Khan Jan Seva Kendra" class="logo-img">
+        </div>
+        <div class="logo-text">
+          <h1>Khan Jan Seva Kendra</h1>
+          <p>खान जन सेवा केंद्र</p>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="main-nav">
+        <a href="index.html" class="nav-item">
+          <i class="fas fa-home"></i> Home
+        </a>
+        <a href="services.html" class="nav-item">
+          <i class="fas fa-cogs"></i> Services
+        </a>
+        <a href="about.html" class="nav-item active">
+          <i class="fas fa-info-circle"></i> About
+        </a>
+        <a href="contact.html" class="nav-item">
+          <i class="fas fa-envelope"></i> Contact
+        </a>
+        <a href="Latest job.html" class="nav-item">
+          <i class="fas fa-briefcase"></i> Latest Job
+        </a>
+        <a href="login.html" class="nav-item">
+          <i class="fas fa-user"></i> Login
+        </a>
+      </nav>
+      
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="services.html">Services</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="Latest job.html">Latest Job</a>
-      <a href="login.html" class="login-btn">Login</a>
-    </nav>
   </header>
 
+  <!-- Mobile Menu Toggle Script -->
+  <script>
+    function toggleMobileMenu() {
+      const nav = document.querySelector('.main-nav');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      if(nav.style.display === 'flex') {
+        nav.style.position = 'absolute';
+        nav.style.top = '100px';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'white';
+        nav.style.flexDirection = 'column';
+        nav.style.padding = '20px';
+        nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+        nav.style.zIndex = '999';
+      }
+    }
+  </script>
 
-  <!-- About Content -->
-  <div class="container">
-    <h2>हमारे बारे में (About Us)</h2>
-    <p><b>Khan Jan Seva Kendra</b> बस्ती जिले का विश्वसनीय केंद्र है जहाँ पर आपको सभी सरकारी और डिजिटल सेवाएँ एक ही छत के नीचे मिलती हैं।  
-    हम बैंकिंग, बिल भुगतान, बीमा, पैन कार्ड, आधार कार्ड, पासपोर्ट, यात्रा बुकिंग और 100+ से अधिक सेवाएँ उपलब्ध कराते हैं।</p>
-
-    <p>Our mission is to serve the community with reliable, affordable and fast digital services.  
-    We believe in bridging the gap between citizens and government facilities, ensuring that every person can easily avail essential services.</p>
-
-    <!-- Vision & Mission -->
-    <div class="vision-mission">
-      <div class="box vision">
-        <h3>हमारा उद्देश्य (Vision)</h3>
-        <p>हमारा उद्देश्य है कि हर व्यक्ति को सुविधाजनक तरीके से सभी आवश्यक सेवाएँ आसानी से मिलें।  
-        We aim to create a network of trusted service centers known for transparency, efficiency and customer satisfaction.</p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-award"></i> बस्ती का सबसे भरोसेमंद जन सेवा केंद्र
       </div>
-      <div class="box mission">
+      <h2>हमारी कहानी</h2>
+      <p>2018 से लगातार आपकी सेवा में - विश्वास, ईमानदारी और तेज़ सेवा का प्रतीक</p>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Story Section -->
+    <div class="story-section">
+      <div class="section-header">
+        <h2><i class="fas fa-book-open"></i> हमारी यात्रा</h2>
+        <p>एक छोटी सी दुकान से बस्ती के सबसे बड़े जन सेवा केंद्र तक का सफर</p>
+      </div>
+      
+      <div class="story-content">
+        <div class="story-text">
+          <h3><i class="fas fa-store"></i> 2018 - शुरुआत की कहानी</h3>
+          <p>
+            <strong>Khan Jan Seva Kendra</strong> की स्थापना <strong>वर्ष 2018</strong> में बस्ती जिले के District Hospital Gate No. 3 पर हुई। 
+            शुरुआत में यह एक छोटी सी दुकान थी जहाँ सिर्फ आधार कार्ड और कुछ बुनियादी सेवाएं उपलब्ध थीं। 
+            लेकिन हमारे संस्थापक की मेहनत और लोगों का विश्वास धीरे-धीरे इसे बस्ती का सबसे लोकप्रिय जन सेवा केंद्र बना दिया।
+          </p>
+          
+          <p>
+            आज, 7 साल बाद, हम गर्व से कह सकते हैं कि हमने <strong>50,000+ ग्राहकों</strong> की सेवा की है और 
+            रोजाना <strong>100+ लोगों</strong> को उनकी जरूरत की सेवाएं प्रदान करते हैं। 
+            हमारा मकसद सिर्फ व्यापार नहीं, बल्कि हर व्यक्ति को सरकारी योजनाओं और डिजिटल सेवाओं से जोड़ना है।
+          </p>
+
+          <div class="highlight-box">
+            <h4><i class="fas fa-star"></i> हमारी खासियत</h4>
+            <p>"2018 से एक ही स्थान, एक ही विश्वास, बेहतर सेवा" - हम कभी भी अपने ग्राहकों को निराश नहीं करते।</p>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card counter" data-target="7">
+            <i class="fas fa-calendar-alt"></i>
+            <div class="stat-number">7+</div>
+            <div class="stat-label">साल का अनुभव</div>
+          </div>
+          <div class="stat-card counter" data-target="50000">
+            <i class="fas fa-users"></i>
+            <div class="stat-number">50K+</div>
+            <div class="stat-label">खुश ग्राहक</div>
+          </div>
+          <div class="stat-card counter" data-target="100">
+            <i class="fas fa-cogs"></i>
+            <div class="stat-number">100+</div>
+            <div class="stat-label">सेवाएं उपलब्ध</div>
+          </div>
+          <div class="stat-card counter" data-target="50">
+            <i class="fas fa-smile"></i>
+            <div class="stat-number">99%</div>
+            <div class="stat-label">संतुष्टि दर</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Section -->
+    <div class="timeline-section">
+      <div class="section-header">
+        <h2><i class="fas fa-history"></i> समयरेखा</h2>
+        <p>हमारी विकास यात्रा - 2018 से अब तक</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">2018</span>
+            <h3>शुरुआत</h3>
+            <p>District Hospital Gate No. 3 पर एक छोटी सी दुकान में Khan Jan Seva Kendra की शुरुआत। शुरुआत में केवल आधार कार्ड सेवा।</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">2019</span>
+            <h3>सेवाओं का विस्तार</h3>
+            <p>पैन कार्ड, वोटर आईडी, और बैंकिंग सेवाओं को शामिल किया। पहले 1000 ग्राहक पूरे हुए।</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">2020</span>
+            <h3>डिजिटल परिवर्तन</h3>
+            <p>COVID-19 के बावजूद ऑनलाइन सेवाओं को मजबूत किया। ई-श्रम कार्ड, आयुष्मान कार्ड जैसी योजनाएं शुरू कीं।</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">2022</span>
+            <h3>नई पहचान</h3>
+            <p>दुकान का विस्तार और आधुनिक उपकरणों की स्थापना। रोजाना 50+ ग्राहकों की सेवा शुरू।</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">2024-25</span>
+            <h3>आज की स्थिति</h3>
+            <p>100+ सेवाएं, 50,000+ खुश ग्राहक, और बस्ती का सबसे भरोसेमंद जन सेवा केंद्र। वेबसाइट लॉन्च।</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vision Mission Section -->
+    <div class="vision-mission-section">
+      <div class="vm-card vision">
+        <div class="vm-icon">
+          <i class="fas fa-eye"></i>
+        </div>
+        <h3>हमारा उद्देश्य (Vision)</h3>
+        <p>
+          हमारा सपना है कि बस्ती जिले का हर व्यक्ति, चाहे वह किसी भी वर्ग या स्थिति से हो, 
+          आसानी से सभी सरकारी और डिजिटल सेवाएं प्राप्त कर सके।
+        </p>
+        <ul>
+          <li><i class="fas fa-check-circle"></i> पारदर्शी और ईमानदार सेवा</li>
+          <li><i class="fas fa-check-circle"></i> हर घर तक डिजिटल पहुंच</li>
+          <li><i class="fas fa-check-circle"></i> ग्राहक संतुष्टि सर्वोच्च प्राथमिकता</li>
+          <li><i class="fas fa-check-circle"></i> समयबद्ध सेवा प्रदान करना</li>
+        </ul>
+      </div>
+
+      <div class="vm-card mission">
+        <div class="vm-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
         <h3>हमारा मिशन (Mission)</h3>
-        <p>हमारा मिशन है कि हम लोगों को डिजिटल सेवाओं से जोड़ें और उनके जीवन को सरल बनाएं।  
-        Our commitment is to empower individuals and communities by providing essential services with honesty and excellence.</p>
+        <p>
+          2025 तक बस्ती के हर गांव और हर मोहल्ले तक अपनी सेवाएं पहुंचाना और 
+          1 लाख ग्राहकों तक पहुंचना। हम लगातार नई सेवाएं जोड़ रहे हैं।
+        </p>
+        <ul>
+          <li><i class="fas fa-check-circle"></i> 24/7 ऑनलाइन सहायता</li>
+          <li><i class="fas fa-check-circle"></i> न्यूनतम शुल्क में सर्वोत्तम सेवा</li>
+          <li><i class="fas fa-check-circle"></i> महिलाओं और बुजुर्गों के लिए विशेष सुविधा</li>
+          <li><i class="fas fa-check-circle"></i> सरकारी योजनाओं की जानकारी</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Services Preview -->
+    <div class="services-preview">
+      <div class="section-header">
+        <h2><i class="fas fa-hand-holding-heart"></i> हमारी प्रमुख सेवाएं</h2>
+        <p>100+ सेवाएं एक ही छत के नीचे - 2018 से भरोसेमंद सेवा</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-item">
+          <i class="fas fa-id-card"></i>
+          <h4>आधार कार्ड</h4>
+          <p>नया आधार, अपडेट, करेक्शन</p>
+        </div>
+        <div class="service-item">
+          <i class="fas fa-credit-card"></i>
+          <h4>पैन कार्ड</h4>
+          <p>नया पैन, डुप्लीकेट, करेक्शन</p>
+        </div>
+        <div class="service-item">
+          <i class="fas fa-vote-yea"></i>
+          <h4>वोटर आईडी</h4>
+          <p>नया registration, अपडेट</p>
+        </div>
+        <div class="service-item">
+          <i class="fas fa-heartbeat"></i>
+          <h4>आयुष्मान कार्ड</h4>
+          <p>5 लाख का बीमा</p>
+        </div>
+        <div class="service-item">
+          <i class="fas fa-briefcase"></i>
+          <h4>ई-श्रम कार्ड</h4>
+          <p>श्रमिकों की पहचान</p>
+        </div>
+        <div class="service-item">
+          <i class="fas fa-university"></i>
+          <h4>बैंकिंग</h4>
+          <p>खाता खोलना, ट्रांजैक्शन</p>
+        </div>
+        <div class="service-item">
+          <i class="fas fa-bolt"></i>
+          <h4>बिल भुगतान</h4>
+          <p>बिजली, पानी, गैस</p>
+        </div>
+        <div class="service-item">
+          <i class="fas fa-plane"></i>
+          <h4>टिकट बुकिंग</h4>
+          <p>ट्रेन, बस, फ्लाइट</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="testimonials-section">
+      <div class="section-header">
+        <h2><i class="fas fa-comments"></i> ग्राहक क्या कहते हैं</h2>
+        <p>7 सालों से हमारे साथ जुड़े ग्राहकों की प्रतिक्रिया</p>
+      </div>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"2019 से यहाँ आ रहा हूं। Khan Jan Seva Kendra की सबसे अच्छी बात है कि ये लोग ईमानदारी से काम करते हैं। कभी धोखा नहीं दिया।"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">RS</div>
+            <div class="author-info">
+              <h4>रामेश्वर सिंह</h4>
+              <span>व्यवसायी, बस्ती</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"मेरी माँ का आयुष्मान कार्ड यहीं बना। बहुत ही सरल तरीके से समझाया और बिना किसी परेशानी के काम हो गया। धन्यवाद!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">PK</div>
+            <div class="author-info">
+              <h4>प्रीति कुमारी</h4>
+              <span>गृहिणी, बस्ती</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <p class="testimonial-text">"Job form भरने में बहुत मदद मिली। युवाओं के लिए यह जगह वरदान है। 2018 से इनकी सेवा में सुधार होता ही जा रहा है।"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AY</div>
+            <div class="author-info">
+              <h4>अमित यादव</h4>
+              <span>छात्र, बस्ती</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <h2>आज ही जुड़ें हमारे साथ!</h2>
+      <p>2018 से बस्ती की सेवा में - आप भी हमारे परिवार का हिस्सा बनें। किसी भी सरकारी सेवा के लिए संपर्क करें।</p>
+      <div class="cta-buttons">
+        <a href="contact.html" class="cta-btn primary">
+          <i class="fas fa-phone"></i> संपर्क करें
+        </a>
+        <a href="services.html" class="cta-btn secondary">
+          <i class="fas fa-list"></i> सेवाएं देखें
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <p>© 2025 Khan Jan Seva Kendra | All Rights Reserved</p>
-    <p>District Hospital Gate No 3, Khan Jan Seva Kendra Basti</p>
+  <!-- Quick Action Buttons -->
+  <div class="quick-actions">
+    <a href="tel:+917459064328" class="quick-btn call" data-tooltip="कॉल करें">
+      <i class="fas fa-phone"></i>
+    </a>
+    <a href="https://wa.me/917459064328" class="quick-btn whatsapp" data-tooltip="व्हाट्सएप करें" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+    </a>
   </div>
 
+  <!-- Dark Footer - Same as index.html -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>Khan Jan Seva Kendra आपकी सेवा में 2018 से कार्यरत है। हम सभी प्रकार की सरकारी सेवाएं प्रदान करते हैं।</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/917459064328"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <p><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></p>
+        <p><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></p>
+        <p><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></p>
+        <p><a href="Latest job.html"><i class="fas fa-chevron-right"></i> Latest Jobs</a></p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Services</h3>
+        <p><a href="services.html"><i class="fas fa-chevron-right"></i> आधार कार्ड</a></p>
+        <p><a href="services.html"><i class="fas fa-chevron-right"></i> पैन कार्ड</a></p>
+        <p><a href="services.html"><i class="fas fa-chevron-right"></i> राशन कार्ड</a></p>
+        <p><a href="services.html"><i class="fas fa-chevron-right"></i> जॉब फॉर्म</a></p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> District Hospital Gate No. 3, Basti, UP</p>
+        <p><i class="fas fa-phone"></i> +91-7459064328</p>
+        <p><i class="fas fa-envelope"></i> alerts@khanjansevakendra.shop</p>
+        <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 6PM</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Khan Jan Seva Kendra. All Rights Reserved. | Designed with <span class="heart">❤️</span> in India</p>
+    </div>
+  </footer>
+
+  <script>
+    // Counter Animation
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+
+    const animateCounters = () => {
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const inc = target / speed;
+
+        if (count < target) {
+          counter.innerText = Math.ceil(count + inc);
+          setTimeout(animateCounters, 20);
+        } else {
+          counter.innerText = target;
+        }
+      });
+    };
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: "0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('counter')) {
+            animateCounters();
+          }
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.counter, .timeline-item, .vm-card, .service-item').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
 </body>
 </html>
