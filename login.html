@@ -5,9 +5,128 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Login - Khan Jan Seva Kendra</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;color:#123;}
+    
+    body{
+      margin:0;
+      font-family:'Poppins', sans-serif;
+      background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      min-height:100vh;
+      color:#123;
+    }
+    
+    /* EXACT Header from Screenshot */
+    .main-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: white;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      padding: 15px 40px;
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Logo Section with Animated Border */
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-wrapper {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #667eea;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70px;
+      height: 70px;
+      border: 3px dashed #ff6b6b;
+      border-radius: 50%;
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .logo-text h1 {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .logo-text p {
+      font-size: 16px;
+      color: #666;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* Navigation - Exact from Screenshot */
+    .main-nav {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 20px;
+      border-radius: 30px;
+      transition: all 0.3s;
+    }
+
+    .nav-item:hover {
+      color: #667eea;
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white !important;
+    }
+
+    .nav-item i {
+      font-size: 16px;
+    }
     
     /* Loading Overlay */
     .loading-overlay{
@@ -33,28 +152,12 @@
     .toast.error{background:#f44336;}
     .toast.info{background:#2196f3;}
     
-    /* Header */
-    header{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:12px 28px;
-      background:linear-gradient(90deg,#2196f3,#ff5722);
-      color:white;position:sticky;top:0;z-index:1000;
-      font-weight:700;box-shadow:0 2px 10px rgba(0,0,0,0.1);
-    }
-    .header-left{display:flex;align-items:center;gap:12px;}
-    .header-left img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid white;}
-    .site-title{font-size:20px;font-weight:700;}
-    nav{display:flex;align-items:center;gap:16px;}
-    nav a{color:white;text-decoration:none;font-weight:600;transition:.3s;padding:6px 12px;border-radius:4px;}
-    nav a:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px);}
-    .login-btn{background:white;color:#2196f3;padding:6px 14px;border-radius:6px;text-decoration:none;font-weight:700;}
-    
     /* Main Container */
     .container{max-width:450px;margin:40px auto;padding:20px;}
     
     /* Login Box */
     .login-box{
-      background:white;padding:40px;border-radius:16px;
+      background:white;padding:40px;border-radius:20px;
       box-shadow:0 20px 60px rgba(0,0,0,0.3);
       animation:slideUp 0.5s ease;
     }
@@ -68,13 +171,14 @@
     
     /* Toggle Buttons */
     .login-toggle{
-      display:flex;background:#f0f0f0;border-radius:8px;padding:4px;margin-bottom:30px;
+      display:flex;background:#f0f0f0;border-radius:12px;padding:4px;margin-bottom:30px;
     }
     .toggle-btn{
       flex:1;padding:12px;border:none;background:transparent;cursor:pointer;
-      border-radius:6px;font-weight:600;transition:0.3s;color:#666;
+      border-radius:8px;font-weight:600;transition:0.3s;color:#666;
+      font-family: 'Poppins', sans-serif;
     }
-    .toggle-btn.active{background:white;color:#2196f3;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+    .toggle-btn.active{background:white;color:#667eea;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
     
     /* Forms */
     .form-section{display:none;}
@@ -91,10 +195,10 @@
     .input-group input{
       width:100%;padding:12px 12px 12px 40px;
       border:2px solid #e0e0e0;border-radius:8px;font-size:14px;
-      transition:0.3s;
+      transition:0.3s;font-family: 'Poppins', sans-serif;
     }
     .input-group input:focus{
-      outline:none;border-color:#2196f3;
+      outline:none;border-color:#667eea;
     }
     .input-group .toggle-password{
       position:absolute;right:12px;top:50%;transform:translateY(-50%);
@@ -103,7 +207,7 @@
     
     /* Admin Badge */
     .admin-badge{
-      background:linear-gradient(90deg,#ff5722,#ff8a65);
+      background:linear-gradient(90deg,#f5576c,#f093fb);
       color:white;padding:8px 16px;border-radius:20px;
       font-size:12px;font-weight:700;text-align:center;margin-bottom:20px;
       display:inline-block;width:100%;
@@ -111,12 +215,13 @@
     
     /* Buttons */
     .btn{
-      width:100%;padding:14px;background:linear-gradient(90deg,#2196f3,#21cbf3);
+      width:100%;padding:14px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
       color:white;border:none;border-radius:8px;font-size:16px;font-weight:700;
       cursor:pointer;transition:0.3s;text-transform:uppercase;letter-spacing:1px;
       display:flex;align-items:center;justify-content:center;gap:10px;
+      font-family: 'Poppins', sans-serif;
     }
-    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(33,150,243,0.3);}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(102,126,234,0.4);}
     .btn:disabled{background:#ccc;cursor:not-allowed;transform:none;}
     
     /* Links */
@@ -124,7 +229,7 @@
       display:flex;justify-content:space-between;margin-top:20px;
       font-size:14px;
     }
-    .links a{color:#2196f3;text-decoration:none;font-weight:600;}
+    .links a{color:#667eea;text-decoration:none;font-weight:600;}
     .links a:hover{text-decoration:underline;}
     
     /* Signup Link */
@@ -134,7 +239,7 @@
     }
     .signup-link p{color:#666;margin-bottom:10px;}
     .signup-link a{
-      color:#ff5722;font-weight:700;text-decoration:none;font-size:16px;
+      color:#f5576c;font-weight:700;text-decoration:none;font-size:16px;
     }
     
     /* Error/Success Messages */
@@ -145,17 +250,119 @@
     .error{background:#ffebee;color:#c62828;border:1px solid #ef9a9a;}
     .success{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;}
     
-    /* Footer */
-    .footer{
-      background:rgba(0,0,0,0.3);color:white;text-align:center;
-      padding:20px;margin-top:60px;font-size:14px;
+    /* Dark Footer */
+    .main-footer {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: white;
+      padding: 60px 20px 20px;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-section h3 {
+      color: #f5576c;
+      margin-bottom: 20px;
+      font-size: 1.3em;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, #f5576c, #f093fb);
+      border-radius: 2px;
+    }
+
+    .footer-section p, .footer-section a {
+      color: #ccc;
+      text-decoration: none;
+      line-height: 1.8;
+      transition: all 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: #f5576c;
+      padding-left: 5px;
+    }
+
+    .footer-section i {
+      margin-right: 10px;
+      color: #f5576c;
+      width: 20px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: #f5576c;
+      transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #888;
+    }
+
+    .footer-bottom .heart {
+      color: #f5576c;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
     }
     
     /* Responsive */
-    @media(max-width:480px){
+    @media(max-width:768px){
+      .main-header { padding: 15px 20px; }
+      .main-nav { display: none; }
+      .logo-text h1 { font-size: 24px; }
       .container{margin:20px;padding:10px;}
       .login-box{padding:25px;}
-      nav{display:none;}
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #667eea;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: block; }
     }
   </style>
 </head>
@@ -169,21 +376,65 @@
   <!-- Toast Container -->
   <div id="toastContainer"></div>
 
-  <!-- Header -->
-  <header>
-    <div class="header-left">
-      <img src="shop.jpg" alt="Shop Logo" onerror="this.src='https://via.placeholder.com/44'">
-      <span class="site-title">Khan Jan Seva Kendra</span>
+  <!-- EXACT Header from Screenshot -->
+  <header class="main-header">
+    <div class="header-container">
+      <!-- Logo Section -->
+      <div class="logo-section">
+        <div class="logo-wrapper">
+          <div class="logo-border"></div>
+          <img src="shop.jpg" alt="Khan Jan Seva Kendra" class="logo-img">
+        </div>
+        <div class="logo-text">
+          <h1>Khan Jan Seva Kendra</h1>
+          <p>खान जन सेवा केंद्र</p>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="main-nav">
+        <a href="index.html" class="nav-item">
+          <i class="fas fa-home"></i> Home
+        </a>
+        <a href="services.html" class="nav-item">
+          <i class="fas fa-cogs"></i> Services
+        </a>
+        <a href="about.html" class="nav-item">
+          <i class="fas fa-info-circle"></i> About
+        </a>
+        <a href="contact.html" class="nav-item">
+          <i class="fas fa-envelope"></i> Contact
+        </a>
+        <a href="Latest job.html" class="nav-item">
+          <i class="fas fa-briefcase"></i> Latest Job
+        </a>
+        <a href="login.html" class="nav-item active">
+          <i class="fas fa-user"></i> Login
+        </a>
+      </nav>
+      
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
-    <nav>
-      <a href="index.html"><i class="fas fa-home"></i> Home</a>
-      <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
-      <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
-      <a href="contact.html"><i class="fas fa-phone"></i> Contact</a>
-      <a href="Latest job.html"><i class="fas fa-briefcase"></i> Jobs</a>
-      <a href="login.html" class="login-btn"><i class="fas fa-user"></i> Login</a>
-    </nav>
   </header>
+
+  <script>
+    function toggleMobileMenu() {
+      const nav = document.querySelector('.main-nav');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      if(nav.style.display === 'flex') {
+        nav.style.position = 'absolute';
+        nav.style.top = '100px';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'white';
+        nav.style.flexDirection = 'column';
+        nav.style.padding = '20px';
+        nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+      }
+    }
+  </script>
 
   <!-- Main Content -->
   <div class="container">
@@ -248,7 +499,7 @@
             <input type="password" id="adminPassword" placeholder="Password" required>
             <i class="fas fa-eye toggle-password" onclick="togglePassword('adminPassword')"></i>
           </div>
-          <button type="submit" class="btn" id="adminLoginBtn" style="background:linear-gradient(90deg,#ff5722,#ff8a65);">
+          <button type="submit" class="btn" id="adminLoginBtn">
             <i class="fas fa-shield-alt"></i> Admin Login
           </button>
         </form>
@@ -293,20 +544,59 @@
         </button>
       </form>
       <p style="text-align:center;margin-top:20px;color:#666;font-size:14px;">
-        Already have an account? <a href="#" onclick="closeSignup()" style="color:#2196f3;font-weight:600;">Login here</a>
+        Already have an account? <a href="#" onclick="closeSignup()" style="color:#667eea;font-weight:600;">Login here</a>
       </p>
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <p>© 2025 Khan Jan Seva Kendra | All Rights Reserved</p>
-    <p style="margin-top:5px;font-size:12px;opacity:0.8;">Secure Login System | Admin & Customer Portal</p>
-  </div>
+  <!-- Dark Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3><i class="fas fa-info-circle"></i> About Us</h3>
+        <p>Khan Jan Seva Kendra - आपका विश्वसनीय सेवा केंद्र। 2018 से हम बस्ती, उत्तर प्रदेश में 100+ सरकारी और डिजिटल सेवाएं प्रदान कर रहे हैं।</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3><i class="fas fa-link"></i> Quick Links</h3>
+        <p><a href="index.html"><i class="fas fa-home"></i> Home</a></p>
+        <p><a href="services.html"><i class="fas fa-cogs"></i> Our Services</a></p>
+        <p><a href="about.html"><i class="fas fa-users"></i> About Us</a></p>
+        <p><a href="contact.html"><i class="fas fa-phone"></i> Contact</a></p>
+        <p><a href="Latest job.html"><i class="fas fa-briefcase"></i> Latest Jobs</a></p>
+      </div>
+      
+      <div class="footer-section">
+        <h3><i class="fas fa-headset"></i> Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> District Hospital Gate No. 3, Basti, UP - 272002</p>
+        <p><i class="fas fa-phone"></i> +91-7459064328</p>
+        <p><i class="fas fa-envelope"></i> alerts@khanjansevakendra.shop</p>
+        <p><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 6:00 PM</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3><i class="fas fa-shield-alt"></i> Trust & Security</h3>
+        <p><i class="fas fa-check-circle"></i> 100% Secure Services</p>
+        <p><i class="fas fa-certificate"></i> Government Authorized</p>
+        <p><i class="fas fa-award"></i> 7+ Years Experience</p>
+        <p><i class="fas fa-smile"></i> 50,000+ Happy Customers</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2025 Khan Jan Seva Kendra. Made with <span class="heart">❤️</span> in Basti, UP | 2018 से आपकी सेवा में</p>
+    </div>
+  </footer>
 
-  <!-- Firebase SDK -->
+  <!-- Firebase SDK - UNCHANGED -->
   <script type="module">
-    // Firebase Configuration
+    // Firebase Configuration - DO NOT MODIFY
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { 
       getAuth, 
@@ -408,14 +698,12 @@
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         
-        // Get user data from database
         const userRef = ref(database, `users/${user.uid}`);
         const snapshot = await get(userRef);
         
         if(snapshot.exists()) {
           const userData = snapshot.val();
           
-          // Check if customer
           if(userData.role !== 'customer') {
             showToast('This account is not registered as customer!', 'error');
             await signOut(auth);
@@ -427,9 +715,8 @@
           
           showToast(`Welcome back, ${userData.name}!`, 'success');
           
-          // Redirect to customer dashboard
           setTimeout(() => {
-            window.location.href = 'customer/dashboard.html';
+            window.location.href = 'dashboard.html';
           }, 1500);
         } else {
           showToast('User data not found!', 'error');
@@ -466,14 +753,12 @@
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         
-        // Get user data from database
         const userRef = ref(database, `users/${user.uid}`);
         const snapshot = await get(userRef);
         
         if(snapshot.exists()) {
           const userData = snapshot.val();
           
-          // Check if admin
           if(userData.role !== 'admin') {
             showToast('Access denied! Not an admin account.', 'error');
             await signOut(auth);
@@ -485,9 +770,8 @@
           
           showToast('Admin login successful!', 'success');
           
-          // Redirect to admin dashboard
           setTimeout(() => {
-            window.location.href = 'admin/dashboard.html';
+            window.location.href = 'dashboard-2.html';
           }, 1500);
         } else {
           showToast('Admin data not found!', 'error');
@@ -530,7 +814,6 @@
       const confirmPass = document.getElementById('regConfirmPass').value;
       const btn = document.getElementById('regBtn');
       
-      // Validation
       if(password !== confirmPass) {
         showToast('Passwords do not match!', 'error');
         return false;
@@ -546,14 +829,11 @@
       showLoading(true);
       
       try {
-        // Create user in Firebase Auth
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         
-        // Update profile
         await updateProfile(user, { displayName: name });
         
-        // Save user data in Realtime Database
         await set(ref(database, `users/${user.uid}`), {
           name: name,
           email: email,
@@ -566,11 +846,9 @@
         showToast('Registration successful! Please login.', 'success');
         closeSignup();
         
-        // Auto-fill login
         document.getElementById('custEmail').value = email;
         document.getElementById('custPassword').value = '';
         
-        // Switch to customer login
         switchLogin('customer');
         
       } catch (error) {
@@ -606,18 +884,16 @@
     // Check if already logged in
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Get user role
         const userRef = ref(database, `users/${user.uid}`);
         const snapshot = await get(userRef);
         
         if(snapshot.exists()) {
           const userData = snapshot.val();
           
-          // Auto redirect based on role
           if(userData.role === 'admin') {
-            window.location.href = 'admin/dashboard.html';
+            window.location.href = 'dashboard-2.html';
           } else {
-            window.location.href = 'customer/dashboard.html';
+            window.location.href = 'dashboard.html';
           }
         }
       }
