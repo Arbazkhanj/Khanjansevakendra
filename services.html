@@ -1,102 +1,1593 @@
 <!doctype html>
 <html lang="hi">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>All Services — Khan Jan Seva Kendra</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>/* Header को Bold */
-header, header nav a, header .site-title {
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-}
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Our Services - Khan Jan Seva Kendra | 100+ सेवाएं</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* Service Card Hover Animation */
-.service-card {
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    /* EXACT Header Styles from index.html */
+    .main-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: white;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      padding: 15px 40px;
+    }
 
-.service-card:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-/* Arrow Animation */
-.service-card::after {
-  content: "➜";
-  position: absolute;
-  right: -30px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
-  color: #0073e6;
-  opacity: 0;
-  transition: all 0.3s ease;
-}
+    /* Logo Section with Animated Border */
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
 
-.service-card:hover::after {
-  right: 15px;
-  opacity: 1;
-}
-:root{--bg:#f3fbff;--card:#fff;--muted:#556;--accent-teal:#1abc9c;--accent-orange:#ff8c42;--accent-green:#2ecc71;--accent-purple:#9b59b6;--accent-pink:#ff6b9f;--accent-cyan:#00a3cc}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#123}h1{text-align:center;color:#0a64a0;padding-top:18px}.lead{text-align:center;color:var(--muted);max-width:900px;margin:6px auto 18px}
-.container{width:95%;max-width:1200px;margin:18px auto 60px}.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.service-card{background:var(--card);padding:16px;border-radius:12px;display:flex;gap:12px;align-items:center;box-shadow:0 6px 20px rgba(32,47,70,0.06);cursor:pointer;transition:transform .14s ease}.service-card:hover{transform:translateY(-6px)}.service-icon{min-width:56px;min-height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px}.service-body{flex:1}.service-title{font-weight:700}.service-sub{font-size:13px;color:var(--muted);margin-top:4px}
-.c-teal{background:linear-gradient(135deg,var(--accent-teal),#16a085)}.c-orange{background:linear-gradient(135deg,var(--accent-orange),#ff6a00)}.c-green{background:linear-gradient(135deg,var(--accent-green),#26b86b)}.c-purple{background:linear-gradient(135deg,var(--accent-purple),#7a3fb4)}.c-pink{background:linear-gradient(135deg,var(--accent-pink),#ff3f7a)}.c-cyan{background:linear-gradient(135deg,var(--accent-cyan),#008fb3)}
-.modal{display:none;position:fixed;inset:0;background:rgba(10,20,30,0.5);z-index:1200;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modal-card{width:100%;max-width:760px;background:#fff;border-radius:12px;padding:20px;box-shadow:0 30px 60px rgba(6,20,40,0.2);max-height:86vh;overflow:auto}.modal-header{display:flex;justify-content:space-between;align-items:center;gap:10px}.modal-title{font-size:20px;color:#063a63;font-weight:700}.modal-close{background:#f3f6f9;border:none;padding:8px 10px;border-radius:8px;cursor:pointer}.modal-body{margin-top:12px;color:#223;line-height:1.5}.section-strong{font-weight:700;margin-top:14px;color:#0b3b57}ul.req{margin:8px 0 0 18px;color:#34495e}ul.req li{margin:8px 0}.modal-actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}.btn{padding:10px 12px;border-radius:8px;text-decoration:none;font-weight:700;color:#fff}.btn-wa{background:linear-gradient(135deg,var(--accent-teal),#16a085)}.btn-contact{background:#eef6ff;color:#0a64a0}@media(max-width:520px){.service-icon{min-width:48px;min-height:48px;font-size:18px}}
-</style>
+    .logo-wrapper {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #667eea;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70px;
+      height: 70px;
+      border: 3px dashed #ff6b6b;
+      border-radius: 50%;
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .logo-text h1 {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .logo-text p {
+      font-size: 16px;
+      color: #666;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* Navigation - Exact from index.html */
+    .main-nav {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 20px;
+      border-radius: 30px;
+      transition: all 0.3s;
+    }
+
+    .nav-item:hover {
+      color: #667eea;
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white !important;
+    }
+
+    .nav-item i {
+      font-size: 16px;
+    }
+
+    /* Mobile Menu Button */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #667eea;
+      cursor: pointer;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .main-header { padding: 15px 20px; }
+      .main-nav { 
+        display: none; 
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+      .main-nav.active { display: flex; }
+      .logo-text h1 { font-size: 24px; }
+      .mobile-menu-btn { display: block; }
+    }
+
+    
+
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #f97316;
+      --accent: #10b981;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --shadow: 0 10px 40px rgba(0,0,0,0.1);
+      --shadow-hover: 0 20px 60px rgba(0,0,0,0.15);
+    }
+
+    body {
+      font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.4;
+    }
+
+    .bg-animation span {
+      position: absolute;
+      display: block;
+      width: 20px;
+      height: 20px;
+      background: rgba(37, 99, 235, 0.1);
+      animation: move 25s linear infinite;
+      bottom: -150px;
+      border-radius: 50%;
+    }
+
+    .bg-animation span:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+    .bg-animation span:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+    .bg-animation span:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+    .bg-animation span:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+    .bg-animation span:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+    .bg-animation span:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+    .bg-animation span:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+    .bg-animation span:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+    .bg-animation span:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+    .bg-animation span:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+
+    @keyframes move {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+      100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+    }
+
+    
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: var(--dark);
+      transition: 0.3s;
+      border-radius: 3px;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient);
+      padding: 100px 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .hero h2 {
+      font-size: 52px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero p {
+      font-size: 22px;
+      opacity: 0.95;
+      animation: fadeInUp 1s ease 0.2s both;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-top: 40px;
+      animation: fadeInUp 1s ease 0.4s both;
+    }
+
+    .hero-stat {
+      text-align: center;
+      background: rgba(255,255,255,0.2);
+      padding: 20px 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Category Cards - BIG CARDS AS PER SCREENSHOT */
+    .category-section {
+      max-width: 1400px;
+      margin: -40px auto 60px;
+      padding: 0 30px;
+      position: relative;
+      z-index: 100;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 25px;
+    }
+
+    .category-card {
+      background: white;
+      border-radius: 25px;
+      padding: 40px 25px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .category-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .category-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 40px;
+      color: white;
+      transition: transform 0.3s ease;
+    }
+
+    .category-card:hover .category-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .category-card h3 {
+      font-size: 22px;
+      color: var(--dark);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .category-card p {
+      color: var(--gray);
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* Category Colors */
+    .cat-banking .category-icon { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .cat-bill .category-icon { background: linear-gradient(135deg, #22c55e, #16a34a); }
+    .cat-govt .category-icon { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+    .cat-tax .category-icon { background: linear-gradient(135deg, #ec4899, #db2777); }
+    .cat-travel .category-icon { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+    .cat-banking:hover { border-color: #f59e0b; }
+    .cat-bill:hover { border-color: #22c55e; }
+    .cat-govt:hover { border-color: #3b82f6; }
+    .cat-tax:hover { border-color: #ec4899; }
+    .cat-travel:hover { border-color: #8b5cf6; }
+
+    /* Filter Buttons */
+    .filter-section {
+      max-width: 1400px;
+      margin: 0 auto 40px;
+      padding: 0 30px;
+    }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 15px 30px;
+      border: 2px solid #e2e8f0;
+      background: white;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--gradient);
+      color: white;
+      border-color: transparent;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto 50px;
+      padding: 0 30px;
+    }
+
+    .section-title {
+      color: var(--dark);
+      font-size: 32px;
+      margin: 50px 0 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid var(--gradient);
+    }
+
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--card-color, var(--gradient));
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-icon::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform: rotate(45deg);
+      transition: all 0.5s;
+    }
+
+    .service-card:hover .service-icon::after {
+      left: 100%;
+    }
+
+    .service-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .service-card p {
+      color: var(--gray);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .service-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 15px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .service-time {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--gray);
+      font-size: 13px;
+    }
+
+    .service-arrow {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover .service-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal.open {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 800px;
+      background: white;
+      border-radius: 30px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: slideUp 0.4s ease;
+      position: relative;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      background: var(--modal-color, var(--gradient));
+      color: white;
+      padding: 40px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(255,255,255,0.3);
+      transform: rotate(90deg);
+    }
+
+    .modal-title-section {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .modal-icon {
+      width: 90px;
+      height: 90px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    .modal-title-text h2 {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .modal-title-text p {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .modal-body {
+      padding: 40px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .info-box {
+      background: #f8fafc;
+      padding: 25px;
+      border-radius: 20px;
+      border-left: 5px solid var(--box-color, #667eea);
+    }
+
+    .info-box h4 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: var(--dark);
+      font-size: 16px;
+    }
+
+    .info-box p {
+      color: var(--gray);
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .docs-section {
+      margin-bottom: 30px;
+    }
+
+    .section-heading {
+      font-size: 22px;
+      color: var(--dark);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .doc-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 20px;
+      background: #f0fdf4;
+      border-radius: 15px;
+      border: 2px solid #bbf7d0;
+      transition: all 0.3s ease;
+    }
+
+    .doc-item:hover {
+      transform: translateX(5px);
+      border-color: #22c55e;
+    }
+
+    .doc-item i {
+      color: #22c55e;
+      font-size: 20px;
+    }
+
+    .doc-item span {
+      color: var(--dark);
+      font-weight: 500;
+    }
+
+    .process-section {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      padding: 30px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+    }
+
+    .process-section h4 {
+      color: #92400e;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .process-steps {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .process-step {
+      flex: 1;
+      min-width: 150px;
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .process-step i {
+      font-size: 30px;
+      color: #f59e0b;
+      margin-bottom: 10px;
+    }
+
+    .process-step h5 {
+      color: var(--dark);
+      margin-bottom: 5px;
+    }
+
+    .process-step p {
+      color: var(--gray);
+      font-size: 13px;
+    }
+
+    .note-box {
+      background: #eff6ff;
+      border: 2px solid #bfdbfe;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .note-box i {
+      color: #3b82f6;
+      font-size: 24px;
+      margin-top: 3px;
+    }
+
+    .note-box p {
+      color: #1e40af;
+      line-height: 1.6;
+    }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .action-btn {
+      padding: 18px 30px;
+      border-radius: 15px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: white;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+    }
+
+    .btn-call {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-call:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+    }
+
+    /* Footer - EXACTLY LIKE ABOUT PAGE */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 30px 30px;
+      position: relative;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h4 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: white;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 3px;
+    }
+
+    .footer-section p, .footer-section a {
+      color: #94a3b8;
+      text-decoration: none;
+      line-height: 2;
+      transition: color 0.3s;
+      display: block;
+    }
+
+    .footer-section a:hover {
+      color: var(--secondary);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--secondary);
+      transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid #334155;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    /* Quick Action Buttons */
+    .quick-actions {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 999;
+    }
+
+    .quick-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .quick-btn.whatsapp { background: #25d366; }
+    .quick-btn.call { background: #3b82f6; }
+    .quick-btn:hover { transform: scale(1.1) rotate(10deg); }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 15px 20px;
+      }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .hero h2 {
+        font-size: 32px;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
+      .category-card {
+        padding: 25px 15px;
+      }
+
+      .category-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-header {
+        padding: 25px;
+      }
+
+      .modal-title-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .modal-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 35px;
+      }
+
+      .modal-title-text h2 {
+        font-size: 24px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-actions {
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .quick-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+<base target="_blank">
 </head>
 <body>
-    <!-- Header -->
 
-<header style="
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 30px;
-  background:linear-gradient(90deg,#2196f3,#ff5722);
-  color:white; position:sticky; top:0; z-index:1000;
-">
-  <!-- Logo + Title -->
-  <div style="display:flex;align-items:center;gap:12px;">
-    <img src="shop.jpg" alt="Shop Logo" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid white;">
-    <span style="font-size:20px;font-weight:700;">Khan Jan Seva Kendra</span>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
   </div>
 
-  <!-- Navigation -->
-  <nav style="display:flex;align-items:center;gap:18px;">
-    <a href="index.html" style="color:white;text-decoration:none;font-weight:700;">Home</a>
-    <a href="services.html" style="color:white;text-decoration:none;font-weight:700;">Services</a>
-    <a href="about.html" style="color:white;text-decoration:none;font-weight:700;">About</a>
-    <a href="contact.html" style="color:white;text-decoration:none;font-weight:700;">Contact</a>
-    <a href="Latest job.html" style="color:white;text-decoration:none;font-weight:700;">Latest Job</a>
-    <a href="login.html" style="background:white;color:#2196f3;
-      padding:6px 14px;border-radius:6px;font-weight:800;
-      text-decoration:none;">Login</a>
-  </nav>
+  <!-- Header - EXACTLY LIKE ABOUT PAGE -->
+  <header class="main-header">
+  <div class="header-container">
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div class="logo-wrapper">
+        <div class="logo-border"></div>
+        <img src="shop.jpg" alt="Khan Jan Seva Kendra" class="logo-img">
+      </div>
+      <div class="logo-text">
+        <h1>Khan Jan Seva Kendra</h1>
+        <p>खान जन सेवा केंद्र</p>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+      <a href="index.html" class="nav-item">
+        <i class="fas fa-home"></i> Home
+      </a>
+      <a href="services.html" class="nav-item active">
+        <i class="fas fa-cogs"></i> Services
+      </a>
+      <a href="about.html" class="nav-item">
+        <i class="fas fa-info-circle"></i> About
+      </a>
+      <a href="contact.html" class="nav-item">
+        <i class="fas fa-envelope"></i> Contact
+      </a>
+      <a href="Latest job.html" class="nav-item">
+        <i class="fas fa-briefcase"></i> Latest Job
+      </a>
+      <a href="login.html" class="nav-item">
+        <i class="fas fa-user"></i> Login
+      </a>
+    </nav>
+    
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
 </header>
- 
-</header> <!--HEADER_END-->
 
-<div style="text-align:center; margin:10px auto;">
-  <h1 style="font-size:28px; font-weight:700; color:#063970;">
-    All Services — Khan Jan Seva Kendra
-  </h1> <h1 style="font-size:28px; font-weight:700; color:#063970;">
-    सभी सेवाएँ — खान जन सेवा केंद्र
-  <p style="font-size:16px; color:#444; max-width:700px; margin:10px auto; line-height:1.6;">
-    नीचे दी गई सेवाओं पर क्लिक करके आप विस्तृत जानकारी और आवश्यक दस्तावेज़ देख सकते हैं।  
-    इस पेज में आपके जन सेवा केंद्र की 100 सेवाएँ शामिल हैं।
-  </p>
-</div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-award"></i> 2018 से आपकी सेवा में
+      </div>
+      <h2>हमारी सेवाएं</h2>
+      <p>100+ सरकारी और डिजिटल सेवाएं एक ही छत के नीचे - बस्ती का सबसे भरोसेमंद जन सेवा केंद्र</p>
+      
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-number">100+</span>
+          <span>सेवाएं</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">50K+</span>
+          <span>खुश ग्राहक</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">7+</span>
+          <span>साल का अनुभव</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<p class="lead">Click any service card to see professional details and required documents. This page contains 100 services for your Jan Seva Kendra.</p>
-<div class="container"><div id="grid" class="services" role="list"></div></div>
-<div id="modal" class="modal" aria-hidden="true" role="dialog" tabindex="-1" onclick="closeIfBackdrop(event)"><div class="modal-card" role="document" aria-labelledby="modalTitle"><div class="modal-header"><div style="display:flex;gap:12px;align-items:center"><div id="modalAccent" style="width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:20px"></div><div><div id="modalTitle" class="modal-title">Title</div><div id="modalSub" style="font-size:13px;color:var(--muted)"></div></div></div><button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button></div><div class="modal-body" id="modalBody"><p id="modalDesc">Description about the service...</p><div class="section-strong">Required Documents (आवश्यक दस्तावेज़)</div><ul class="req" id="modalDocs"></ul><div class="section-strong">Processing Time / Fees</div><p id="modalInfo" style="margin-top:8px;color:#35526a">Typically 1–3 working days. Fees as applicable.</p><div class="modal-actions"><a id="modalWhats" class="btn btn-wa" href="#" target="_blank">💬 WhatsApp</a><a id="modalContact" class="btn btn-contact" href="contact.html">📞 Contact Page</a></div></div></div></div>
-<script>
-const services = [{"key": "svc1", "title": "AePS", "sub": "AePS सेवा", "accent": "c-teal", "icon": "fa-solid fa-fingerprint", "desc": "AePS — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड (Original)", "बैंक खाता विवरण", "रजिस्टर्ड मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc2", "title": "Aadhaar Pay", "sub": "Aadhaar Pay सेवा", "accent": "c-orange", "icon": "fa-solid fa-id-card", "desc": "Aadhaar Pay — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड (Original)", "बैंक खाता विवरण", "रजिस्टर्ड मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc3", "title": "Cash Deposit", "sub": "Cash Deposit सेवा", "accent": "c-green", "icon": "fa-solid fa-piggy-bank", "desc": "Cash Deposit — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड (Original)", "बैंक खाता विवरण", "रजिस्टर्ड मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc4", "title": "Account Opening", "sub": "Account Opening सेवा", "accent": "c-purple", "icon": "fa-solid fa-user-plus", "desc": "Account Opening — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड (Original)", "बैंक खाता विवरण", "रजिस्टर्ड मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc5", "title": "Money Transfer", "sub": "Money Transfer सेवा", "accent": "c-pink", "icon": "fa-solid fa-money-bill-transfer", "desc": "Money Transfer — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड (Original)", "बैंक खाता विवरण", "रजिस्टर्ड मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc6", "title": "Mobile Recharge", "sub": "Mobile Recharge सेवा", "accent": "c-cyan", "icon": "fa-solid fa-mobile-screen", "desc": "Mobile Recharge — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc7", "title": "DTH Recharge", "sub": "DTH Recharge सेवा", "accent": "c-teal", "icon": "fa-solid fa-tv", "desc": "DTH Recharge — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc8", "title": "Electricity Bill", "sub": "Electricity Bill सेवा", "accent": "c-orange", "icon": "fa-solid fa-bolt", "desc": "Electricity Bill — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Consumer/Subscriber Number", "Registered Mobile Number"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc9", "title": "Water Bill", "sub": "Water Bill सेवा", "accent": "c-green", "icon": "fa-solid fa-droplet", "desc": "Water Bill — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Consumer/Subscriber Number", "Registered Mobile Number"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc10", "title": "Gas Bill", "sub": "Gas Bill सेवा", "accent": "c-purple", "icon": "fa-solid fa-gas-pump", "desc": "Gas Bill — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Consumer/Subscriber Number", "Registered Mobile Number"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc11", "title": "PAN Card", "sub": "PAN Card सेवा", "accent": "c-pink", "icon": "fa-solid fa-id-badge", "desc": "PAN Card — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड", "DOB Proof (10th Marksheet/Birth Certificate)", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc12", "title": "Aadhaar Update", "sub": "Aadhaar Update सेवा", "accent": "c-cyan", "icon": "fa-solid fa-address-card", "desc": "Aadhaar Update — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["पुराना आधार कार्ड", "सत्यापन दस्तावेज", "मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc13", "title": "Voter ID", "sub": "Voter ID सेवा", "accent": "c-teal", "icon": "fa-solid fa-person-booth", "desc": "Voter ID — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc14", "title": "Driving Licence", "sub": "Driving Licence सेवा", "accent": "c-orange", "icon": "fa-solid fa-car", "desc": "Driving Licence — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc15", "title": "Passport", "sub": "Passport सेवा", "accent": "c-green", "icon": "fa-solid fa-passport", "desc": "Passport — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार/Voter ID", "Birth Certificate/School Certificate", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc16", "title": "Bus Booking", "sub": "Bus Booking सेवा", "accent": "c-purple", "icon": "fa-solid fa-bus", "desc": "Bus Booking — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["यात्रा तिथि", "यात्री का नाम", "मोबाइल नंबर", "ID Proof (जरूरत के अनुसार)"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc17", "title": "Train Ticket", "sub": "Train Ticket सेवा", "accent": "c-pink", "icon": "fa-solid fa-train", "desc": "Train Ticket — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["यात्रा तिथि", "यात्री का नाम", "मोबाइल नंबर", "ID Proof (जरूरत के अनुसार)"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc18", "title": "Flight Booking", "sub": "Flight Booking सेवा", "accent": "c-cyan", "icon": "fa-solid fa-plane", "desc": "Flight Booking — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["यात्रा तिथि", "यात्री का नाम", "मोबाइल नंबर", "ID Proof (जरूरत के अनुसार)"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc19", "title": "Hotel Booking", "sub": "Hotel Booking सेवा", "accent": "c-teal", "icon": "fa-solid fa-hotel", "desc": "Hotel Booking — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["यात्रा तिथि", "यात्री का नाम", "मोबाइल नंबर", "ID Proof (जरूरत के अनुसार)"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc20", "title": "GST Filing", "sub": "GST Filing सेवा", "accent": "c-orange", "icon": "fa-solid fa-file-invoice", "desc": "GST Filing — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["PAN", "Aadhaar", "Bank Statement", "Business Records"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc21", "title": "Income Tax Filing", "sub": "Income Tax Filing सेवा", "accent": "c-green", "icon": "fa-solid fa-heart-circle-plus", "desc": "Income Tax Filing — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["PAN", "Aadhaar", "Bank Statement", "Business Records"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc22", "title": "TDS Services", "sub": "TDS Services सेवा", "accent": "c-purple", "icon": "fa-solid fa-briefcase-medical", "desc": "TDS Services — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["PAN", "Aadhaar", "Bank Statement", "Business Records"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc23", "title": "LIC Premium", "sub": "LIC Premium सेवा", "accent": "c-pink", "icon": "fa-solid fa-shield-halved", "desc": "LIC Premium — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Policy/EPF Details", "Aadhaar", "Bank Details"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc24", "title": "Health Insurance", "sub": "Health Insurance सेवा", "accent": "c-cyan", "icon": "fa-solid fa-file-lines", "desc": "Health Insurance — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Policy/EPF Details", "Aadhaar", "Bank Details"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc25", "title": "Vehicle Insurance", "sub": "Vehicle Insurance सेवा", "accent": "c-teal", "icon": "fa-solid fa-certificate", "desc": "Vehicle Insurance — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Policy/EPF Details", "Aadhaar", "Bank Details"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc26", "title": "Birth Certificate", "sub": "Birth Certificate सेवा", "accent": "c-orange", "icon": "fa-solid fa-print", "desc": "Birth Certificate — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आवेदन पत्र", "पहचान प्रमाण", "सम्बन्धित दस्तावेज"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc27", "title": "Death Certificate", "sub": "Death Certificate सेवा", "accent": "c-green", "icon": "fa-solid fa-photo-film", "desc": "Death Certificate — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आवेदन पत्र", "पहचान प्रमाण", "सम्बन्धित दस्तावेज"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc28", "title": "Caste Certificate", "sub": "Caste Certificate सेवा", "accent": "c-purple", "icon": "fa-solid fa-cookie-bite", "desc": "Caste Certificate — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आवेदन पत्र", "पहचान प्रमाण", "सम्बन्धित दस्तावेज"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc29", "title": "Domicile Certificate", "sub": "Domicile Certificate सेवा", "accent": "c-pink", "icon": "fa-solid fa-car-battery", "desc": "Domicile Certificate — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आवेदन पत्र", "पहचान प्रमाण", "सम्बन्धित दस्तावेज"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc30", "title": "Income Certificate", "sub": "Income Certificate सेवा", "accent": "c-cyan", "icon": "fa-solid fa-truck-fast", "desc": "Income Certificate — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आवेदन पत्र", "पहचान प्रमाण", "सम्बन्धित दस्तावेज"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc31", "title": "Photo & Print", "sub": "Photo & Print सेवा", "accent": "c-teal", "icon": "fa-solid fa-file-arrow-down", "desc": "Photo & Print — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc32", "title": "Document Scanning", "sub": "Document Scanning सेवा", "accent": "c-orange", "icon": "fa-solid fa-money-bill-wave", "desc": "Document Scanning — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc33", "title": "Lamination", "sub": "Lamination सेवा", "accent": "c-green", "icon": "fa-solid fa-hand-holding-dollar", "desc": "Lamination — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc34", "title": "Aadhaar Enrolment", "sub": "Aadhaar Enrolment सेवा", "accent": "c-purple", "icon": "fa-solid fa-chart-line", "desc": "Aadhaar Enrolment — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["पुराना आधार कार्ड", "सत्यापन दस्तावेज", "मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc35", "title": "PAN Correction", "sub": "PAN Correction सेवा", "accent": "c-pink", "icon": "fa-solid fa-globe", "desc": "PAN Correction — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड", "DOB Proof (10th Marksheet/Birth Certificate)", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc36", "title": "Shop Registration", "sub": "Shop Registration सेवा", "accent": "c-cyan", "icon": "fa-solid fa-wrench", "desc": "Shop Registration — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc37", "title": "Trade License", "sub": "Trade License सेवा", "accent": "c-teal", "icon": "fa-solid fa-user-clock", "desc": "Trade License — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc38", "title": "Police Verification", "sub": "Police Verification सेवा", "accent": "c-orange", "icon": "fa-solid fa-users", "desc": "Police Verification — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc39", "title": "Notary Services", "sub": "Notary Services सेवा", "accent": "c-green", "icon": "fa-solid fa-building", "desc": "Notary Services — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc40", "title": "Passport-size Photo", "sub": "Passport-size Photo सेवा", "accent": "c-purple", "icon": "fa-solid fa-gavel", "desc": "Passport-size Photo — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार/Voter ID", "Birth Certificate/School Certificate", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc41", "title": "Certificate Verification", "sub": "Certificate Verification सेवा", "accent": "c-pink", "icon": "fa-solid fa-hands-holding-circle", "desc": "Certificate Verification — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc42", "title": "Fastag Recharge", "sub": "Fastag Recharge सेवा", "accent": "c-cyan", "icon": "fa-solid fa-school", "desc": "Fastag Recharge — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Consumer/Subscriber Number", "Registered Mobile Number"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc43", "title": "Courier Booking", "sub": "Courier Booking सेवा", "accent": "c-teal", "icon": "fa-solid fa-mug-hot", "desc": "Courier Booking — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc44", "title": "Electric Connection", "sub": "Electric Connection सेवा", "accent": "c-orange", "icon": "fa-solid fa-key", "desc": "Electric Connection — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc45", "title": "Water Connection", "sub": "Water Connection सेवा", "accent": "c-green", "icon": "fa-solid fa-download", "desc": "Water Connection — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc46", "title": "E-mail Setup", "sub": "E-mail Setup सेवा", "accent": "c-purple", "icon": "fa-solid fa-fingerprint", "desc": "E-mail Setup — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc47", "title": "Website Help", "sub": "Website Help सेवा", "accent": "c-pink", "icon": "fa-solid fa-id-card", "desc": "Website Help — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc48", "title": "Domain Registration", "sub": "Domain Registration सेवा", "accent": "c-cyan", "icon": "fa-solid fa-piggy-bank", "desc": "Domain Registration — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc49", "title": "SSL Certificate", "sub": "SSL Certificate सेवा", "accent": "c-teal", "icon": "fa-solid fa-user-plus", "desc": "SSL Certificate — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc50", "title": "GST Registration", "sub": "GST Registration सेवा", "accent": "c-orange", "icon": "fa-solid fa-money-bill-transfer", "desc": "GST Registration — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["PAN", "Aadhaar", "Bank Statement", "Business Records"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc51", "title": "Business PAN", "sub": "Business PAN सेवा", "accent": "c-green", "icon": "fa-solid fa-mobile-screen", "desc": "Business PAN — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड", "DOB Proof (10th Marksheet/Birth Certificate)", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc52", "title": "Shop Billing", "sub": "Shop Billing सेवा", "accent": "c-purple", "icon": "fa-solid fa-tv", "desc": "Shop Billing — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc53", "title": "Aadhaar PVC Card", "sub": "Aadhaar PVC Card सेवा", "accent": "c-pink", "icon": "fa-solid fa-bolt", "desc": "Aadhaar PVC Card — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["पुराना आधार कार्ड", "सत्यापन दस्तावेज", "मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc54", "title": "EPF Services", "sub": "EPF Services सेवा", "accent": "c-cyan", "icon": "fa-solid fa-droplet", "desc": "EPF Services — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Policy/EPF Details", "Aadhaar", "Bank Details"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc55", "title": "ESIC Services", "sub": "ESIC Services सेवा", "accent": "c-teal", "icon": "fa-solid fa-gas-pump", "desc": "ESIC Services — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Policy/EPF Details", "Aadhaar", "Bank Details"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc56", "title": "AePS Online", "sub": "AePS Online सेवा", "accent": "c-orange", "icon": "fa-solid fa-id-badge", "desc": "AePS Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड (Original)", "बैंक खाता विवरण", "रजिस्टर्ड मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc57", "title": "Aadhaar Pay Online", "sub": "Aadhaar Pay Online सेवा", "accent": "c-green", "icon": "fa-solid fa-address-card", "desc": "Aadhaar Pay Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड (Original)", "बैंक खाता विवरण", "रजिस्टर्ड मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc58", "title": "Cash Deposit Online", "sub": "Cash Deposit Online सेवा", "accent": "c-purple", "icon": "fa-solid fa-person-booth", "desc": "Cash Deposit Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड (Original)", "बैंक खाता विवरण", "रजिस्टर्ड मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc59", "title": "Account Opening Online", "sub": "Account Opening Online सेवा", "accent": "c-pink", "icon": "fa-solid fa-car", "desc": "Account Opening Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड (Original)", "बैंक खाता विवरण", "रजिस्टर्ड मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc60", "title": "Money Transfer Online", "sub": "Money Transfer Online सेवा", "accent": "c-cyan", "icon": "fa-solid fa-passport", "desc": "Money Transfer Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड (Original)", "बैंक खाता विवरण", "रजिस्टर्ड मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc61", "title": "Mobile Recharge Online", "sub": "Mobile Recharge Online सेवा", "accent": "c-teal", "icon": "fa-solid fa-bus", "desc": "Mobile Recharge Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc62", "title": "DTH Recharge Online", "sub": "DTH Recharge Online सेवा", "accent": "c-orange", "icon": "fa-solid fa-train", "desc": "DTH Recharge Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc63", "title": "Electricity Bill Online", "sub": "Electricity Bill Online सेवा", "accent": "c-green", "icon": "fa-solid fa-plane", "desc": "Electricity Bill Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Consumer/Subscriber Number", "Registered Mobile Number"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc64", "title": "Water Bill Online", "sub": "Water Bill Online सेवा", "accent": "c-purple", "icon": "fa-solid fa-hotel", "desc": "Water Bill Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Consumer/Subscriber Number", "Registered Mobile Number"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc65", "title": "Gas Bill Online", "sub": "Gas Bill Online सेवा", "accent": "c-pink", "icon": "fa-solid fa-file-invoice", "desc": "Gas Bill Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Consumer/Subscriber Number", "Registered Mobile Number"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc66", "title": "PAN Card Online", "sub": "PAN Card Online सेवा", "accent": "c-cyan", "icon": "fa-solid fa-heart-circle-plus", "desc": "PAN Card Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड", "DOB Proof (10th Marksheet/Birth Certificate)", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc67", "title": "Aadhaar Update Online", "sub": "Aadhaar Update Online सेवा", "accent": "c-teal", "icon": "fa-solid fa-briefcase-medical", "desc": "Aadhaar Update Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["पुराना आधार कार्ड", "सत्यापन दस्तावेज", "मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc68", "title": "Voter ID Online", "sub": "Voter ID Online सेवा", "accent": "c-orange", "icon": "fa-solid fa-shield-halved", "desc": "Voter ID Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc69", "title": "Driving Licence Online", "sub": "Driving Licence Online सेवा", "accent": "c-green", "icon": "fa-solid fa-file-lines", "desc": "Driving Licence Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc70", "title": "Passport Online", "sub": "Passport Online सेवा", "accent": "c-purple", "icon": "fa-solid fa-certificate", "desc": "Passport Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार/Voter ID", "Birth Certificate/School Certificate", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc71", "title": "Bus Booking Online", "sub": "Bus Booking Online सेवा", "accent": "c-pink", "icon": "fa-solid fa-print", "desc": "Bus Booking Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["यात्रा तिथि", "यात्री का नाम", "मोबाइल नंबर", "ID Proof (जरूरत के अनुसार)"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc72", "title": "Train Ticket Online", "sub": "Train Ticket Online सेवा", "accent": "c-cyan", "icon": "fa-solid fa-photo-film", "desc": "Train Ticket Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["यात्रा तिथि", "यात्री का नाम", "मोबाइल नंबर", "ID Proof (जरूरत के अनुसार)"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc73", "title": "Flight Booking Online", "sub": "Flight Booking Online सेवा", "accent": "c-teal", "icon": "fa-solid fa-cookie-bite", "desc": "Flight Booking Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["यात्रा तिथि", "यात्री का नाम", "मोबाइल नंबर", "ID Proof (जरूरत के अनुसार)"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc74", "title": "Hotel Booking Online", "sub": "Hotel Booking Online सेवा", "accent": "c-orange", "icon": "fa-solid fa-car-battery", "desc": "Hotel Booking Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["यात्रा तिथि", "यात्री का नाम", "मोबाइल नंबर", "ID Proof (जरूरत के अनुसार)"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc75", "title": "GST Filing Online", "sub": "GST Filing Online सेवा", "accent": "c-green", "icon": "fa-solid fa-truck-fast", "desc": "GST Filing Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["PAN", "Aadhaar", "Bank Statement", "Business Records"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc76", "title": "Income Tax Filing Online", "sub": "Income Tax Filing Online सेवा", "accent": "c-purple", "icon": "fa-solid fa-file-arrow-down", "desc": "Income Tax Filing Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["PAN", "Aadhaar", "Bank Statement", "Business Records"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc77", "title": "TDS Services Online", "sub": "TDS Services Online सेवा", "accent": "c-pink", "icon": "fa-solid fa-money-bill-wave", "desc": "TDS Services Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["PAN", "Aadhaar", "Bank Statement", "Business Records"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc78", "title": "LIC Premium Online", "sub": "LIC Premium Online सेवा", "accent": "c-cyan", "icon": "fa-solid fa-hand-holding-dollar", "desc": "LIC Premium Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Policy/EPF Details", "Aadhaar", "Bank Details"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc79", "title": "Health Insurance Online", "sub": "Health Insurance Online सेवा", "accent": "c-teal", "icon": "fa-solid fa-chart-line", "desc": "Health Insurance Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Policy/EPF Details", "Aadhaar", "Bank Details"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc80", "title": "Vehicle Insurance Online", "sub": "Vehicle Insurance Online सेवा", "accent": "c-orange", "icon": "fa-solid fa-globe", "desc": "Vehicle Insurance Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Policy/EPF Details", "Aadhaar", "Bank Details"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc81", "title": "Birth Certificate Online", "sub": "Birth Certificate Online सेवा", "accent": "c-green", "icon": "fa-solid fa-wrench", "desc": "Birth Certificate Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आवेदन पत्र", "पहचान प्रमाण", "सम्बन्धित दस्तावेज"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc82", "title": "Death Certificate Online", "sub": "Death Certificate Online सेवा", "accent": "c-purple", "icon": "fa-solid fa-user-clock", "desc": "Death Certificate Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आवेदन पत्र", "पहचान प्रमाण", "सम्बन्धित दस्तावेज"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc83", "title": "Caste Certificate Online", "sub": "Caste Certificate Online सेवा", "accent": "c-pink", "icon": "fa-solid fa-users", "desc": "Caste Certificate Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आवेदन पत्र", "पहचान प्रमाण", "सम्बन्धित दस्तावेज"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc84", "title": "Domicile Certificate Online", "sub": "Domicile Certificate Online सेवा", "accent": "c-cyan", "icon": "fa-solid fa-building", "desc": "Domicile Certificate Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आवेदन पत्र", "पहचान प्रमाण", "सम्बन्धित दस्तावेज"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc85", "title": "Income Certificate Online", "sub": "Income Certificate Online सेवा", "accent": "c-teal", "icon": "fa-solid fa-gavel", "desc": "Income Certificate Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आवेदन पत्र", "पहचान प्रमाण", "सम्बन्धित दस्तावेज"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc86", "title": "Photo & Print Online", "sub": "Photo & Print Online सेवा", "accent": "c-orange", "icon": "fa-solid fa-hands-holding-circle", "desc": "Photo & Print Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc87", "title": "Document Scanning Online", "sub": "Document Scanning Online सेवा", "accent": "c-green", "icon": "fa-solid fa-school", "desc": "Document Scanning Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc88", "title": "Lamination Online", "sub": "Lamination Online सेवा", "accent": "c-purple", "icon": "fa-solid fa-mug-hot", "desc": "Lamination Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc89", "title": "Aadhaar Enrolment Online", "sub": "Aadhaar Enrolment Online सेवा", "accent": "c-pink", "icon": "fa-solid fa-key", "desc": "Aadhaar Enrolment Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["पुराना आधार कार्ड", "सत्यापन दस्तावेज", "मोबाइल नंबर"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc90", "title": "PAN Correction Online", "sub": "PAN Correction Online सेवा", "accent": "c-cyan", "icon": "fa-solid fa-download", "desc": "PAN Correction Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार कार्ड", "DOB Proof (10th Marksheet/Birth Certificate)", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc91", "title": "Shop Registration Online", "sub": "Shop Registration Online सेवा", "accent": "c-teal", "icon": "fa-solid fa-fingerprint", "desc": "Shop Registration Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc92", "title": "Trade License Online", "sub": "Trade License Online सेवा", "accent": "c-orange", "icon": "fa-solid fa-id-card", "desc": "Trade License Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc93", "title": "Police Verification Online", "sub": "Police Verification Online सेवा", "accent": "c-green", "icon": "fa-solid fa-piggy-bank", "desc": "Police Verification Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc94", "title": "Notary Services Online", "sub": "Notary Services Online सेवा", "accent": "c-purple", "icon": "fa-solid fa-user-plus", "desc": "Notary Services Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc95", "title": "Passport-size Photo Online", "sub": "Passport-size Photo Online सेवा", "accent": "c-pink", "icon": "fa-solid fa-money-bill-transfer", "desc": "Passport-size Photo Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["आधार/Voter ID", "Birth Certificate/School Certificate", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc96", "title": "Certificate Verification Online", "sub": "Certificate Verification Online सेवा", "accent": "c-cyan", "icon": "fa-solid fa-mobile-screen", "desc": "Certificate Verification Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc97", "title": "Fastag Recharge Online", "sub": "Fastag Recharge Online सेवा", "accent": "c-teal", "icon": "fa-solid fa-tv", "desc": "Fastag Recharge Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Consumer/Subscriber Number", "Registered Mobile Number"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc98", "title": "Courier Booking Online", "sub": "Courier Booking Online सेवा", "accent": "c-orange", "icon": "fa-solid fa-bolt", "desc": "Courier Booking Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc99", "title": "Electric Connection Online", "sub": "Electric Connection Online सेवा", "accent": "c-green", "icon": "fa-solid fa-droplet", "desc": "Electric Connection Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}, {"key": "svc100", "title": "Water Connection Online", "sub": "Water Connection Online सेवा", "accent": "c-purple", "icon": "fa-solid fa-gas-pump", "desc": "Water Connection Online — हम यह सेवा प्रोफेशनली प्रदान करते हैं। इसमें आवेदन, दस्तावेज़ जांच और सबमिशन शामिल है।", "docs": ["Aadhaar / ID Proof", "Address Proof", "Passport Size Photo"], "info": "Processing: Instant to a few working days depending on the service. Fees applicable."}];
-function renderGrid(){const grid=document.getElementById('grid');grid.innerHTML='';services.forEach(s=>{const card=document.createElement('div');card.className='service-card';card.onclick=()=>openModal(s.key);const icon=document.createElement('div');icon.className='service-icon '+s.accent;icon.innerHTML=`<i class="${s.icon}"></i>`;const body=document.createElement('div');body.className='service-body';body.innerHTML=`<div class="service-title">${s.title}</div><div class="service-sub">${s.sub}</div>`;card.appendChild(icon);card.appendChild(body);grid.appendChild(card);});}
-function openModal(key){const s=services.find(x=>x.key===key);if(!s)return;document.getElementById('modalTitle').textContent=s.title;document.getElementById('modalSub').textContent=s.sub;document.getElementById('modalDesc').textContent=s.desc;const ul=document.getElementById('modalDocs');ul.innerHTML='';s.docs.forEach(d=>{const li=document.createElement('li');li.textContent=d;ul.appendChild(li);});document.getElementById('modalInfo').textContent=s.info||'';const accent=document.getElementById('modalAccent');const map={'c-teal':'linear-gradient(135deg,var(--accent-teal),#16a085)','c-orange':'linear-gradient(135deg,var(--accent-orange),#ff6a00)','c-green':'linear-gradient(135deg,var(--accent-green),#26b86b)','c-purple':'linear-gradient(135deg,var(--accent-purple),#7a3fb4)','c-pink':'linear-gradient(135deg,var(--accent-pink),#ff3f7a)','c-cyan':'linear-gradient(135deg,var(--accent-cyan),#008fb3)'};accent.style.background=map[s.accent]||map['c-teal'];accent.innerHTML=`<i class="${s.icon}"></i>`;document.getElementById('modalWhats').href=`https://wa.me/917459064328?text=${encodeURIComponent(s.title+' के बारे में जानकारी चाहिए। नाम: , फोन: ')}`;document.getElementById('modal').classList.add('open');document.getElementById('modal').setAttribute('aria-hidden','false');}
-function closeModal(){document.getElementById('modal').classList.remove('open');document.getElementById('modal').setAttribute('aria-hidden','true');}
-function closeIfBackdrop(e){if(e.target.id==='modal')closeModal();}document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});renderGrid();
-</script>
+  <!-- Category Cards - BIG CARDS AS PER SCREENSHOT -->
+  <div class="category-section">
+    <div class="category-grid">
+      <div class="category-card cat-banking" onclick="filterServices('bank')">
+        <div class="category-icon">
+          <i class="fas fa-university"></i>
+        </div>
+        <h3>Banking</h3>
+        <p>बैंकिंग सेवाएं</p>
+      </div>
+      
+      <div class="category-card cat-bill" onclick="filterServices('bill')">
+        <div class="category-icon">
+          <i class="fas fa-bolt"></i>
+        </div>
+        <h3>Bill Payments</h3>
+        <p>बिल भुगतान</p>
+      </div>
+      
+      <div class="category-card cat-govt" onclick="filterServices('govt')">
+        <div class="category-icon">
+          <i class="fas fa-id-card"></i>
+        </div>
+        <h3>Government</h3>
+        <p>सरकारी सेवाएं</p>
+      </div>
+      
+      <div class="category-card cat-tax" onclick="filterServices('tax')">
+        <div class="category-icon">
+          <i class="fas fa-file-invoice"></i>
+        </div>
+        <h3>Tax / Registration</h3>
+        <p>कर / पंजीकरण</p>
+      </div>
+      
+      <div class="category-card cat-travel" onclick="filterServices('travel')">
+        <div class="category-icon">
+          <i class="fas fa-plane"></i>
+        </div>
+        <h3>Travel</h3>
+        <p>यात्रा सेवाएं</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="filter-section">
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="filterServices('all')">
+        <i class="fas fa-th-large"></i> सभी सेवाएं
+      </button>
+      <button class="filter-btn" onclick="filterServices('govt')">
+        <i class="fas fa-landmark"></i> सरकारी
+      </button>
+      <button class="filter-btn" onclick="filterServices('bank')">
+        <i class="fas fa-university"></i> बैंकिंग
+      </button>
+      <button class="filter-btn" onclick="filterServices('bill')">
+        <i class="fas fa-file-invoice-dollar"></i> बिल
+      </button>
+      <button class="filter-btn" onclick="filterServices('travel')">
+        <i class="fas fa-plane"></i> ट्रैवल
+      </button>
+      <button class="filter-btn" onclick="filterServices('tax')">
+        <i class="fas fa-calculator"></i> टैक्स/रजिस्ट्रेशन
+      </button>
+      <button class="filter-btn" onclick="filterServices('other')">
+        <i class="fas fa-cogs"></i> अन्य
+      </button>
+    </div>
+  </div>
+
+  <!-- Services Container -->
+  <div class="container" id="servicesContainer">
+    <!-- Services will be rendered here -->
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" onclick="closeIfBackdrop(event)">
+    <div class="modal-card">
+      <div class="modal-header" id="modalHeader">
+        <button class="modal-close" onclick="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-title-section">
+          <div class="modal-icon" id="modalIcon">
+            <i class="fas fa-cog"></i>
+          </div>
+          <div class="modal-title-text">
+            <h2 id="modalTitle">Service Title</h2>
+            <p id="modalSub">Service Description</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="info-grid">
+          <div class="info-box" style="--box-color: #22c55e;">
+            <h4><i class="fas fa-money-bill-wave"></i> शुल्क</h4>
+            <p id="modalPrice">₹100</p>
+          </div>
+          <div class="info-box" style="--box-color: #3b82f6;">
+            <h4><i class="fas fa-clock"></i> समय</h4>
+            <p id="modalTime">1-3 दिन</p>
+          </div>
+          <div class="info-box" style="--box-color: #f59e0b;">
+            <h4><i class="fas fa-building"></i> विभाग</h4>
+            <p id="modalDept">सरकारी</p>
+          </div>
+          <div class="info-box" style="--box-color: #ec4899;">
+            <h4><i class="fas fa-check-circle"></i> सफलता दर</h4>
+            <p>99.9%</p>
+          </div>
+        </div>
+
+        <div class="docs-section">
+          <h4 class="section-heading">
+            <i class="fas fa-folder-open" style="color: #22c55e;"></i>
+            आवश्यक दस्तावेज़
+          </h4>
+          <div class="docs-grid" id="modalDocs"></div>
+        </div>
+
+        <div class="process-section">
+          <h4><i class="fas fa-tasks"></i> प्रक्रिया</h4>
+          <div class="process-steps" id="modalProcess"></div>
+        </div>
+
+        <div class="note-box">
+          <i class="fas fa-info-circle"></i>
+          <p id="modalNote">इस सेवा के लिए कृपया मूल दस्तावेज़ साथ लाएं।</p>
+        </div>
+
+        <div class="modal-actions">
+          <a href="#" id="modalWhats" class="action-btn btn-whatsapp" target="_blank">
+            <i class="fab fa-whatsapp"></i> व्हाट्सएप पर पूछें
+          </a>
+          <a href="tel:+917459064328" class="action-btn btn-call">
+            <i class="fas fa-phone"></i> अभी कॉल करें
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Action Buttons -->
+  <div class="quick-actions">
+    <a href="tel:+917459064328" class="quick-btn call" data-tooltip="कॉल करें">
+      <i class="fas fa-phone"></i>
+    </a>
+    <a href="https://wa.me/917459064328" class="quick-btn whatsapp" data-tooltip="व्हाट्सएप करें" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <!-- Footer - EXACTLY LIKE ABOUT PAGE -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <p>Khan Jan Seva Kendra - बस्ती का सबसे विश्वसनीय जन सेवा केंद्र। 2018 से आपकी सेवा में। 100+ सेवाएं, 50,000+ खुश ग्राहक।</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/917459064328"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <a href="index.html"><i class="fas fa-chevron-right"></i> Home</a>
+        <a href="services.html"><i class="fas fa-chevron-right"></i> Services</a>
+        <a href="about.html"><i class="fas fa-chevron-right"></i> About</a>
+        <a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a>
+        <a href="Latest job.html"><i class="fas fa-chevron-right"></i> Latest Jobs</a>
+      </div>
+      <div class="footer-section">
+        <h4>Our Services</h4>
+        <a href="#govt"><i class="fas fa-chevron-right"></i> आधार कार्ड सेवा</a>
+        <a href="#govt"><i class="fas fa-chevron-right"></i> पैन कार्ड सेवा</a>
+        <a href="#govt"><i class="fas fa-chevron-right"></i> राशन कार्ड</a>
+        <a href="#bank"><i class="fas fa-chevron-right"></i> बैंकिंग सेवाएं</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Info</h4>
+        <p><i class="fas fa-map-marker-alt"></i> District Hospital Gate No. 3, Basti, UP - 272002</p>
+        <p><i class="fas fa-phone"></i> +91-7459064328</p>
+        <p><i class="fas fa-envelope"></i> alerts@khanjansevakendra.shop</p>
+        <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 6PM</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2018-2025 Khan Jan Seva Kendra. All Rights Reserved. | 7 सालों से आपकी सेवा में</p>
+    </div>
+  </footer>
+
+  <script>
+    // 100 Services Data with Unique Colors and Icons
+    const servicesData = [
+      // Government Services (1-25)
+      { id: 1, category: 'govt', title: 'PAN Card', subtitle: 'नया पैन कार्ड, डुप्लीकेट या सुधार', icon: 'fa-id-card', color: 'linear-gradient(135deg, #FF6B6B, #EE5A24)', price: '₹110 onwards', time: '7-15 दिन', dept: 'Income Tax Dept', docs: ['Aadhaar Card आधार कार्ड', 'Birth Certificate जन्म प्रमाण पत्र', 'Passport Size Photo पासपोर्ट साइज फोटो','Signture हस्ताक्षर', 'Addrass Prof पता प्रमाण'], process: ['आवेदन भरें', 'दस्तावेज़ जमा करें', 'फोटो खिंचवाएं', 'पावती लें'], note: 'PAN Card अब 48 घंटे में भी बन सकता है। तत्काल सेवा उपलब्ध।' },
+      { id: 2, category: 'govt', title: 'Aadhaar Update', subtitle: 'नाम, पता, मोबाइल अपडेट', icon: 'fa-fingerprint', color: 'linear-gradient(135deg, #4ECDC4, #44A3AA)', price: '₹50 onwards', time: 'Instant-90 दिन', dept: 'UIDAI', docs: ['पुराना आधार', 'सत्यापन दस्तावेज़', 'रजिस्टर्ड मोबाइल'], process: ['फॉर्म भरें', 'बायोमीट्रिक वेरिफिकेशन', 'दस्तावेज़ स्कैन', 'अपडेट कन्फर्म'], note: 'मोबाइल नंबर अपडेट के बाद ही OTP आएगा।' },
+      { id: 3, category: 'govt', title: 'Voter ID', subtitle: 'मतदाता पहचान पत्र', icon: 'fa-vote-yea', color: 'linear-gradient(135deg, #A29BFE, #6C5CE7)', price: 'Free', time: '30-45 दिन', dept: 'Election Commission', docs: ['आधार/पहचान प्रमाण', 'Addrass Prof पता प्रमाण', 'Passport Size Photo पासपोर्ट साइज फोटो', 'आयु प्रमाण'], process: ['फॉर्म-6 भरें', 'दस्तावेज़ अपलोड', 'BLO वेरिफिकेशन', 'कार्ड प्राप्ति'], note: '18+ उम्र के सभी नागरिकों के लिए अनिवार्य।' },
+      { id: 4, category: 'govt', title: 'Driving Licence', subtitle: 'Learning/Permanent/Renewal', icon: 'fa-car', color: 'linear-gradient(135deg, #FD79A8, #E84393)', price: '₹500 onwards', time: '15-30 दिन', dept: 'RTO', docs: ['आधार/पहचान प्रमाण', 'Addrass Prof पता प्रमाण', 'पासपोर्ट फोटो', 'उम्र प्रमाण'], process: ['ऑनलाइन आवेदन', 'फीस जमा', 'टेस्ट/वेरिफिकेशन', 'लाइसेंस प्रिंट'], note: 'Learning के 30 दिन बाद Permanent के लिए आवेदन।' },
+      { id: 5, category: 'govt', title: 'Passport', subtitle: 'नया/रिन्यूअल/तत्काल', icon: 'fa-passport', color: 'linear-gradient(135deg, #FDCB6E, #F39C12)', price: '₹1500 onwards', time: '30-60 दिन', dept: 'Passport Seva', docs: ['आधार/वोटर ID', 'जन्म प्रमाण', 'Addrass Prof पता प्रमाण', '10वीं मार्कशीट'], process: ['ऑनलाइन रजिस्ट्रेशन', 'अपॉइंटमेंट', 'PSK विजिट', 'पुलिस वेरिफिकेशन'], note: 'Tatkal में 7 दिनों में पासपोर्ट। अतिरिक्त शुल्क लागू।' },
+      { id: 6, category: 'govt', title: 'Birth Certificate', subtitle: 'Birth Certificate जन्म प्रमाण पत्र', icon: 'fa-baby', color: 'linear-gradient(135deg, #55EFC4, #00B894)', price: '₹100 onwards', time: '7-15 दिन', dept: 'Nagar Palika', docs: ['अस्पताल प्रमाण पत्र', 'माता-पिता का ID', 'Addrass Prof पता प्रमाण', 'आवेदन पत्र'], process: ['आवेदन दर्ज', 'दस्तावेज़ जमा', 'सत्यापन', 'प्रमाण पत्र जारी'], note: '1 साल से अधिक पुराने जन्म के लिए अदालती प्रक्रिया।' },
+      { id: 7, category: 'govt', title: 'Death Certificate', subtitle: 'मृत्यु प्रमाण पत्र', icon: 'fa-cross', color: 'linear-gradient(135deg, #74B9FF, #0984E3)', price: '₹100 onwards', time: '7-15 दिन', dept: 'Nagar Palika', docs: ['अस्पताल प्रमाण पत्र', 'मृतक का ID', 'आवेदक का ID', 'आवेदन पत्र'], process: ['आवेदन दर्ज', 'दस्तावेज़ जमा', 'सत्यापन', 'प्रमाण जारी'], note: 'बैंक, बीमा और संपत्ति के लिए आवश्यक।' },
+      { id: 8, category: 'govt', title: 'Caste Certificate', subtitle: 'SC/ST/OBC प्रमाण पत्र', icon: 'fa-users', color: 'linear-gradient(135deg, #FFB347, #FF8C00)', price: '₹50 onwards', time: '15-30 दिन', dept: 'SDM Office', docs: ['पुराना जाति प्रमाण', 'राशन कार्ड', 'आधार', 'पासपोर्ट फोटो'], process: ['आवेदन', 'पटवारी रिपोर्ट', 'SDM वेरिफिकेशन', 'प्रमाण जारी'], note: 'OBC प्रमाण 1 साल के लिए वैध, नवीनीकरण अनिवार्य।' },
+      { id: 9, category: 'govt', title: 'Income Certificate', subtitle: 'आय प्रमाण पत्र', icon: 'fa-money-bill-wave', color: 'linear-gradient(135deg, #A8E6CF, #1B9CFC)', price: '₹50 onwards', time: '7-15 दिन', dept: 'Tehsil', docs: ['आवेदन पत्र', 'आधार', 'Addrass Prof पता प्रमाण', 'आय संबंधी दस्तावेज़'], process: ['आवेदन', 'पटवारी जांच', 'तहसीलदार स्वीकृति', 'प्रमाण जारी'], note: 'छात्रवृत्ति और सरकारी योजनाओं के लिए आवश्यक।' },
+      { id: 10, category: 'govt', title: 'Domicile Certificate', subtitle: 'निवास प्रमाण पत्र', icon: 'fa-home', color: 'linear-gradient(135deg, #DDA0DD, #8B008B)', price: '₹50 onwards', time: '15-30 दिन', dept: 'Tehsil', docs: ['10 साल का निवास प्रमाण', 'आधार', 'राशन कार्ड', 'वोटर ID'], process: ['आवेदन', 'पटवारी रिपोर्ट', 'तहसीलदार वेरिफिकेशन', 'प्रमाण जारी'], note: 'UP में 15+ साल के निवास के लिए ही जारी होता है।' },
+      { id: 11, category: 'govt', title: 'Aadhaar PVC', subtitle: 'PVC Aadhaar Card आधार कार्ड', icon: 'fa-id-card-alt', color: 'linear-gradient(135deg, #FF6B9D, #C44569)', price: '₹50', time: '15-30 दिन', dept: 'UIDAI', docs: ['आधार नंबर', 'रजिस्टर्ड मोबाइल'], process: ['ऑनलाइन ऑर्डर', 'OTP वेरिफिकेशन', 'पेमेंट', 'डिलीवरी'], note: 'टिकाऊ PVC कार्ड, QR code के साथ।' },
+      { id: 12, category: 'govt', title: 'Ration Card', subtitle: 'राशन कार्ड नया/अपडेट', icon: 'fa-utensils', color: 'linear-gradient(135deg, #00D2D3, #01A3A4)', price: 'Free/₹50', time: '30-45 दिन', dept: 'Food & Civil Supplies', docs: ['आधार', 'Addrass Prof पता प्रमाण', 'पारिवारिक विवरण', 'फोटो'], process: ['आवेदन', 'दस्तावेज़ जमा', 'FCS वेरिफिकेशन', 'कार्ड जारी'], note: 'BPL/APL/AAY सभी प्रकार के राशन कार्ड।' },
+      { id: 13, category: 'govt', title: 'E-Shram Card', subtitle: 'ई-श्रम पोर्टल पंजीकरण', icon: 'fa-hard-hat', color: 'linear-gradient(135deg, #5F27CD, #341F97)', price: 'Free', time: 'Instant', dept: 'Labour Dept', docs: ['आधार', 'मोबाइल', 'बैंक खाता', 'पासपोर्ट फोटो'], process: ['ऑनलाइन रजिस्ट्रेशन', 'OTP वेरिफिकेशन', 'फोटो अपलोड', 'कार्ड डाउनलोड'], note: 'श्रमिकों के लिए ₹2 लाख का बीमा।' },
+      { id: 14, category: 'govt', title: 'Ayushman Card', subtitle: 'आयुष्मान भारत योजना', icon: 'fa-heartbeat', color: 'linear-gradient(135deg, #10AC84, #1DD1A1)', price: 'Free', time: '7-15 दिन', dept: 'Health Dept', docs: ['आधार', 'राशन कार्ड', 'आय प्रमाण', 'पासपोर्ट फोटो'], process: ['पात्रता चेक', 'आवेदन', 'वेरिफिकेशन', 'कार्ड जारी'], note: '5 लाख रुपये तक का मुफ्त इलाज।' },
+      { id: 15, category: 'govt', title: 'PM Kisan', subtitle: 'पीएम किसान सम्मान निधि', icon: 'fa-tractor', color: 'linear-gradient(135deg, #EE5A24, #F79F1F)', price: 'Free', time: '30-60 दिन', dept: 'Agriculture Dept', docs: ['आधार', 'जमीन के कागजात', 'बैंक खाता', 'मोबाइल'], process: ['ऑनलाइन आवेदन', 'पात्रता चेक', 'वेरिफिकेशन', '₹6000/साल'], note: 'किसानों के लिए सालाना ₹6000 की आय सहायता।' },
+      { id: 16, category: 'govt', title: 'Pension Yojana', subtitle: 'वृद्धा/विधवा/दिव्यांग पेंशन', icon: 'fa-hands-helping', color: 'linear-gradient(135deg, #9980FA, #8C7AE6)', price: 'Free', time: '45-60 दिन', dept: 'Social Welfare', docs: ['आधार', 'आयु प्रमाण', 'आय प्रमाण', 'बैंक खाता'], process: ['आवेदन', 'पात्रता चेक', 'वेरिफिकेशन', 'पेंशन स्वीकृति'], note: '₹500-1000 महीने की पेंशन।' },
+      { id: 17, category: 'govt', title: 'Marriage Certificate', subtitle: 'विवाह प्रमाण पत्र', icon: 'fa-ring', color: 'linear-gradient(135deg, #FD79A8, #FDCB6E)', price: '₹100 onwards', time: '15-30 दिन', dept: 'Nagar Palika', docs: ['विवाह फोटो', 'गवाहों का ID', 'आधार', 'आवेदन पत्र'], process: ['आवेदन', 'दस्तावेज़ जमा', 'सत्यापन', 'प्रमाण जारी'], note: 'विदेश यात्रा और बैंक खाता के लिए आवश्यक।' },
+      { id: 18, category: 'govt', title: 'Arms Licence', subtitle: 'हथियार लाइसेंस', icon: 'fa-shield-alt', color: 'linear-gradient(135deg, #636E72, #2D3436)', price: '₹5000 onwards', time: '3-6 महीने', dept: 'DM Office', docs: ['आधार', 'चरित्र प्रमाण', 'आय प्रमाण', 'मेडिकल सर्टिफिकेट'], process: ['आवेदन', 'पुलिस वेरिफिकेशन', 'DM इंटरव्यू', 'लाइसेंस जारी'], note: 'बहुत ही सीमित cases में ही मिलता है।' },
+      { id: 19, category: 'govt', title: 'Property Registration', subtitle: 'संपत्ति पंजीकरण', icon: 'fa-building', color: 'linear-gradient(135deg, #00B894, #55EFC4)', price: 'As per value', time: '7-15 दिन', dept: 'Stamp & Registration', docs: ['Registry papers', 'आधार', 'PAN', 'Tax receipt'], process: ['दस्तावेज़ तैयार', 'स्टाम्प ड्यूटी', 'रजिस्ट्रेशन', 'म्यूटेशन'], note: ' property खरीद/बिक्री के लिए अनिवार्य।' },
+      { id: 20, category: 'govt', title: 'Mutation', subtitle: 'नाम दर्ज (म्यूटेशन)', icon: 'fa-exchange-alt', color: 'linear-gradient(135deg, #E84393, #FD79A8)', price: '₹500 onwards', time: '30-60 दिन', dept: 'Revenue Dept', docs: ['Registry copy', 'आधार', 'आवेदन पत्र', 'Tax receipt'], process: ['आवेदन', 'पटवारी रिपोर्ट', 'तहसीलदार स्वीकृति', 'नाम दर्ज'], note: 'खाता/खसरा में नाम दर्ज कराना अनिवार्य।' },
+      { id: 21, category: 'govt', title: 'Khasra/Khatauni', subtitle: 'खसरा/खतौनी निकालें', icon: 'fa-file-alt', color: 'linear-gradient(135deg, #F39C12, #F1C40F)', price: '₹50 onwards', time: '1-7 दिन', dept: 'Revenue Dept', docs: ['जमीन का पता', 'गाटा नंबर', 'आवेदक का ID'], process: ['आवेदन', 'फीस जमा', 'रिकॉर्ड निकालें', 'सत्यापित प्रति'], note: 'जमीन के सभी रिकॉर्ड निकालें।' },
+      { id: 22, category: 'govt', title: 'NOC', subtitle: 'NOC प्रमाण पत्र', icon: 'fa-check-double', color: 'linear-gradient(135deg, #27AE60, #2ECC71)', price: '₹200 onwards', time: '7-15 दिन', dept: 'Various Depts', docs: ['आवेदन पत्र', 'सम्बंधित दस्तावेज़', 'आधार', 'फोटो'], process: ['आवेदन', 'विभागीय जांच', 'NOC जारी', 'डिलीवरी'], note: 'Police, Fire, Pollution सभी प्रकार के NOC।' },
+      { id: 23, category: 'govt', title: 'Arms Renewal', subtitle: 'हथियार लाइसेंस नवीनीकरण', icon: 'fa-redo', color: 'linear-gradient(135deg, #8E44AD, #9B59B6)', price: '₹1000 onwards', time: '15-30 दिन', dept: 'DM Office', docs: ['पुराना लाइसेंस', 'आधार', 'मेडिकल सर्टिफिकेट'], process: ['आवेदन', 'वेरिफिकेशन', 'फीस जमा', 'नवीनीकरण'], note: 'हर 3 साल में नवीनीकरण अनिवार्य।' },
+      { id: 24, category: 'govt', title: 'Vehicle Registration', subtitle: 'वाहन पंजीकरण', icon: 'fa-car-side', color: 'linear-gradient(135deg, #E74C3C, #C0392B)', price: 'As per vehicle', time: '7-15 दिन', dept: 'RTO', docs: ['Invoice', 'Insurance', 'Address Proof', 'Photo'], process: ['दस्तावेज़ जमा', 'फीस जमा', 'नंबर आवंटन', 'RC प्रिंट'], note: 'नए वाहन का पंजीकरण अनिवार्य।' },
+      { id: 25, category: 'govt', title: 'Vehicle Transfer', subtitle: 'वाहन ट्रांसफर ( ownership)', icon: 'fa-car-crash', color: 'linear-gradient(135deg, #34495E, #2C3E50)', price: '₹500 onwards', time: '15-30 दिन', dept: 'RTO', docs: ['RC', 'Insurance', 'NOC', 'Address Proof'], process: ['Form 29/30', 'NOC', 'Fee Payment', 'New RC'], note: 'वाहन खरीद/बिक्री पर ट्रांसफर अनिवार्य।' },
+
+      // Banking Services (26-45)
+      { id: 26, category: 'bank', title: 'AePS', subtitle: 'आधार से पैसे निकालें', icon: 'fa-fingerprint', color: 'linear-gradient(135deg, #00B894, #00CEC9)', price: '₹10 onwards', time: 'Instant', dept: 'NPCI', docs: ['Aadhaar Card आधार कार्ड', 'बैंक खाता', 'रजिस्टर्ड मोबाइल'], process: ['आधार दर्ज', 'बायोमीट्रिक', 'बैंक चुनें', 'कैश प्राप्त'], note: 'बिना ATM/कार्ड के पैसे निकालें। 24x7 उपलब्ध।' },
+      { id: 27, category: 'bank', title: 'Money Transfer', subtitle: 'IMPS/NEFT/RTGS', icon: 'fa-exchange-alt', color: 'linear-gradient(135deg, #6C5CE7, #A29BFE)', price: '₹10 onwards', time: 'Instant', dept: 'Banking', docs: ['आधार/ID', 'बैंक खाता विवरण', 'मोबाइल नंबर'], process: ['प्राप्तकर्ता विवरण', 'राशि दर्ज', 'OTP/PIN', 'कन्फर्म'], note: 'IMPS 24x7, NEFT RTGS समयबद्ध।' },
+      { id: 28, category: 'bank', title: 'Account Opening', subtitle: 'बचत/चालू खाता', icon: 'fa-university', color: 'linear-gradient(135deg, #FD79A8, #FDCB6E)', price: 'Free/₹500', time: 'Instant-7 दिन', dept: 'Bank', docs: ['आधार', 'पैन', 'पासपोर्ट फोटो', 'Addrass Prof पता प्रमाण'], process: ['फॉर्म भरें', 'KYC दस्तावेज़', 'फोटो/हस्ताक्षर', 'पासबुक'], note: 'Jan Dhan खाता में ₹0 बैलेंस।' },
+      { id: 29, category: 'bank', title: 'Cash Deposit', subtitle: 'कैश जमा करें', icon: 'fa-hand-holding-usd', color: 'linear-gradient(135deg, #FDCB6E, #E17055)', price: '₹20 onwards', time: 'Instant', dept: 'Banking', docs: ['आधार/ID', 'बैंक खाता', 'मोबाइल'], process: ['खाता विवरण', 'कैश गिनती', 'रसीद', 'SMS कन्फर्म'], note: 'किसी भी बैंक में जमा करें।' },
+      { id: 30, category: 'bank', title: 'Aadhaar Pay', subtitle: 'आधार से भुगतान', icon: 'fa-qrcode', color: 'linear-gradient(135deg, #74B9FF, #0984E3)', price: 'Free', time: 'Instant', dept: 'NPCI', docs: ['आधार', 'बैंक खाता', 'मोबाइल'], process: ['आधार स्कैन', 'बायोमीट्रिक', 'राशि दर्ज', 'कन्फर्म'], note: 'मर्चेंट को सीधे भुगतान।' },
+      { id: 31, category: 'bank', title: 'LIC Premium', subtitle: 'LIC प्रीमियम जमा', icon: 'fa-shield-alt', color: 'linear-gradient(135deg, #55EFC4, #00B894)', price: 'As per policy', time: 'Instant', dept: 'LIC', docs: ['पॉलिसी नंबर', 'प्रीमियम रसीद', 'मोबाइल'], process: ['पॉलिसी नंबर', 'विवरण चेक', 'पेमेंट', 'रसीद'], note: 'Grace period में जमा करें।' },
+      { id: 32, category: 'bank', title: 'Health Insurance', subtitle: 'Ayushman/अन्य', icon: 'fa-heartbeat', color: 'linear-gradient(135deg, #FF7675, #D63031)', price: 'Free/₹500', time: 'Instant-7 दिन', dept: 'Insurance', docs: ['आधार', 'परिवार विवरण', 'आय प्रमाण'], process: ['पात्रता चेक', 'आवेदन', 'वेरिफिकेशन', 'कार्ड जारी'], note: 'Ayushman में 5 लाख का बीमा फ्री।' },
+      { id: 33, category: 'bank', title: 'Vehicle Insurance', subtitle: '2W/4W बीमा', icon: 'fa-car', color: 'linear-gradient(135deg, #FDCB6E, #F39C12)', price: 'As per vehicle', time: 'Instant', dept: 'Insurance', docs: ['RC', 'पुराना बीमा', 'आधार', 'मोबाइल'], process: ['वाहन विवरण', 'कोटेशन', 'पेमेंट', 'पॉलिसी'], note: 'Third Party अनिवार्य।' },
+      { id: 34, category: 'bank', title: 'Fastag Recharge', subtitle: 'Toll प्लाजा के लिए', icon: 'fa-road', color: 'linear-gradient(135deg, #A29BFE, #6C5CE7)', price: 'As per amount', time: 'Instant', dept: 'NHAI', docs: ['वाहन नंबर', 'Fastag ID'], process: ['वाहन नंबर', 'बैलेंस चेक', 'रिचार्ज', 'SMS'], note: 'कम बैलेंस पर SMS अलर्ट।' },
+      { id: 35, category: 'bank', title: 'EPF Withdrawal', subtitle: 'PF निकासी', icon: 'fa-piggy-bank', color: 'linear-gradient(135deg, #00CEC9, #6C5CE7)', price: 'Free', time: '15-30 दिन', dept: 'EPFO', docs: ['UAN', 'आधार', 'बैंक विवरण', 'पासबुक'], process: ['ऑनलाइन आवेदन', 'KYC', 'एम्प्लॉयर अप्रूवल', 'क्रेडिट'], note: '6 महीने बाद ही निकासी।' },
+      { id: 36, category: 'bank', title: 'EPF Balance Check', subtitle: 'PF बैलेंस जांच', icon: 'fa-search-dollar', color: 'linear-gradient(135deg, #5F27CD, #341F97)', price: 'Free', time: 'Instant', dept: 'EPFO', docs: ['UAN', 'मोबाइल'], process: ['Missed Call/SMS', 'UAN दर्ज', 'OTP', 'बैलेंस SMS'], note: 'Missed Call 011-22901406 पर।' },
+      { id: 37, category: 'bank', title: 'ESIC Services', subtitle: 'ESIC कार्ड/क्लेम', icon: 'fa-hospital', color: 'linear-gradient(135deg, #10AC84, #1DD1A1)', price: 'Free', time: '7-15 दिन', dept: 'ESIC', docs: ['ESIC नंबर', 'आधार', 'बैंक विवरण'], process: ['ऑनलाइन आवेदन', 'वेरिफिकेशन', 'कार्ड जनरेट', 'डिलीवरी'], note: 'कर्मचारियों के लिए मुफ्त इलाज।' },
+      { id: 38, category: 'bank', title: 'ATM Card Apply', subtitle: 'ATM/Debit Card', icon: 'fa-credit-card', color: 'linear-gradient(135deg, #EE5A24, #F79F1F)', price: '₹100-300', time: '7-15 दिन', dept: 'Bank', docs: ['खाता विवरण', 'आधार', 'पासपोर्ट फोटो'], process: ['आवेदन', 'वेरिफिकेशन', 'PIN जनरेट', 'कार्ड डिलीवरी'], note: 'Visa/Mastercard/Rupay सभी।' },
+      { id: 39, category: 'bank', title: 'Cheque Book', subtitle: 'चेक बुक आवेदन', icon: 'fa-money-check', color: 'linear-gradient(135deg, #9980FA, #8C7AE6)', price: '₹100-200', time: '7-15 दिन', dept: 'Bank', docs: ['खाता विवरण', 'आधार', 'पुरानी चेक बुक'], process: ['आवेदन', 'वेरिफिकेशन', 'प्रिंट', 'डिलीवरी'], note: '10/25/50 चेक की बुक।' },
+      { id: 40, category: 'bank', title: 'Passbook Update', subtitle: 'पासबुक अपडेट', icon: 'fa-book', color: 'linear-gradient(135deg, #FD79A8, #FDCB6E)', price: 'Free', time: 'Instant', dept: 'Bank', docs: ['Passbook', 'आधार/ID'], process: ['पासबुक दें', 'मशीन में अपडेट', 'वेरिफाई', 'वापस'], note: 'कुछ बैंकों में ₹10-20 शुल्क।' },
+      { id: 41, category: 'bank', title: 'Fixed Deposit', subtitle: 'FD/RD खाता', icon: 'fa-lock', color: 'linear-gradient(135deg, #00D2D3, #01A3A4)', price: 'As per amount', time: 'Instant', dept: 'Bank', docs: ['खाता विवरण', 'आधार', 'राशि'], process: ['फॉर्म भरें', 'राशि जमा', 'FD रसीद', 'मैच्योरिटी'], note: '5-8% ब्याज दर।' },
+      { id: 42, category: 'bank', title: 'Loan Enquiry', subtitle: 'पर्सनल/होम/कार लोन', icon: 'fa-hand-holding-usd', color: 'linear-gradient(135deg, #5F27CD, #341F97)', price: 'Free', time: 'Instant', dept: 'Bank', docs: ['आधार', 'पैन', 'आय प्रमाण', 'Addrass Prof पता प्रमाण'], process: ['पात्रता चेक', 'दस्तावेज़', 'वेरिफिकेशन', 'स्वीकृति'], note: 'सभी बैंकों से तुलना करवाएं।' },
+      { id: 43, category: 'bank', title: 'Credit Card', subtitle: 'क्रेडिट कार्ड आवेदन', icon: 'fa-cc-visa', color: 'linear-gradient(135deg, #FF6B9D, #C44569)', price: 'Free/₹500', time: '15-30 दिन', dept: 'Bank', docs: ['आधार', 'पैन', 'आय प्रमाण', 'बैंक स्टेटमेंट'], process: ['आवेदन', 'CIBIL चेक', 'वेरिफिकेशन', 'कार्ड जारी'], note: 'Rewards और Cashback के साथ।' },
+      { id: 44, category: 'bank', title: 'UPI Registration', subtitle: 'Google Pay/PhonePe/Paytm', icon: 'fa-mobile-alt', color: 'linear-gradient(135deg, #10AC84, #1DD1A1)', price: 'Free', time: 'Instant', dept: 'UPI', docs: ['मोबाइल', 'बैंक खाता', 'आधार'], process: ['App Install', 'मोबाइल वेरिफाई', 'बैंक लिंक', 'UPI PIN'], note: '24x7 Instant Payment।' },
+      { id: 45, category: 'bank', title: 'Statement Request', subtitle: 'बैंक स्टेटमेंट', icon: 'fa-file-invoice-dollar', color: 'linear-gradient(135deg, #EE5A24, #F79F1F)', price: '₹50-100', time: 'Instant', dept: 'Bank', docs: ['खाता विवरण', 'आधार', 'समयावधि'], process: ['आवेदन', 'फीस जमा', 'स्टेटमेंट प्रिंट', 'सत्यापित'], note: '3/6/12 महीने का स्टेटमेंट।' },
+
+      // Bill Payment (46-60)
+      { id: 46, category: 'bill', title: 'Mobile Recharge', subtitle: 'प्रीपेड/पोस्टपेड', icon: 'fa-mobile-alt', color: 'linear-gradient(135deg, #6C5CE7, #A29BFE)', price: 'As per plan', time: 'Instant', dept: 'Telecom', docs: ['मोबाइल नंबर', 'ऑपरेटर'], process: ['नंबर दर्ज', 'प्लान चुनें', 'पेमेंट', 'रिचार्ज'], note: 'सभी ऑपरेटर्स - Jio, Airtel, Vi, BSNL।' },
+      { id: 47, category: 'bill', title: 'DTH Recharge', subtitle: 'Tata Sky/Dish/Airtel', icon: 'fa-satellite-dish', color: 'linear-gradient(135deg, #FD79A8, #FDCB6E)', price: 'As per plan', time: 'Instant', dept: 'DTH', docs: ['Customer ID', 'ऑपरेटर'], process: ['ID दर्ज', 'पैक चुनें', 'पेमेंट', 'एक्टिवेशन'], note: 'HD/SD सभी पैक्स उपलब्ध।' },
+      { id: 48, category: 'bill', title: 'Electricity Bill', subtitle: 'UPPCL/अन्य', icon: 'fa-bolt', color: 'linear-gradient(135deg, #FDCB6E, #E17055)', price: 'As per bill', time: 'Instant', dept: 'UPPCL', docs: ['Consumer Number', 'मोबाइल'], process: ['नंबर दर्ज', 'बिल चेक', 'पेमेंट', 'रसीद'], note: 'डिस्काउंट पर ऑफर भी देखें।' },
+      { id: 49, category: 'bill', title: 'Water Bill', subtitle: 'नगर पालिका बिल', icon: 'fa-tint', color: 'linear-gradient(135deg, #74B9FF, #0984E3)', price: 'As per bill', time: 'Instant', dept: 'Nagar Palika', docs: ['Consumer Number'], process: ['नंबर दर्ज', 'बिल चेक', 'पेमेंट', 'रसीद'], note: 'समय पर भुगतान पर रियायत।' },
+      { id: 50, category: 'bill', title: 'Gas Bill', subtitle: 'PNG/CNG', icon: 'fa-fire', color: 'linear-gradient(135deg, #E17055, #D63031)', price: 'As per bill', time: 'Instant', dept: 'Gas Company', docs: ['Consumer Number'], process: ['नंबर दर्ज', 'बिल चेक', 'पेमेंट', 'रसीद'], note: 'ऑटो-डेबिट की सुविधा।' },
+      { id: 51, category: 'bill', title: 'Broadband Bill', subtitle: 'Internet बिल', icon: 'fa-wifi', color: 'linear-gradient(135deg, #00B894, #55EFC4)', price: 'As per bill', time: 'Instant', dept: 'ISP', docs: ['Customer ID'], process: ['ID दर्ज', 'बिल चेक', 'पेमेंट', 'रसीद'], note: 'JioFiber, Airtel, BSNL सभी।' },
+      { id: 52, category: 'bill', title: 'Landline Bill', subtitle: 'स्थायी फोन बिल', icon: 'fa-phone', color: 'linear-gradient(135deg, #A8E6CF, #1B9CFC)', price: 'As per bill', time: 'Instant', dept: 'BSNL', docs: ['Phone Number'], process: ['नंबर दर्ज', 'बिल चेक', 'पेमेंट', 'रसीद'], note: 'BSNL Landline/Mobile दोनों।' },
+      { id: 53, category: 'bill', title: 'Municipal Tax', subtitle: 'संपत्ति कर', icon: 'fa-building', color: 'linear-gradient(135deg, #FFB347, #FF8C00)', price: 'As per bill', time: 'Instant', dept: 'Nagar Palika', docs: ['Property ID'], process: ['ID दर्ज', 'कर चेक', 'पेमेंट', 'रसीद'], note: 'समय पर भुगतान पर 5% रियायत।' },
+      { id: 54, category: 'bill', title: 'Credit Card Bill', subtitle: 'क्रेडिट कार्ड भुगतान', icon: 'fa-credit-card', color: 'linear-gradient(135deg, #DDA0DD, #8B008B)', price: 'As per bill', time: 'Instant', dept: 'Bank', docs: ['Card Number', 'Bill Amount'], process: ['नंबर दर्ज', 'बिल चेक', 'पेमेंट', 'रसीद'], note: 'Due Date से पहले भुगतान करें।' },
+      { id: 55, category: 'bill', title: 'Insurance Premium', subtitle: 'LIC/अन्य बीमा', icon: 'fa-shield-alt', color: 'linear-gradient(135deg, #FF6B9D, #C44569)', price: 'As per policy', time: 'Instant', dept: 'Insurance', docs: ['Policy Number'], process: ['नंबर दर्ज', 'प्रीमियम चेक', 'पेमेंट', 'रसीद'], note: 'Grace Period में भुगतान करें।' },
+      { id: 56, category: 'bill', title: 'Loan EMI', subtitle: 'लोन किस्त जमा', icon: 'fa-hand-holding-usd', color: 'linear-gradient(135deg, #00D2D3, #01A3A4)', price: 'As per EMI', time: 'Instant', dept: 'Bank', docs: ['Loan Account Number'], process: ['नंबर दर्ज', 'EMI चेक', 'पेमेंट', 'रसीद'], note: 'समय पर EMI से CIBIL अच्छा रहेगा।' },
+      { id: 57, category: 'bill', title: 'Cable TV Bill', subtitle: 'केबल टीवी बिल', icon: 'fa-tv', color: 'linear-gradient(135deg, #5F27CD, #341F97)', price: 'As per bill', time: 'Instant', dept: 'Cable Operator', docs: ['Customer ID'], process: ['ID दर्ज', 'बिल चेक', 'पेमेंट', 'रसीद'], note: 'डिजिटल/एनालॉग केबल दोनों।' },
+      { id: 58, category: 'bill', title: 'Metro Recharge', subtitle: 'मेट्रो कार्ड रिचार्ज', icon: 'fa-subway', color: 'linear-gradient(135deg, #10AC84, #1DD1A1)', price: 'As per amount', time: 'Instant', dept: 'Metro', docs: ['Card Number'], process: ['नंबर दर्ज', 'राशि चुनें', 'पेमेंट', 'रिचार्ज'], note: 'Delhi, Mumbai, Bangalore Metro।' },
+      { id: 59, category: 'bill', title: 'Toll Recharge', subtitle: 'Fastag/अन्य', icon: 'fa-road', color: 'linear-gradient(135deg, #EE5A24, #F79F1F)', price: 'As per amount', time: 'Instant', dept: 'NHAI', docs: ['Vehicle Number'], process: ['नंबर दर्ज', 'बैलेंस चेक', 'रिचार्ज', 'SMS'], note: 'Fastag अनिवार्य।' },
+      { id: 60, category: 'bill', title: 'Subscription', subtitle: 'Netflix/Amazon/अन्य', icon: 'fa-play-circle', color: 'linear-gradient(135deg, #9980FA, #8C7AE6)', price: 'As per plan', time: 'Instant', dept: 'OTT', docs: ['Registered Mobile/Email'], process: ['Details दर्ज', 'Plan चुनें', 'पेमेंट', 'Activation'], note: 'सभी OTT प्लेटफॉर्म्स।' },
+
+      // Travel Booking (61-75)
+      { id: 61, category: 'travel', title: 'Bus Booking', subtitle: 'UPSRTC/प्राइवेट', icon: 'fa-bus', color: 'linear-gradient(135deg, #FD79A8, #FDCB6E)', price: 'As per ticket', time: 'Instant', dept: 'UPSRTC', docs: ['यात्री का नाम', 'मोबाइल', 'ID Proof'], process: ['रुट चुनें', 'सीट चुनें', 'विवरण', 'टिकट'], note: 'AC/Non-AC, Sleeper सभी।' },
+      { id: 62, category: 'travel', title: 'Train Ticket', subtitle: 'IRCTC बुकिंग', icon: 'fa-train', color: 'linear-gradient(135deg, #6C5CE7, #A29BFE)', price: 'As per ticket', time: 'Instant', dept: 'IRCTC', docs: ['यात्री नाम', 'मोबाइल', 'ID Proof'], process: ['ट्रेन खोजें', 'सीट चुनें', 'विवरण', 'टिकट'], note: 'Tatkal, General, Ladies कोटा।' },
+      { id: 63, category: 'travel', title: 'Flight Booking', subtitle: 'डोमेस्टिक/इंटरनेशनल', icon: 'fa-plane', color: 'linear-gradient(135deg, #74B9FF, #0984E3)', price: 'As per ticket', time: 'Instant', dept: 'Airlines', docs: ['यात्री नाम', 'मोबाइल', 'ID Proof', 'Passport (INTL)'], process: ['फ्लाइट चुनें', 'विवरण', 'पेमेंट', 'टिकट'], note: 'सस्ते किराए पर सबसे अच्छा।' },
+      { id: 64, category: 'travel', title: 'Hotel Booking', subtitle: 'भारत में कहीं भी', icon: 'fa-hotel', color: 'linear-gradient(135deg, #FDCB6E, #E17055)', price: 'As per hotel', time: 'Instant', dept: 'Hotels', docs: ['यात्री नाम', 'मोबाइल', 'ID Proof'], process: ['शहर/होटल चुनें', 'तारीख', 'विवरण', 'बुकिंग'], note: 'Budget से Luxury सभी।' },
+      { id: 65, category: 'travel', title: 'Cab Booking', subtitle: 'Ola/Uber/अन्य', icon: 'fa-taxi', color: 'linear-gradient(135deg, #A29BFE, #6C5CE7)', price: 'As per ride', time: 'Instant', dept: 'Cab', docs: ['Pickup Location', 'Mobile'], process: ['Location दर्ज', 'Cab चुनें', 'Confirm', 'Ride'], note: 'Mini, Sedan, SUV सभी।' },
+      { id: 66, category: 'travel', title: 'Bike Rental', subtitle: 'बाइक किराए पर', icon: 'fa-motorcycle', color: 'linear-gradient(135deg, #00B894, #55EFC4)', price: '₹300/day onwards', time: 'Instant', dept: 'Rental', docs: ['Driving Licence', 'आधार', 'Deposit'], process: ['Bike चुनें', 'दस्तावेज़', 'डिपॉजिट', 'राइड'], note: 'Hourly/Daily/Weekly Rental।' },
+      { id: 67, category: 'travel', title: 'Car Rental', subtitle: 'कार किराए पर', icon: 'fa-car', color: 'linear-gradient(135deg, #A8E6CF, #1B9CFC)', price: '₹1000/day onwards', time: 'Instant', dept: 'Rental', docs: ['Driving Licence', 'आधार', 'Deposit'], process: ['Car चुनें', 'दस्तावेज़', 'डिपॉजिट', 'राइड'], note: 'With/Without Driver दोनों।' },
+      { id: 68, category: 'travel', title: 'Tour Package', subtitle: 'पूरा टूर पैकेज', icon: 'fa-map-marked-alt', color: 'linear-gradient(135deg, #FFB347, #FF8C00)', price: 'As per package', time: 'Instant-1 day', dept: 'Travel Agency', docs: ['यात्री विवरण', 'ID Proof', 'Preference'], process: ['Destination चुनें', 'Package चुनें', 'बुकिंग', 'Confirm'], note: 'Hotel + Transport + Food सब कुछ।' },
+      { id: 69, category: 'travel', title: 'Pilgrimage Tour', subtitle: 'तीर्थ यात्रा', icon: 'fa-pray', color: 'linear-gradient(135deg, #DDA0DD, #8B008B)', price: 'As per package', time: 'Instant-1 day', dept: 'Travel Agency', docs: ['यात्री विवरण', 'ID Proof'], process: ['Destination चुनें', 'Package चुनें', 'बुकिंग', 'Confirm'], note: 'Kashi, Mathura, Prayagraj, etc.' },
+      { id: 70, category: 'travel', title: 'International Tour', subtitle: 'विदेश यात्रा', icon: 'fa-globe', color: 'linear-gradient(135deg, #FF6B9D, #C44569)', price: 'As per package', time: '7-30 days', dept: 'Travel Agency', docs: ['Passport', 'Visa', 'Photo', 'Details'], process: ['Country चुनें', 'Package चुनें', 'Visa Help', 'Confirm'], note: 'Visa Assistance के साथ।' },
+      { id: 71, category: 'travel', title: 'Railway Enquiry', subtitle: 'ट्रेन जानकारी', icon: 'fa-info-circle', color: 'linear-gradient(135deg, #00D2D3, #01A3A4)', price: 'Free', time: 'Instant', dept: 'IRCTC', docs: ['Train Number/Name'], process: ['Train दर्ज', 'Status चेक', 'Information', 'Confirm'], note: 'PNR Status, Running Status सब।' },
+      { id: 72, category: 'travel', title: 'Ticket Cancellation', subtitle: 'टिकट रद्दीकरण', icon: 'fa-times-circle', color: 'linear-gradient(135deg, #5F27CD, #341F97)', price: 'As per charges', time: 'Instant', dept: 'IRCTC/ Airlines', docs: ['Ticket Details', 'ID'], process: ['Ticket दर्ज', 'Charges चेक', 'Confirm', 'Refund'], note: 'Cancellation charges लागू।' },
+      { id: 73, category: 'travel', title: 'Travel Insurance', subtitle: 'यात्रा बीमा', icon: 'fa-shield-alt', color: 'linear-gradient(135deg, #10AC84, #1DD1A1)', price: '₹100 onwards', time: 'Instant', dept: 'Insurance', docs: ['यात्री विवरण', 'Trip Details'], process: ['Details दर्ज', 'Plan चुनें', 'पेमेंट', 'Policy'], note: 'Medical + Baggage + Trip Cancellation।' },
+      { id: 74, category: 'travel', title: 'Visa Assistance', subtitle: 'वीजा मदद', icon: 'fa-passport', color: 'linear-gradient(135deg, #EE5A24, #F79F1F)', price: '₹1000 onwards', time: '7-30 days', dept: 'Embassy', docs: ['Passport', 'Photo', 'Documents', 'Form'], process: ['Country चुनें', 'Documents तैयार', 'Submit', 'Visa'], note: 'Tourist/Business/Student Visa।' },
+      { id: 75, category: 'travel', title: 'Forex Exchange', subtitle: 'विदेशी मुद्रा', icon: 'fa-money-bill-wave', color: 'linear-gradient(135deg, #9980FA, #8C7AE6)', price: 'As per amount', time: 'Instant', dept: 'Forex', docs: ['Passport', 'Visa', 'Ticket', 'ID'], process: ['Currency चुनें', 'Amount दर्ज', 'Rate चेक', 'Exchange'], note: 'USD, EUR, GBP, AED सभी।' },
+
+      // Tax & Registration (76-90)
+      { id: 76, category: 'tax', title: 'GST Registration', subtitle: 'नया GST पंजीकरण', icon: 'fa-registered', color: 'linear-gradient(135deg, #55EFC4, #00B894)', price: '₹500 onwards', time: '7-15 दिन', dept: 'GST Dept', docs: ['PAN', 'आधार', 'बैंक स्टेटमेंट', 'बिजनेस प्रूफ'], process: ['ऑनलाइन आवेदन', 'दस्तावेज़', 'वेरिफिकेशन', 'GSTIN'], note: '20 लाख+ टर्नओवर के लिए अनिवार्य।' },
+      { id: 77, category: 'tax', title: 'GST Filing', subtitle: 'Monthly/Quarterly', icon: 'fa-file-invoice', color: 'linear-gradient(135deg, #A29BFE, #6C5CE7)', price: '₹500 onwards', time: 'Monthly', dept: 'GST Dept', docs: ['GSTIN', 'बिक्री/खरीद', 'बैंक स्टेटमेंट'], process: ['डेटा इकट्ठा', 'Return तैयार', 'File', 'Pay'], note: 'देरी पर जुर्माना।' },
+      { id: 78, category: 'tax', title: 'Income Tax Filing', subtitle: 'ITR-1 to ITR-4', icon: 'fa-calculator', color: 'linear-gradient(135deg, #FD79A8, #FDCB6E)', price: '₹300 onwards', time: 'Annual', dept: 'Income Tax', docs: ['PAN', 'Form 16', 'बैंक स्टेटमेंट', 'आधार'], process: ['डेटा इकट्ठा', 'ITR तैयार', 'File', 'Verify'], note: '31 जुलाई तक अनिवार्य।' },
+      { id: 79, category: 'tax', title: 'TDS Return', subtitle: 'TDS Return Filing', icon: 'fa-percentage', color: 'linear-gradient(135deg, #FDCB6E, #F39C12)', price: '₹500 onwards', time: 'Quarterly', dept: 'Income Tax', docs: ['TAN', 'TDS Details', 'Challan', 'Party Details'], process: ['Data Collect', 'Return Prepare', 'File', 'Acknowledge'], note: 'Employer/Contractor के लिए अनिवार्य।' },
+      { id: 80, category: 'tax', title: 'TAN Registration', subtitle: 'TAN आवेदन', icon: 'fa-id-badge', color: 'linear-gradient(135deg, #74B9FF, #0984E3)', price: '₹300 onwards', time: '7-15 दिन', dept: 'Income Tax', docs: ['PAN', 'आधार', 'Address Proof'], process: ['Form 49B', 'Documents', 'Verification', 'TAN Allot'], note: 'TDS deduct करने के लिए अनिवार्य।' },
+      { id: 81, category: 'tax', title: 'Professional Tax', subtitle: 'प्रोफेशनल टैक्स', icon: 'fa-user-tie', color: 'linear-gradient(135deg, #00B894, #55EFC4)', price: '₹200 onwards', time: 'Monthly/Annual', dept: 'Commercial Tax', docs: ['PAN', 'Address Proof', 'Business Details'], process: ['Registration', 'Monthly Return', 'Payment', 'Certificate'], note: 'व्यापारियों/पेशेवरों के लिए।' },
+      { id: 82, category: 'tax', title: 'Shop Act', subtitle: 'दुकान अधिनियम', icon: 'fa-store', color: 'linear-gradient(135deg, #A8E6CF, #1B9CFC)', price: '₹500 onwards', time: '15-30 दिन', dept: 'Labour Dept', docs: ['PAN', 'Address Proof', 'Employee Details'], process: ['Form Fill', 'Documents', 'Inspection', 'License'], note: '10+ employees वाली दुकानों के लिए।' },
+      { id: 83, category: 'tax', title: 'Trade License', subtitle: 'व्यापार लाइसेंस', icon: 'fa-file-contract', color: 'linear-gradient(135deg, #FFB347, #FF8C00)', price: '₹1000 onwards', time: '15-30 दिन', dept: 'Nagar Palika', docs: ['PAN', 'Address Proof', 'Premises Proof'], process: ['Application', 'Documents', 'Inspection', 'License'], note: 'व्यापार करने के लिए अनिवार्य।' },
+      { id: 84, category: 'tax', title: 'FSSAI License', subtitle: 'खाद्य लाइसेंस', icon: 'fa-utensils', color: 'linear-gradient(135deg, #DDA0DD, #8B008B)', price: '₹100 onwards', time: '15-45 दिन', dept: 'FSSAI', docs: ['PAN', 'Address Proof', 'Photo', 'Form B'], process: ['Online Apply', 'Documents', 'Inspection', 'License'], note: 'खाद्य व्यवसाय के लिए अनिवार्य।' },
+      { id: 85, category: 'tax', title: 'MSME Registration', subtitle: 'उद्यम पंजीकरण', icon: 'fa-industry', color: 'linear-gradient(135deg, #FF6B9D, #C44569)', price: 'Free/₹500', time: 'Instant-7 दिन', dept: 'MSME', docs: ['Aadhaar', 'PAN', 'Business Details'], process: ['Online Apply', 'Udyam Portal', 'Verification', 'Certificate'], note: 'सरकारी योजनाओं का लाभ।' },
+      { id: 86, category: 'tax', title: 'Import Export Code', subtitle: 'IEC कोड', icon: 'fa-ship', color: 'linear-gradient(135deg, #00D2D3, #01A3A4)', price: '₹500 onwards', time: '7-15 दिन', dept: 'DGFT', docs: ['PAN', 'Address Proof', 'Bank Details', 'Photo'], process: ['Online Apply', 'Documents', 'Fee Payment', 'IEC Code'], note: 'आयात/निर्यात के लिए अनिवार्य।' },
+      { id: 87, category: 'tax', title: 'Digital Signature', subtitle: 'डिजिटल हस्ताक्षर', icon: 'fa-signature', color: 'linear-gradient(135deg, #5F27CD, #341F97)', price: '₹800 onwards', time: '1-3 days', dept: 'Certifying Authority', docs: ['PAN', 'Aadhaar', 'Photo', 'Email'], process: ['Online Apply', 'Video Verification', 'Payment', 'Download'], note: '2/3 years validity।' },
+      { id: 88, category: 'tax', title: 'Company Registration', subtitle: 'Pvt Ltd/OPC/LLP', icon: 'fa-building', color: 'linear-gradient(135deg, #10AC84, #1DD1A1)', price: '₹5000 onwards', time: '15-30 दिन', dept: 'MCA', docs: ['PAN', 'Aadhaar', 'Address Proof', 'Photo'], process: ['Name Approval', 'Documents', 'Incorporation', 'Certificate'], note: 'Startup India Registration भी।' },
+      { id: 89, category: 'tax', title: 'Trademark', subtitle: 'ट्रेडमार्क पंजीकरण', icon: 'fa-trademark', color: 'linear-gradient(135deg, #EE5A24, #F79F1F)', price: '₹3500 onwards', time: '6-18 months', dept: 'IP India', docs: ['Logo/Name', 'Address', 'Business Details'], process: ['Search', 'Application', 'Examination', 'Registration'], note: '10 साल की सुरक्षा।' },
+      { id: 90, category: 'tax', title: 'Copyright', subtitle: 'कॉपीराइट पंजीकरण', icon: 'fa-copyright', color: 'linear-gradient(135deg, #9980FA, #8C7AE6)', price: '₹2000 onwards', time: '6-12 months', dept: 'IP India', docs: ['Work Sample', 'ID Proof', 'Address', 'Form'], process: ['Application', 'Fee Payment', 'Examination', 'Certificate'], note: 'Literary, Artistic, Software works।' },
+
+      // Other Services (91-100)
+      { id: 91, category: 'other', title: 'Photo & Print', subtitle: 'Color/B&W/Passport', icon: 'fa-image', color: 'linear-gradient(135deg, #55EFC4, #00B894)', price: '₹5 onwards', time: 'Instant', dept: 'Printing', docs: ['Digital File'], process: ['File दें', 'Size चुनें', 'Print', 'Lamination'], note: 'Passport, Stamp, ID सभी sizes।' },
+      { id: 92, category: 'other', title: 'Document Scan', subtitle: 'High Quality Scan', icon: 'fa-scanner', color: 'linear-gradient(135deg, #A29BFE, #6C5CE7)', price: '₹5 per page', time: 'Instant', dept: 'Scanning', docs: ['Original Document'], process: ['Document दें', 'Settings', 'Scan', 'USB/Email'], note: '300 DPI, Color/B&W, PDF/JPG।' },
+      { id: 93, category: 'other', title: 'Lamination', subtitle: 'A4/A3/ID Card', icon: 'fa-layer-group', color: 'linear-gradient(135deg, #FD79A8, #FDCB6E)', price: '₹20 onwards', time: 'Instant', dept: 'Lamination', docs: ['Document/Photo'], process: ['Size चुनें', 'Laminate', 'Cutting', 'Finish'], note: 'Hot lamination, 5 साल guarantee।' },
+      { id: 94, category: 'other', title: 'Spiral Binding', subtitle: 'रिंग बाइंडिंग', icon: 'fa-book', color: 'linear-gradient(135deg, #FDCB6E, #F39C12)', price: '₹30 onwards', time: 'Instant', dept: 'Binding', docs: ['Pages/Documents'], process: ['Pages arrange', 'Hole punching', 'Spiral insert', 'Finish'], note: 'Project, Thesis, Reports के लिए।' },
+      { id: 95, category: 'other', title: 'Notary', subtitle: 'Affidavit/Agreement', icon: 'fa-stamp', color: 'linear-gradient(135deg, #74B9FF, #0984E3)', price: '₹100 onwards', time: 'Instant', dept: 'Notary', docs: ['Document', 'ID Proof', 'Witness'], process: ['Document verify', 'Stamp', 'Sign', 'Return'], note: 'Court में मान्य।' },
+      { id: 96, category: 'other', title: 'Courier', subtitle: 'Speed Post/Courier', icon: 'fa-shipping-fast', color: 'linear-gradient(135deg, #00B894, #55EFC4)', price: 'As per weight', time: '2-7 days', dept: 'India Post', docs: ['Parcel', 'Address', 'Mobile'], process: ['Weigh', 'Pack', 'Book', 'Tracking'], note: 'Tracking के साथ।' },
+      { id: 97, category: 'other', title: 'Typing Work', subtitle: 'Hindi/English Typing', icon: 'fa-keyboard', color: 'linear-gradient(135deg, #A8E6CF, #1B9CFC)', price: '₹20 per page', time: 'Instant', dept: 'Typing', docs: ['Handwritten/Matter'], process: ['Matter दें', 'Type', 'Format', 'Print'], note: 'Hindi/English दोनों।' },
+      { id: 98, category: 'other', title: 'Form Filling', subtitle: 'Online/Offline Forms', icon: 'fa-edit', color: 'linear-gradient(135deg, #FFB347, #FF8C00)', price: '₹50 onwards', time: 'Instant', dept: 'Form', docs: ['Details', 'Documents'], process: ['Details collect', 'Form fill', 'Verify', 'Submit'], note: 'Job, Exam, Govt सभी forms।' },
+      { id: 99, category: 'other', title: 'Project Work', subtitle: 'School/College Projects', icon: 'fa-project-diagram', color: 'linear-gradient(135deg, #DDA0DD, #8B008B)', price: '₹500 onwards', time: '1-7 days', dept: 'Project', docs: ['Topic/Subject', 'Guidelines'], process: ['Topic discuss', 'Research', 'Prepare', 'Finalize'], note: 'File, Chart, PPT सब कुछ।' },
+      { id: 100, category: 'other', title: 'Cyber Cafe', subtitle: 'Internet Browsing', icon: 'fa-desktop', color: 'linear-gradient(135deg, #FF6B9D, #C44569)', price: '₹30 per hour', time: 'Instant', dept: 'Cyber', docs: ['ID Proof'], process: ['Login', 'Browse', 'Print if needed', 'Logout'], note: 'High Speed Internet, Print, Scan।' }
+    ];
+
+
+    // Render services by category
+    function renderServices(filter = 'all') {
+      const container = document.getElementById('servicesContainer');
+      container.innerHTML = '';
+
+      const categories = {
+        govt: { title: 'सरकारी सेवाएं', icon: 'fa-landmark' },
+        bank: { title: 'बैंकिंग सेवाएं', icon: 'fa-university' },
+        bill: { title: 'बिल भुगतान', icon: 'fa-file-invoice-dollar' },
+        travel: { title: 'ट्रैवल बुकिंग', icon: 'fa-plane' },
+        tax: { title: 'कर / पंजीकरण', icon: 'fa-calculator' },
+        other: { title: 'अन्य सेवाएं', icon: 'fa-cogs' }
+      };
+
+      Object.keys(categories).forEach(catKey => {
+        if (filter !== 'all' && filter !== catKey) return;
+
+        const catServices = servicesData.filter(s => s.category === catKey);
+        if (catServices.length === 0) return;
+
+        const section = document.createElement('div');
+        section.id = catKey;
+        
+        section.innerHTML = `
+          <h2 class="section-title">
+            <i class="fas ${categories[catKey].icon}"></i>
+            ${categories[catKey].title} (${catServices.length})
+          </h2>
+          <div class="services-grid">
+            ${catServices.map(service => `
+              <div class="service-card" onclick="openModal(${service.id})" style="--card-color: ${service.color}">
+                <div class="service-icon" style="background: ${service.color}">
+                  <i class="fas ${service.icon}"></i>
+                </div>
+                <h3>${service.title}</h3>
+                <p>${service.subtitle}</p>
+                <div class="service-meta">
+                  <span class="service-time">
+                    <i class="fas fa-clock"></i> ${service.time}
+                  </span>
+                  <div class="service-arrow" style="background: ${service.color}">
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        
+        container.appendChild(section);
+      });
+    }
+
+    function openModal(id) {
+      const service = servicesData.find(s => s.id === id);
+      if (!service) return;
+
+      document.getElementById('modalTitle').textContent = service.title;
+      document.getElementById('modalSub').textContent = service.subtitle;
+      document.getElementById('modalIcon').innerHTML = `<i class="fas ${service.icon}"></i>`;
+      document.getElementById('modalHeader').style.background = service.color;
+      document.getElementById('modalPrice').textContent = service.price;
+      document.getElementById('modalTime').textContent = service.time;
+      document.getElementById('modalDept').textContent = service.dept;
+      document.getElementById('modalNote').textContent = service.note;
+
+      const docsContainer = document.getElementById('modalDocs');
+      docsContainer.innerHTML = service.docs.map(doc => `
+        <div class="doc-item">
+          <i class="fas fa-check-circle"></i>
+          <span>${doc}</span>
+        </div>
+      `).join('');
+
+      const processContainer = document.getElementById('modalProcess');
+      processContainer.innerHTML = service.process.map((step, idx) => `
+        <div class="process-step">
+          <i class="fas fa-${['edit', 'upload', 'search', 'check-circle'][idx] || 'circle'}"></i>
+          <h5>चरण ${idx + 1}</h5>
+          <p>${step}</p>
+        </div>
+      `).join('');
+
+      document.getElementById('modalWhats').href = 
+        `https://wa.me/917459064328?text=${encodeURIComponent(service.title + ' के बारे में जानकारी चाहिए।')}`;
+
+      document.getElementById('modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeIfBackdrop(e) {
+      if (e.target.id === 'modal') closeModal();
+    }
+
+    function filterServices(category) {
+      // Update buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      renderServices(category);
+      
+      // Scroll to services
+      if (category !== 'all') {
+        document.getElementById(category).scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function toggleMenu() {
+      const nav = document.getElementById('mainNav');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      if(nav.style.display === 'flex') {
+        nav.style.position = 'absolute';
+        nav.style.top = '100px';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'white';
+        nav.style.flexDirection = 'column';
+        nav.style.padding = '20px';
+        nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => renderServices('all'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+
 </body>
 </html>
