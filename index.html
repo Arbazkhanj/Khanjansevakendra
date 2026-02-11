@@ -1404,6 +1404,18 @@
       .mobile-menu-btn { display: block; }
     }
   </style>
+<script>
+// Prevent internal links from opening in new tab
+document.addEventListener('DOMContentLoaded', function() {
+  const internalLinks = document.querySelectorAll('a[href="about.html"], a[href="services.html"], a[href="index.html"], a[href="contact.html"], a[href="Latest job.html"], a[href="login.html"]');
+  internalLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = this.getAttribute('href');
+    });
+  });
+});
+</script>
 <base target="_blank">
 </head>
 <body>
@@ -1428,16 +1440,16 @@
       <a href="index.html" class="nav-item active">
         <i class="fas fa-home"></i> Home
       </a>
-      <a href="services.html" class="nav-item">
+      <a href="services.html" class="nav-item" target="_self">
         <i class="fas fa-cogs"></i> Services
       </a>
-      <a href="about.html" class="nav-item">
+      <a href="about.html" class="nav-item" target="_self">
         <i class="fas fa-info-circle"></i> About
       </a>
-      <a href="contact.html" class="nav-item" onclick="window.location.href='contact.html'; return false;">
+      <a href="contact.html" class="nav-item">
         <i class="fas fa-envelope"></i> Contact
       </a>
-      <a href="Latest job.html" class="nav-item" onclick="window.location.href='Latest job.html'; return false;">
+      <a href="Latest job.html" class="nav-item">
         <i class="fas fa-briefcase"></i> Latest Job
       </a>
       <a href="login.html" class="nav-item">
@@ -1638,7 +1650,7 @@ const vacancyData = {
     lastDate: '30 जनवरी 2026',
     admitCard: 'फरवरी 2026',
     examDate: 'मार्च-अप्रैल 2026',
-    applyLink: 'https://uppbpb.gov.in/ '
+    applyLink: 'https://uppbpb.gov.in/'
   },
   'rrbgroupd': {
     title: 'Railway RRB Group D Level-1 2026',
@@ -1653,7 +1665,7 @@ const vacancyData = {
     lastDate: '02 मार्च 2026',
     admitCard: 'अप्रैल 2026',
     examDate: 'मई-जून 2026',
-    applyLink: 'https://rrbapply.gov.in/ '
+    applyLink: 'https://rrbapply.gov.in/'
   },
   'haryanapolice': {
     title: 'Haryana Police Constable 2026',
@@ -1668,7 +1680,7 @@ const vacancyData = {
     lastDate: '31 जनवरी 2026',
     admitCard: 'फरवरी 2026',
     examDate: 'मार्च 2026',
-    applyLink: 'https://hssc.gov.in/ '
+    applyLink: 'https://hssc.gov.in/'
   },
   'sbipo': {
     title: 'SBI Probationary Officer (PO) 2026',
@@ -1683,7 +1695,7 @@ const vacancyData = {
     lastDate: 'अक्टूबर 2026 (अपेक्षित)',
     admitCard: 'नवंबर 2026',
     examDate: 'नवंबर-दिसंबर 2026',
-    applyLink: 'https://sbi.co.in/web/careers '
+    applyLink: 'https://sbi.co.in/web/careers'
   },
   'ibpspo': {
     title: 'IBPS PO/MT Recruitment 2026',
@@ -1698,7 +1710,7 @@ const vacancyData = {
     lastDate: 'अगस्त 2026',
     admitCard: 'अगस्त 2026',
     examDate: '22-23 अगस्त (Prelims), 04 अक्टूबर (Mains)',
-    applyLink: 'https://www.ibps.in/ '
+    applyLink: 'https://www.ibps.in/'
   },
   'uppsc': {
     title: 'UPPSC PCS 2026',
@@ -1713,7 +1725,7 @@ const vacancyData = {
     lastDate: 'अप्रैल 2026 (अपेक्षित)',
     admitCard: 'मई 2026',
     examDate: 'जून 2026',
-    applyLink: 'https://uppsc.up.nic.in/ '
+    applyLink: 'https://uppsc.up.nic.in/'
   },
   'sscchsl': {
     title: 'SSC CHSL 2026',
@@ -1728,7 +1740,7 @@ const vacancyData = {
     lastDate: 'मई 2026 (अपेक्षित)',
     admitCard: 'जून 2026',
     examDate: 'जुलाई-अगस्त 2026',
-    applyLink: 'https://ssc.gov.in/ '
+    applyLink: 'https://ssc.gov.in/'
   }
 };
 
