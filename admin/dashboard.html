@@ -1397,13 +1397,20 @@
                 updateCustomersList();
             } else if(section === 'documents') {
                 loadDocuments();
+            } else if(section === 'applications') {
+                // FIXED: Render applications when section is shown
+                const apps = Object.values(allApplications);
+                renderAllApps(apps);
             }
         };
 
         // View Application
         window.viewApplication = async function(appId) {
             const app = allApplications[appId];
-            if(!app) return;
+            if(!app) {
+                showToast('Application not found', 'error');
+                return;
+            }
             
             document.getElementById('modalAppId').textContent = 'Application ID: #' + appId;
             
@@ -1485,34 +1492,80 @@
             document.getElementById('detailModal').style.display = 'block';
         };
 
-        // Update Status
+        // FIXED: Added editStatus function that was missing
+        window.editStatus = function(appId) {
+            const app = allApplications[appId];
+            if(!app) {
+                showToast('Application not found', 'error');
+                return;
+            }
+            
+            // Open modal with status update focused
+            viewApplication(appId);
+            
+            // Scroll to status update section
+            setTimeout(() => {
+                const statusSection = document.querySelector('.status-update');
+                if(statusSection) {
+                    statusSection.scrollIntoView({ behavior: 'smooth' });
+                    statusSection.style.background = '#fff3e0';
+                    statusSection.style.padding = '20px';
+                    statusSection.style.borderRadius = '8px';
+                    setTimeout(() => {
+                        statusSection.style.background = 'transparent';
+                        statusSection.style.padding = '0';
+                    }, 2000);
+                }
+            }, 300);
+        };
+
+        // FIXED: Update Status function with better error handling
         window.updateStatus = async function(appId) {
             const newStatus = document.getElementById('newStatus').value;
+            
+            if(!newStatus) {
+                showToast('Please select a status', 'error');
+                return;
+            }
             
             try {
                 showLoading(true);
                 
-                // Update in allApplications
-                await update(ref(database, `allApplications/${appId}`), {
+                // Get the application data first
+                const app = allApplications[appId];
+                if(!app) {
+                    throw new Error('Application not found');
+                }
+                
+                const customerId = app.customerId || app.userId;
+                
+                if(!customerId) {
+                    throw new Error('Customer ID not found');
+                }
+                
+                const updates = {
                     status: newStatus,
-                    updatedAt: Date.now()
-                });
+                    updatedAt: Date.now(),
+                    updatedBy: currentUser ? currentUser.uid : 'admin'
+                };
+                
+                // Update in allApplications
+                await update(ref(database, `allApplications/${appId}`), updates);
                 
                 // Update in user's applications
-                const app = allApplications[appId];
-                if(app && app.customerId) {
-                    await update(ref(database, `applications/${app.customerId}/${appId}`), {
-                        status: newStatus,
-                        updatedAt: Date.now()
-                    });
-                }
+                await update(ref(database, `applications/${customerId}/${appId}`), updates);
                 
                 showToast('Status updated successfully!', 'success');
                 closeModal();
-                showLoading(false);
+                
+                // Refresh the applications list
+                const apps = Object.values(allApplications);
+                renderAllApps(apps);
+                
             } catch (error) {
                 console.error('Error updating status:', error);
-                showToast('Failed to update status', 'error');
+                showToast('Failed to update status: ' + error.message, 'error');
+            } finally {
                 showLoading(false);
             }
         };
@@ -1542,7 +1595,7 @@
             }
             
             tbody.innerHTML = customers.map(([uid, user]) => {
-                const appCount = Object.values(allApplications).filter(a => a.customerId === uid).length;
+                const appCount = Object.values(allApplications).filter(a => a.customerId === uid || a.userId === uid).length;
                 return `
                     <tr>
                         <td>
@@ -1680,7 +1733,7 @@
 
         // Other Functions
         window.viewCustomerApps = function(uid) {
-            const count = Object.values(allApplications).filter(a => a.customerId === uid).length;
+            const count = Object.values(allApplications).filter(a => a.customerId === uid || a.userId === uid).length;
             showToast(`Customer has ${count} applications`, 'info');
         };
 
