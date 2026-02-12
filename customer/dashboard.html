@@ -1756,10 +1756,10 @@
             </div>
             <div class="footer-section">
                 <h3><i class="fas fa-link"></i> Quick Links</h3>
-                <a href="index.html">Home</a><br>
-                <a href="services.html">Services</a><br>
-                <a href="about.html">About Us</a><br>
-                <a href="contact.html">Contact</a><br>
+                <a href="../index.html">Home</a><br>
+                <a href="../services.html">Services</a><br>
+                <a href="../about.html">About Us</a><br>
+                <a href="../contact.html">Contact</a><br>
                 <a href="#" onclick="showSection('track'); return false;">Track Application</a>
             </div>
             <div class="footer-section">
@@ -1898,7 +1898,7 @@
                 setupRealtimeListeners();
                 showLoading(false);
             } else {
-                window.location.href = 'login.html';
+                window.location.href = '../login.html';  // ✅ FIXED PATH
             }
         });
 
@@ -2529,11 +2529,11 @@ Thank you for using our services!
             document.getElementById('userDropdown').classList.toggle('show');
         };
 
-        // FIXED: Logout now redirects to index.html (home page)
+        // FIXED: Logout now redirects to login.html
         window.logout = async function() {
             try {
                 await signOut(auth);
-                window.location.href = 'index.html';  // Changed from 'login.html' to 'index.html'
+                window.location.href = '../login.html';  // ✅ FIXED PATH
             } catch (error) {
                 console.error('Error signing out:', error);
                 showToast('Failed to logout', 'error');
