@@ -239,7 +239,7 @@
     }
     .signup-link p{color:#666;margin-bottom:10px;}
     .signup-link a{
-      color:#f5576c;font-weight:700;text-decoration:none;font-size:16px;
+      color:#f557c;font-weight:700;text-decoration:none;font-size:16px;
     }
     
     /* Error/Success Messages */
@@ -716,7 +716,7 @@
           showToast(`Welcome back, ${userData.name}!`, 'success');
           
           setTimeout(() => {
-            window.location.href = 'dashboard.html';
+            window.location.href = 'customer/dashboard.html';  // ✅ FIXED PATH
           }, 1500);
         } else {
           showToast('User data not found!', 'error');
@@ -771,7 +771,7 @@
           showToast('Admin login successful!', 'success');
           
           setTimeout(() => {
-            window.location.href = 'dashboard-2.html';
+            window.location.href = 'admin/dashboard.html';  // ✅ FIXED PATH
           }, 1500);
         } else {
           showToast('Admin data not found!', 'error');
@@ -891,9 +891,9 @@
           const userData = snapshot.val();
           
           if(userData.role === 'admin') {
-            window.location.href = 'dashboard-2.html';
+            window.location.href = 'admin/dashboard.html';  // ✅ FIXED PATH
           } else {
-            window.location.href = 'dashboard.html';
+            window.location.href = 'customer/dashboard.html';  // ✅ FIXED PATH
           }
         }
       }
