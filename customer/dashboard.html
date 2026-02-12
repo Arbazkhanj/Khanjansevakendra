@@ -1327,7 +1327,6 @@
             line-height: 1.5;
         }
     </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -1741,18 +1740,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2025 Khan Jan Seva Kendra | All Rights Reserved</p>
-        <p style="margin-top: 10px; font-size: 14px;">
-            <i class="fas fa-phone"></i> Helpline: +91 74590 64328 | 
-            <i class="fas fa-envelope"></i> nsdl.arbaz@gmail.com
-        </p>
-    </footer>
-
-    <!-- Firebase Scripts -->
-    
 
     <!-- Footer -->
     <footer class="footer">
@@ -2542,10 +2529,11 @@ Thank you for using our services!
             document.getElementById('userDropdown').classList.toggle('show');
         };
 
+        // FIXED: Logout now redirects to index.html (home page)
         window.logout = async function() {
             try {
                 await signOut(auth);
-                window.location.href = 'login.html';
+                window.location.href = 'index.html';  // Changed from 'login.html' to 'index.html'
             } catch (error) {
                 console.error('Error signing out:', error);
                 showToast('Failed to logout', 'error');
