@@ -6,6 +6,13 @@
     <title>Customer Dashboard - Khan Jan Seva Kendra | खान जन सेवा केंद्र</title>
     <meta name="description" content="Khan Jan Seva Kendra Customer Dashboard - Apply for government services, track applications, and manage documents. 2018 से आपकी सेवा में।">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -69,25 +76,38 @@
             100% { transform: rotate(360deg); } 
         }
 
-        .toast {
+        .toast-container {
             position: fixed;
             top: 100px;
             right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
             padding: 15px 25px;
             border-radius: 12px;
             color: white;
             font-weight: 600;
-            z-index: 10000;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .toast.show { transform: translateX(0); }
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
         .toast.success { background: linear-gradient(135deg, #4caf50, #45a049); }
         .toast.error { background: linear-gradient(135deg, #f44336, #d32f2f); }
         .toast.info { background: linear-gradient(135deg, #2196f3, #1976d2); }
+        .toast.warning { background: linear-gradient(135deg, #ff9800, #f57c00); }
 
         .customer-header {
             background: rgba(255, 255, 255, 0.95);
@@ -1327,15 +1347,25 @@
             line-height: 1.5;
         }
 
-        /* File size warning */
         .file-size-warning {
             color: #f44336;
             font-size: 12px;
             margin-top: 5px;
             display: none;
+            align-items: center;
+            gap: 5px;
         }
-        .file-size-warning.show { display: block; }
+        .file-size-warning.show { display: flex; }
+
+        .error-message {
+            color: #f44336;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        .error-message.show { display: block; }
     </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -1346,7 +1376,7 @@
     </div>
 
     <!-- Toast Container -->
-    <div id="toastContainer"></div>
+    <div class="toast-container" id="toastContainer"></div>
 
     <!-- Header -->
     <header class="customer-header">
@@ -1357,21 +1387,21 @@
                 <p style="font-size: 12px; color: #666;">Customer Portal</p>
             </div>
         </div>
-        
+
         <nav class="header-nav">
             <a href="#" class="active" id="nav-services" onclick="showSection('services')">Services</a>
             <a href="#" id="nav-applications" onclick="showSection('applications')">My Applications</a>
             <a href="#" id="nav-track" onclick="showSection('track')">Track Status</a>
             <a href="#" id="nav-support" onclick="showSection('support')">Support</a>
         </nav>
-        
+
         <div class="user-menu" onclick="toggleDropdown(event)">
             <div style="text-align: right;">
                 <p style="font-weight: 600;" id="userName">Loading...</p>
                 <p style="font-size: 12px; color: #4caf50;"><i class="fas fa-circle" style="font-size: 8px;"></i> Online</p>
             </div>
             <img src="shop.jpg" alt="User" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #4caf50;" onerror="this.src='https://via.placeholder.com/40'">
-            
+
             <div class="dropdown-menu" id="userDropdown">
                 <a href="#" onclick="showSection('profile'); return false;"><i class="fas fa-user"></i> My Profile</a>
                 <a href="#" onclick="viewDocuments(); return false;"><i class="fas fa-file-alt"></i> My Documents</a>
@@ -1464,7 +1494,7 @@
                     <i class="fas fa-search-location" style="font-size: 64px; color: #2196f3; margin-bottom: 20px;"></i>
                     <h2 style="color: #333; margin-bottom: 10px;">Track Your Application</h2>
                     <p style="color: #666; margin-bottom: 30px;">Enter your Application ID to check the current status</p>
-                    
+
                     <div class="track-input-group">
                         <input type="text" class="track-input" id="trackAppId" placeholder="Enter Application ID (e.g., APP123456)">
                         <button class="track-btn" onclick="trackApplication()">
@@ -1472,7 +1502,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="tracking-result" id="trackingResult">
                     <h3 style="color: #333; margin-bottom: 20px;">Application Status</h3>
                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: left;">
@@ -1485,7 +1515,7 @@
                             <p id="remarksText"></p>
                         </div>
                     </div>
-                    
+
                     <div class="progress-bar" id="progressBar">
                         <div class="progress-step completed">
                             <div class="step-circle"><i class="fas fa-check"></i></div>
@@ -1504,7 +1534,7 @@
                             <span class="step-label">Completed</span>
                         </div>
                     </div>
-                    
+
                     <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; text-align: left;">
                         <p style="color: #1565c0; font-size: 14px;">
                             <i class="fas fa-info-circle"></i> <span id="statusMessage"></span>
@@ -1528,7 +1558,7 @@
                         <i class="fas fa-phone"></i> Call Now
                     </button>
                 </div>
-                
+
                 <div class="support-card">
                     <div class="support-icon" style="background: #e8f5e9; color: #4caf50;">
                         <i class="fab fa-whatsapp"></i>
@@ -1540,7 +1570,7 @@
                         <i class="fab fa-whatsapp"></i> Chat Now
                     </button>
                 </div>
-                
+
                 <div class="support-card">
                     <div class="support-icon" style="background: #fff3e0; color: #ff9800;">
                         <i class="fas fa-envelope"></i>
@@ -1552,7 +1582,7 @@
                         <i class="fas fa-envelope"></i> Send Email
                     </button>
                 </div>
-                
+
                 <div class="support-card">
                     <div class="support-icon" style="background: #f3e5f5; color: #9c27b0;">
                         <i class="fas fa-comments"></i>
@@ -1575,7 +1605,7 @@
                     <h2 id="profileNameDisplay">Customer Name</h2>
                     <p style="color: #666;" id="profileEmailDisplay">customer@email.com</p>
                 </div>
-                
+
                 <form class="profile-form" onsubmit="saveProfile(event)">
                     <div class="form-group">
                         <label>Full Name</label>
@@ -1642,7 +1672,7 @@
                 </div>
                 <button class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
             </div>
-            
+
             <div class="modal-body">
                 <!-- Personal Information -->
                 <div class="form-section">
@@ -1789,11 +1819,26 @@
         </div>
     </footer>
 
-    <script type="module">
-        import { 
-            auth, database, storage, ref, set, get, push, update, onValue, query, orderByChild, equalTo,
-            storageRef, uploadBytes, getDownloadURL, signOut, onAuthStateChanged 
-        } from './firebase-config.js';
+    <script>
+        // Firebase Configuration - REPLACE WITH YOUR CONFIG
+        const firebaseConfig = {
+    apiKey: "AIzaSyACbkpT74plbA6REQnbF1775ZbwbnhJemk",
+    authDomain: "khan-jan-seva-kendra-ac2f2.firebaseapp.com",
+    databaseURL: "https://khan-jan-seva-kendra-ac2f2-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "khan-jan-seva-kendra-ac2f2",
+    storageBucket: "khan-jan-seva-kendra-ac2f2.firebasestorage.app",
+    messagingSenderId: "894379656916",
+    appId: "1:894379656916:web:a45feb916031b5a3afdd41",
+    measurementId: "G-6EKFZXQFCS"
+};
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Get Firebase services
+        const auth = firebase.auth();
+        const database = firebase.database();
+        const storage = firebase.storage();
 
         // Service Data
         const servicesData = {
@@ -1879,27 +1924,40 @@
         let applicationsListener = null;
 
         // Toast Notification System
-        window.showToast = function(message, type = 'info') {
+        function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
+
+            const icon = type === 'success' ? 'fa-check-circle' : 
+                        type === 'error' ? 'fa-exclamation-circle' : 
+                        type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+
+            toast.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
             container.appendChild(toast);
-            
-            setTimeout(() => toast.classList.add('show'), 10);
+
             setTimeout(() => {
-                toast.classList.remove('show');
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(400px)';
                 setTimeout(() => toast.remove(), 300);
             }, 5000);
-        };
+        }
 
         // Show/Hide Loading
-        window.showLoading = function(show) {
+        function showLoading(show) {
             document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
-        };
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
         // Check Auth State
-        onAuthStateChanged(auth, (user) => {
+        auth.onAuthStateChanged((user) => {
             if (user) {
                 currentUser = user;
                 loadUserData();
@@ -1914,21 +1972,21 @@
         // Load User Data from Firebase
         async function loadUserData() {
             try {
-                const userRef = ref(database, `users/${currentUser.uid}`);
-                const snapshot = await get(userRef);
-                
+                const userRef = database.ref('users/' + currentUser.uid);
+                const snapshot = await userRef.once('value');
+
                 if (snapshot.exists()) {
                     const userData = snapshot.val();
                     document.getElementById('userName').textContent = userData.name || currentUser.displayName || 'Customer';
                     document.getElementById('welcomeName').textContent = userData.name || currentUser.displayName || 'Customer';
                     document.getElementById('profileNameDisplay').textContent = userData.name || currentUser.displayName || 'Customer';
                     document.getElementById('profileEmailDisplay').textContent = currentUser.email;
-                    
+
                     // Pre-fill form
                     document.getElementById('appName').value = userData.name || '';
                     document.getElementById('appMobile').value = userData.mobile || '';
                     document.getElementById('appEmail').value = currentUser.email || '';
-                    
+
                     // Load profile data
                     document.getElementById('profileName').value = userData.name || '';
                     document.getElementById('profileMobile').value = userData.mobile || '';
@@ -1950,9 +2008,11 @@
         // Setup Real-time Listeners
         function setupRealtimeListeners() {
             // Listen for applications changes
-            const appsRef = ref(database, `applications/${currentUser.uid}`);
-            applicationsListener = onValue(appsRef, (snapshot) => {
+            const appsRef = database.ref('applications/' + currentUser.uid);
+            appsRef.on('value', (snapshot) => {
+                console.log('Real-time update received:', snapshot.val());
                 updateStats();
+                // Always refresh applications list if section is active
                 if (document.getElementById('section-applications').classList.contains('active')) {
                     loadMyApplications();
                 }
@@ -1962,14 +2022,15 @@
         // Update Statistics
         async function updateStats() {
             try {
-                const appsRef = ref(database, `applications/${currentUser.uid}`);
-                const snapshot = await get(appsRef);
-                
+                const appsRef = database.ref('applications/' + currentUser.uid);
+                const snapshot = await appsRef.once('value');
+
                 if (snapshot.exists()) {
                     const apps = Object.values(snapshot.val());
                     document.getElementById('statTotal').textContent = apps.length;
                     document.getElementById('statPending').textContent = apps.filter(a => a.status === 'pending').length;
                     document.getElementById('statCompleted').textContent = apps.filter(a => a.status === 'completed').length;
+                    console.log('Stats updated - Total:', apps.length, 'Pending:', apps.filter(a => a.status === 'pending').length, 'Completed:', apps.filter(a => a.status === 'completed').length);
                 } else {
                     document.getElementById('statTotal').textContent = '0';
                     document.getElementById('statPending').textContent = '0';
@@ -1981,11 +2042,11 @@
         }
 
         // Render Services
-        window.renderServices = function() {
+        function renderServices() {
             renderCategory('taxOnline', servicesData.taxOnline);
             renderCategory('regOnline', servicesData.regOnline);
             renderCategory('billOnline', servicesData.billOnline);
-        };
+        }
 
         function renderCategory(elementId, services) {
             const container = document.getElementById(elementId);
@@ -2005,21 +2066,13 @@
             `).join('');
         }
 
-        // Escape HTML to prevent XSS
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
         // Section Navigation
-        window.showSection = function(sectionName) {
+        function showSection(sectionName) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.header-nav a').forEach(a => a.classList.remove('active'));
-            
+
             document.getElementById('section-' + sectionName).classList.add('active');
-            
+
             const navMap = {
                 'services': 'nav-services',
                 'applications': 'nav-applications',
@@ -2027,28 +2080,30 @@
                 'support': 'nav-support',
                 'profile': 'nav-services'
             };
-            
+
             if(navMap[sectionName]) {
                 document.getElementById(navMap[sectionName]).classList.add('active');
             }
-            
+
             document.getElementById('userDropdown').classList.remove('show');
-            
+
             if(sectionName === 'applications') {
                 loadMyApplications();
             }
-        };
+        }
 
         // Load My Applications from Firebase
         async function loadMyApplications() {
             try {
                 showLoading(true);
-                const appsRef = ref(database, `applications/${currentUser.uid}`);
-                const snapshot = await get(appsRef);
-                
+                // Use once('value') for fresh data fetch every time
+                const appsRef = database.ref('applications/' + currentUser.uid);
+                const snapshot = await appsRef.once('value');
+                console.log('Loading applications, snapshot:', snapshot.val());
+
                 const container = document.getElementById('applicationsList');
                 const emptyState = document.getElementById('emptyState');
-                
+
                 let apps = [];
                 if (snapshot.exists()) {
                     apps = Object.entries(snapshot.val()).map(([key, value]) => ({
@@ -2056,22 +2111,22 @@
                         ...value
                     }));
                 }
-                
+
                 // Filter applications
                 let filteredApps = apps;
                 if(currentFilter !== 'all') {
                     filteredApps = apps.filter(a => a.status === currentFilter);
                 }
-                
+
                 if(filteredApps.length === 0) {
                     container.innerHTML = '';
                     emptyState.style.display = 'block';
                     showLoading(false);
                     return;
                 }
-                
+
                 emptyState.style.display = 'none';
-                
+
                 container.innerHTML = filteredApps.sort((a, b) => b.submittedAt - a.submittedAt).map(app => {
                     const statusClass = {
                         'pending': 'status-pending',
@@ -2079,21 +2134,21 @@
                         'completed': 'status-completed',
                         'rejected': 'status-rejected'
                     }[app.status] || 'status-pending';
-                    
+
                     const statusText = {
                         'pending': 'Pending',
                         'progress': 'In Progress',
                         'completed': 'Completed',
                         'rejected': 'Rejected'
                     }[app.status] || 'Pending';
-                    
+
                     let remarksHtml = '';
                     if(app.remarks) {
                         remarksHtml = `<div class="remarks-box ${app.status === 'rejected' ? 'rejected' : ''}" style="margin-top: 10px; font-size: 12px;">
                             <strong>Remarks:</strong> ${escapeHtml(app.remarks)}
                         </div>`;
                     }
-                    
+
                     return `
                         <div class="application-card">
                             <div class="app-info">
@@ -2116,7 +2171,7 @@
                         </div>
                     `;
                 }).join('');
-                
+
                 showLoading(false);
             } catch (error) {
                 console.error('Error loading applications:', error);
@@ -2126,55 +2181,69 @@
         }
 
         // Filter Applications
-        window.filterApplications = function(filter) {
+        function filterApplications(filter) {
             currentFilter = filter;
             document.querySelectorAll('#section-applications .filter-tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
             loadMyApplications();
-        };
+        }
 
         // View Application Details
-        window.viewApplicationDetails = async function(appKey) {
+        async function viewApplicationDetails(appKey) {
             try {
-                const appRef = ref(database, `applications/${currentUser.uid}/${appKey}`);
-                const snapshot = await get(appRef);
-                
+                const appRef = database.ref('applications/' + currentUser.uid + '/' + appKey);
+                const snapshot = await appRef.once('value');
+
                 if(!snapshot.exists()) {
                     showToast('Application not found', 'error');
                     return;
                 }
-                
+
                 const app = snapshot.val();
-                let details = `Application Details:\n\n`;
-                details += `ID: ${appKey}\n`;
-                details += `Service: ${app.serviceName}\n`;
-                details += `Status: ${app.status.toUpperCase()}\n`;
+                let details = `Application Details:
+
+`;
+                details += `ID: ${appKey}
+`;
+                details += `Service: ${app.serviceName}
+`;
+                details += `Status: ${app.status.toUpperCase()}
+`;
                 if(app.remarks) {
-                    details += `Remarks: ${app.remarks}\n`;
+                    details += `Remarks: ${app.remarks}
+`;
                 }
-                details += `Applied: ${new Date(app.submittedAt).toLocaleString()}\n\n`;
-                details += `Personal Info:\n`;
-                details += `Name: ${app.personalInfo.name}\n`;
-                details += `Mobile: ${app.personalInfo.mobile}\n`;
-                details += `Email: ${app.personalInfo.email}\n`;
-                details += `Address: ${app.personalInfo.address}\n\n`;
+                details += `Applied: ${new Date(app.submittedAt).toLocaleString()}
+
+`;
+                details += `Personal Info:
+`;
+                details += `Name: ${app.personalInfo.name}
+`;
+                details += `Mobile: ${app.personalInfo.mobile}
+`;
+                details += `Email: ${app.personalInfo.email}
+`;
+                details += `Address: ${app.personalInfo.address}
+
+`;
                 details += `Documents: ${app.documents.map(d => d.name).join(', ')}`;
-                
+
                 alert(details);
             } catch (error) {
                 console.error('Error viewing application:', error);
                 showToast('Failed to load application details', 'error');
             }
-        };
+        }
 
         // Download Application Receipt
-        window.downloadApplication = async function(appKey) {
+        async function downloadApplication(appKey) {
             try {
-                const appRef = ref(database, `applications/${currentUser.uid}/${appKey}`);
-                const snapshot = await get(appRef);
-                
+                const appRef = database.ref('applications/' + currentUser.uid + '/' + appKey);
+                const snapshot = await appRef.once('value');
+
                 if(!snapshot.exists()) return;
-                
+
                 const app = snapshot.val();
                 const receipt = `
 Khan Jan Seva Kendra - Application Receipt
@@ -2193,11 +2262,12 @@ Mobile: ${app.personalInfo.mobile}
 Email: ${app.personalInfo.email}
 
 Documents Submitted:
-${app.documents.map(d => `- ${d.name} (${d.url})`).join('\n')}
+${app.documents.map(d => `- ${d.name} (${d.url})`).join('
+')}
 
 Thank you for using our services!
                 `;
-                
+
                 const blob = new Blob([receipt], { type: 'text/plain' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -2205,78 +2275,78 @@ Thank you for using our services!
                 a.download = `Receipt_${appKey}.txt`;
                 a.click();
                 URL.revokeObjectURL(url);
-                
+
                 showToast('Receipt downloaded', 'success');
             } catch (error) {
                 console.error('Error downloading receipt:', error);
                 showToast('Failed to download receipt', 'error');
             }
-        };
+        }
 
-        // FIXED: Track Application - Better error handling and validation
-        window.trackApplication = async function() {
+        // Track Application
+        async function trackApplication() {
             const appId = document.getElementById('trackAppId').value.trim().toUpperCase();
-            
+
             if(!appId) {
                 showToast('Please enter Application ID', 'error');
                 return;
             }
-            
+
             // Validate APP prefix
             if(!appId.startsWith('APP')) {
                 showToast('Invalid Application ID format. Should start with APP', 'error');
                 return;
             }
-            
+
             try {
                 showLoading(true);
-                
-                // First check in user's own applications
-                const userAppsRef = ref(database, `applications/${currentUser.uid}`);
-                const userSnapshot = await get(userAppsRef);
-                
+
+                // First check in user's own applications (primary source)
+                const userAppsRef = database.ref('applications/' + currentUser.uid);
+                const userSnapshot = await userAppsRef.once('value');
+
                 let foundApp = null;
-                
+
                 if (userSnapshot.exists()) {
                     const userApps = userSnapshot.val();
                     foundApp = userApps[appId];
                 }
-                
-                // If not found in user's apps, check allApplications
+
+                // If not found in user's apps, check allApplications (backup)
                 if(!foundApp) {
-                    const allAppsRef = ref(database, 'allApplications');
-                    const allSnapshot = await get(allAppsRef);
-                    
+                    const allAppsRef = database.ref('allApplications');
+                    const allSnapshot = await allAppsRef.once('value');
+
                     if (allSnapshot.exists()) {
                         const allApps = allSnapshot.val();
                         foundApp = allApps[appId];
                     }
                 }
-                
+
                 if(!foundApp) {
                     showToast('Application not found. Please check the ID.', 'error');
                     document.getElementById('trackingResult').classList.remove('show');
                     showLoading(false);
                     return;
                 }
-                
+
                 // Show result
                 document.getElementById('resultAppId').textContent = appId;
                 document.getElementById('resultService').textContent = foundApp.serviceName || 'N/A';
                 document.getElementById('resultDate').textContent = foundApp.submittedAt ? new Date(foundApp.submittedAt).toLocaleDateString() : 'N/A';
-                
+
                 const statusColors = {
                     'pending': '#ff9800',
                     'progress': '#2196f3',
                     'completed': '#4caf50',
                     'rejected': '#f44336'
                 };
-                
+
                 const statusElement = document.getElementById('resultStatus');
                 const statusText = (foundApp.status || 'pending').toUpperCase();
                 statusElement.textContent = statusText;
                 statusElement.style.color = statusColors[foundApp.status] || '#666';
-                
+
                 // Show remarks if exists
                 const remarksBox = document.getElementById('resultRemarks');
                 if(foundApp.remarks) {
@@ -2286,14 +2356,14 @@ Thank you for using our services!
                 } else {
                     remarksBox.style.display = 'none';
                 }
-                
+
                 // Update progress bar
                 document.querySelectorAll('.progress-step').forEach(s => {
                     s.classList.remove('active', 'completed');
                 });
-                
+
                 document.querySelector('.progress-step').classList.add('completed');
-                
+
                 if(foundApp.status === 'pending') {
                     document.getElementById('stepReview').classList.add('active');
                 } else if(foundApp.status === 'progress') {
@@ -2306,29 +2376,29 @@ Thank you for using our services!
                 } else if(foundApp.status === 'rejected') {
                     document.getElementById('stepReview').classList.add('completed');
                 }
-                
+
                 const messages = {
                     'pending': 'Your application has been received and is pending review.',
                     'progress': 'Your application is currently being processed.',
                     'completed': 'Your application has been completed successfully!',
                     'rejected': 'Unfortunately, your application was rejected. Please check remarks or contact support.'
                 };
-                
+
                 document.getElementById('statusMessage').textContent = messages[foundApp.status] || 'Status unknown.';
                 document.getElementById('trackingResult').classList.add('show');
-                
+
                 showLoading(false);
             } catch (error) {
                 console.error('Error tracking application:', error);
                 showToast('Failed to track application: ' + error.message, 'error');
                 showLoading(false);
             }
-        };
+        }
 
         // Save Profile
-        window.saveProfile = async function(e) {
+        async function saveProfile(e) {
             e.preventDefault();
-            
+
             try {
                 showLoading(true);
                 const profileData = {
@@ -2344,15 +2414,15 @@ Thank you for using our services!
                     pan: document.getElementById('profilePan').value,
                     updatedAt: Date.now()
                 };
-                
-                await set(ref(database, `users/${currentUser.uid}`), profileData);
-                
+
+                await database.ref('users/' + currentUser.uid).set(profileData);
+
                 // Update display
                 document.getElementById('userName').textContent = profileData.name;
                 document.getElementById('welcomeName').textContent = profileData.name;
                 document.getElementById('profileNameDisplay').textContent = profileData.name;
                 document.getElementById('profileEmailDisplay').textContent = profileData.email;
-                
+
                 showToast('Profile updated successfully!', 'success');
                 showLoading(false);
             } catch (error) {
@@ -2360,28 +2430,28 @@ Thank you for using our services!
                 showToast('Failed to update profile', 'error');
                 showLoading(false);
             }
-        };
+        }
 
         // Service Modal Functions
-        window.openServiceModal = function(serviceId) {
+        function openServiceModal(serviceId) {
             let service = null;
             for(let cat in servicesData) {
                 service = servicesData[cat].find(s => s.id === serviceId);
                 if(service) break;
             }
-            
+
             if(!service) return;
             currentService = service;
-            
+
             document.getElementById('modalTitle').textContent = service.name;
             document.getElementById('modalSubtitle').textContent = service.desc + ' - Complete your application';
-            
+
             renderDocuments(service.docs);
             renderServiceFields(serviceId);
-            
+
             document.getElementById('serviceModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
-        };
+        }
 
         function renderDocuments(docList) {
             const container = document.getElementById('documentList');
@@ -2417,12 +2487,12 @@ Thank you for using our services!
             container.innerHTML = '<p style="color: #666; font-style: italic;">No additional information required for this service.</p>';
         }
 
-        // FIXED: File upload with 200KB limit
-        window.handleFileUpload = async function(docType, index, input) {
+        // File upload with 200KB limit
+        function handleFileUpload(docType, index, input) {
             if(input.files && input.files[0]) {
                 const file = input.files[0];
                 const maxSize = 200 * 1024; // 200KB in bytes
-                
+
                 // Check file size
                 if(file.size > maxSize) {
                     showToast(`File size too large! Maximum 200KB allowed. Your file: ${(file.size/1024).toFixed(1)}KB`, 'error');
@@ -2430,33 +2500,33 @@ Thank you for using our services!
                     input.value = '';
                     return;
                 }
-                
+
                 document.getElementById(`warning_${index}`).classList.remove('show');
                 uploadedFiles[docType] = file;
-                
+
                 const fileNameDiv = document.getElementById(`filename_${index}`);
                 fileNameDiv.querySelector('span').textContent = `${file.name} (${(file.size/1024).toFixed(1)}KB)`;
                 fileNameDiv.classList.add('show');
-                
+
                 showToast(`File "${file.name}" selected successfully`, 'success');
             }
-        };
+        }
 
-        window.closeModal = function() {
+        function closeModal() {
             document.getElementById('serviceModal').style.display = 'none';
             document.body.style.overflow = 'auto';
             uploadedFiles = {};
             currentService = null;
-        };
+        }
 
         // Submit Application to Firebase
-        window.submitApplication = async function() {
+        async function submitApplication() {
             const terms = document.getElementById('appTerms');
             if(!terms.checked) {
                 showToast('Please accept the terms and conditions', 'error');
                 return;
             }
-            
+
             // Validate required fields
             const requiredFields = ['appName', 'appFatherName', 'appDob', 'appGender', 'appMobile', 'appEmail', 'appAddress', 'appDistrict', 'appState', 'appPincode'];
             for(let fieldId of requiredFields) {
@@ -2467,7 +2537,7 @@ Thank you for using our services!
                     return;
                 }
             }
-            
+
             if(currentService && currentService.docs) {
                 const missingDocs = currentService.docs.filter(doc => !uploadedFiles[doc]);
                 if(missingDocs.length > 0) {
@@ -2475,21 +2545,21 @@ Thank you for using our services!
                     return;
                 }
             }
-            
+
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
             showLoading(true);
-            
+
             try {
                 // Upload files to Firebase Storage
                 const uploadedDocUrls = [];
-                
+
                 for (const [docType, file] of Object.entries(uploadedFiles)) {
                     try {
-                        const fileRef = storageRef(storage, `documents/${currentUser.uid}/${Date.now()}_${docType}_${file.name}`);
-                        const uploadResult = await uploadBytes(fileRef, file);
-                        const downloadURL = await getDownloadURL(uploadResult.ref);
+                        const fileRef = storage.ref('documents/' + currentUser.uid + '/' + Date.now() + '_' + docType + '_' + file.name);
+                        const uploadResult = await fileRef.put(file);
+                        const downloadURL = await uploadResult.ref.getDownloadURL();
                         uploadedDocUrls.push({
                             type: docType,
                             name: file.name,
@@ -2502,7 +2572,7 @@ Thank you for using our services!
                         throw uploadError;
                     }
                 }
-                
+
                 // Create application data
                 const applicationData = {
                     serviceId: currentService.id,
@@ -2530,60 +2600,60 @@ Thank you for using our services!
                     submittedAt: Date.now(),
                     updatedAt: Date.now()
                 };
-                
+
                 // Generate application ID
                 const appId = 'APP' + Date.now();
-                
+
                 // Save to customer's applications
-                await set(ref(database, `applications/${currentUser.uid}/${appId}`), applicationData);
-                
+                await database.ref('applications/' + currentUser.uid + '/' + appId).set(applicationData);
+
                 // Save to allApplications for admin access
-                await set(ref(database, `allApplications/${appId}`), {
+                await database.ref('allApplications/' + appId).set({
                     ...applicationData,
                     applicationId: appId
                 });
-                
+
                 showToast(`Application submitted successfully! ID: ${appId}`, 'success');
-                
+
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<span>Submit Application</span>';
-                
+
                 closeModal();
                 updateStats();
-                
+
                 // Switch to applications section
                 showSection('applications');
-                
+
             } catch (error) {
                 console.error('Error submitting application:', error);
                 showToast('Failed to submit application: ' + error.message, 'error');
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<span>Submit Application</span>';
             }
-            
+
             showLoading(false);
-        };
+        }
 
         // User Menu Functions
-        window.toggleDropdown = function(event) {
+        function toggleDropdown(event) {
             event.stopPropagation();
             document.getElementById('userDropdown').classList.toggle('show');
-        };
+        }
 
         // Logout
-        window.logout = async function() {
+        async function logout() {
             try {
-                await signOut(auth);
+                await auth.signOut();
                 window.location.href = '../login.html';
             } catch (error) {
                 console.error('Error signing out:', error);
                 showToast('Failed to logout', 'error');
             }
-        };
+        }
 
-        window.viewDocuments = function() {
+        function viewDocuments() {
             showSection('applications');
-        };
+        }
 
         // Close dropdown when clicking outside
         window.onclick = function(event) {
