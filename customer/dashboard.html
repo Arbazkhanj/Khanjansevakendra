@@ -1326,6 +1326,15 @@
             font-size: 15px;
             line-height: 1.5;
         }
+
+        /* File size warning */
+        .file-size-warning {
+            color: #f44336;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        .file-size-warning.show { display: block; }
     </style>
 </head>
 <body>
@@ -1457,7 +1466,7 @@
                     <p style="color: #666; margin-bottom: 30px;">Enter your Application ID to check the current status</p>
                     
                     <div class="track-input-group">
-                        <input type="text" class="track-input" id="trackAppId" placeholder="Enter Application ID (e.g., -APP123456)">
+                        <input type="text" class="track-input" id="trackAppId" placeholder="Enter Application ID (e.g., APP123456)">
                         <button class="track-btn" onclick="trackApplication()">
                             <i class="fas fa-search"></i> Track
                         </button>
@@ -1710,7 +1719,7 @@
 
                 <!-- Document Upload -->
                 <div class="form-section">
-                    <h3><i class="fas fa-upload"></i> Required Documents</h3>
+                    <h3><i class="fas fa-upload"></i> Required Documents <small style="color: #f44336; font-size: 12px;">(Max 200KB per file)</small></h3>
                     <div class="document-list" id="documentList"></div>
                 </div>
 
@@ -1898,7 +1907,7 @@
                 setupRealtimeListeners();
                 showLoading(false);
             } else {
-                window.location.href = '../login.html';  // ✅ FIXED PATH
+                window.location.href = '../login.html';
             }
         });
 
@@ -2169,7 +2178,9 @@
                 const app = snapshot.val();
                 const receipt = `
 Khan Jan Seva Kendra - Application Receipt
+
 ------------------------------------------
+
 Application ID: ${appKey}
 Service: ${app.serviceName}
 Date: ${new Date(app.submittedAt).toLocaleString()}
@@ -2202,38 +2213,57 @@ Thank you for using our services!
             }
         };
 
-        // Track Application
+        // FIXED: Track Application - Better error handling and validation
         window.trackApplication = async function() {
-            const appId = document.getElementById('trackAppId').value.trim();
+            const appId = document.getElementById('trackAppId').value.trim().toUpperCase();
             
             if(!appId) {
                 showToast('Please enter Application ID', 'error');
                 return;
             }
             
+            // Validate APP prefix
+            if(!appId.startsWith('APP')) {
+                showToast('Invalid Application ID format. Should start with APP', 'error');
+                return;
+            }
+            
             try {
                 showLoading(true);
-                // Search in all applications
-                const appsRef = ref(database, 'allApplications');
-                const snapshot = await get(appsRef);
+                
+                // First check in user's own applications
+                const userAppsRef = ref(database, `applications/${currentUser.uid}`);
+                const userSnapshot = await get(userAppsRef);
                 
                 let foundApp = null;
                 
-                if (snapshot.exists()) {
-                    const apps = snapshot.val();
-                    foundApp = apps[appId];
+                if (userSnapshot.exists()) {
+                    const userApps = userSnapshot.val();
+                    foundApp = userApps[appId];
+                }
+                
+                // If not found in user's apps, check allApplications
+                if(!foundApp) {
+                    const allAppsRef = ref(database, 'allApplications');
+                    const allSnapshot = await get(allAppsRef);
+                    
+                    if (allSnapshot.exists()) {
+                        const allApps = allSnapshot.val();
+                        foundApp = allApps[appId];
+                    }
                 }
                 
                 if(!foundApp) {
                     showToast('Application not found. Please check the ID.', 'error');
+                    document.getElementById('trackingResult').classList.remove('show');
                     showLoading(false);
                     return;
                 }
                 
                 // Show result
                 document.getElementById('resultAppId').textContent = appId;
-                document.getElementById('resultService').textContent = foundApp.serviceName;
-                document.getElementById('resultDate').textContent = new Date(foundApp.submittedAt).toLocaleDateString();
+                document.getElementById('resultService').textContent = foundApp.serviceName || 'N/A';
+                document.getElementById('resultDate').textContent = foundApp.submittedAt ? new Date(foundApp.submittedAt).toLocaleDateString() : 'N/A';
                 
                 const statusColors = {
                     'pending': '#ff9800',
@@ -2243,7 +2273,8 @@ Thank you for using our services!
                 };
                 
                 const statusElement = document.getElementById('resultStatus');
-                statusElement.textContent = foundApp.status.toUpperCase();
+                const statusText = (foundApp.status || 'pending').toUpperCase();
+                statusElement.textContent = statusText;
                 statusElement.style.color = statusColors[foundApp.status] || '#666';
                 
                 // Show remarks if exists
@@ -2289,7 +2320,7 @@ Thank you for using our services!
                 showLoading(false);
             } catch (error) {
                 console.error('Error tracking application:', error);
-                showToast('Failed to track application', 'error');
+                showToast('Failed to track application: ' + error.message, 'error');
                 showLoading(false);
             }
         };
@@ -2362,12 +2393,15 @@ Thank you for using our services!
                             <i class="fas ${config.icon}"></i>
                             <div>
                                 <div style="font-weight: 600; color: #333;">${config.name}</div>
-                                <div style="font-size: 12px; color: #666; margin-top: 3px;">Click to upload (Max 5MB)</div>
+                                <div style="font-size: 12px; color: #666; margin-top: 3px;">Click to upload (Max 200KB)</div>
                             </div>
                             <input type="file" id="doc_${index}" accept="${config.accept}" onchange="handleFileUpload('${doc}', '${index}', this)">
                         </label>
                         <div class="file-name" id="filename_${index}">
                             <i class="fas fa-check-circle" style="color: #4caf50;"></i> <span></span>
+                        </div>
+                        <div class="file-size-warning" id="warning_${index}">
+                            <i class="fas fa-exclamation-triangle"></i> File size exceeds 200KB limit!
                         </div>
                         <div class="upload-progress" id="progress_${index}">
                             <div class="upload-progress-bar" id="progressBar_${index}"></div>
@@ -2383,21 +2417,28 @@ Thank you for using our services!
             container.innerHTML = '<p style="color: #666; font-style: italic;">No additional information required for this service.</p>';
         }
 
+        // FIXED: File upload with 200KB limit
         window.handleFileUpload = async function(docType, index, input) {
             if(input.files && input.files[0]) {
                 const file = input.files[0];
+                const maxSize = 200 * 1024; // 200KB in bytes
                 
-                if(file.size > 5 * 1024 * 1024) {
-                    showToast('File size too large. Maximum 5MB allowed.', 'error');
+                // Check file size
+                if(file.size > maxSize) {
+                    showToast(`File size too large! Maximum 200KB allowed. Your file: ${(file.size/1024).toFixed(1)}KB`, 'error');
+                    document.getElementById(`warning_${index}`).classList.add('show');
                     input.value = '';
                     return;
                 }
                 
+                document.getElementById(`warning_${index}`).classList.remove('show');
                 uploadedFiles[docType] = file;
                 
                 const fileNameDiv = document.getElementById(`filename_${index}`);
-                fileNameDiv.querySelector('span').textContent = file.name;
+                fileNameDiv.querySelector('span').textContent = `${file.name} (${(file.size/1024).toFixed(1)}KB)`;
                 fileNameDiv.classList.add('show');
+                
+                showToast(`File "${file.name}" selected successfully`, 'success');
             }
         };
 
@@ -2408,7 +2449,7 @@ Thank you for using our services!
             currentService = null;
         };
 
-        // Submit Application to Firebase - FIXED VERSION
+        // Submit Application to Firebase
         window.submitApplication = async function() {
             const terms = document.getElementById('appTerms');
             if(!terms.checked) {
@@ -2529,11 +2570,11 @@ Thank you for using our services!
             document.getElementById('userDropdown').classList.toggle('show');
         };
 
-        // FIXED: Logout now redirects to login.html
+        // Logout
         window.logout = async function() {
             try {
                 await signOut(auth);
-                window.location.href = '../login.html';  // ✅ FIXED PATH
+                window.location.href = '../login.html';
             } catch (error) {
                 console.error('Error signing out:', error);
                 showToast('Failed to logout', 'error');
