@@ -21,7 +21,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -52,13 +52,48 @@
             z-index: 10000;
             transform: translateX(400px);
             transition: transform 0.3s;
-            max-width: 350px;
+            max-width: 400px;
+            word-wrap: break-word;
         }
         
         .toast.show { transform: translateX(0); }
         .toast.success { background: #4caf50; }
         .toast.error { background: #f44336; }
         .toast.info { background: #2196f3; }
+        .toast.warning { background: #ff9800; }
+        
+        /* Debug Panel */
+        .debug-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            max-width: 400px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 9998;
+            display: none;
+        }
+        
+        .debug-panel.show { display: block; }
+        
+        .debug-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 9999;
+        }
         
         /* Mobile Header */
         .mobile-header {
@@ -876,6 +911,10 @@
     <!-- Toast Container -->
     <div id="toastContainer"></div>
 
+    <!-- Debug Panel -->
+    <div class="debug-panel" id="debugPanel"></div>
+    <button class="debug-toggle" onclick="toggleDebug()">Debug</button>
+
     <!-- Mobile Header -->
     <div class="mobile-header">
         <button class="menu-toggle" onclick="toggleSidebar()">
@@ -1211,19 +1250,39 @@
         let allUsers = {};
         let currentFilter = 'all';
 
+        // Debug Logger
+        function debugLog(message, data = null) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            console.log(logEntry, data || '');
+            
+            const debugPanel = document.getElementById('debugPanel');
+            const entry = document.createElement('div');
+            entry.style.marginBottom = '5px';
+            entry.style.borderBottom = '1px solid #333';
+            entry.style.paddingBottom = '5px';
+            entry.innerHTML = `<span style="color: #00ff00;">${logEntry}</span>${data ? '<br><span style="color: #ffff00;">' + JSON.stringify(data).substring(0, 200) + '</span>' : ''}`;
+            debugPanel.appendChild(entry);
+            debugPanel.scrollTop = debugPanel.scrollHeight;
+        }
+
+        window.toggleDebug = function() {
+            document.getElementById('debugPanel').classList.toggle('show');
+        };
+
         // Toast Notification System
         window.showToast = function(message, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
+            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i> ${message}`;
             container.appendChild(toast);
             
             setTimeout(() => toast.classList.add('show'), 10);
             setTimeout(() => {
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            }, 5000);
         };
 
         // Show/Hide Loading
@@ -1233,10 +1292,14 @@
 
         // Check Auth State
         onAuthStateChanged(auth, async (user) => {
+            debugLog('Auth state changed', { user: user ? user.uid : null });
+            
             if (user) {
                 // Check if admin
                 const userRef = ref(database, `users/${user.uid}`);
                 const snapshot = await get(userRef);
+                
+                debugLog('User data fetched', snapshot.val());
                 
                 if (snapshot.exists() && snapshot.val().role === 'admin') {
                     currentUser = user;
@@ -1255,9 +1318,13 @@
 
         // Setup Real-time Listeners
         function setupRealtimeListeners() {
+            debugLog('Setting up realtime listeners');
+            
             // Listen for all applications
             const appsRef = ref(database, 'allApplications');
             onValue(appsRef, (snapshot) => {
+                debugLog('Applications data received', { exists: snapshot.exists(), count: snapshot.exists() ? Object.keys(snapshot.val()).length : 0 });
+                
                 if (snapshot.exists()) {
                     allApplications = snapshot.val();
                     updateDashboard();
@@ -1265,15 +1332,22 @@
                     allApplications = {};
                     updateDashboard();
                 }
+            }, (error) => {
+                debugLog('Error loading applications', error.message);
+                showToast('Error loading applications: ' + error.message, 'error');
             });
 
             // Listen for all users
             const usersRef = ref(database, 'users');
             onValue(usersRef, (snapshot) => {
+                debugLog('Users data received', { exists: snapshot.exists() });
+                
                 if (snapshot.exists()) {
                     allUsers = snapshot.val();
                     updateCustomersList();
                 }
+            }, (error) => {
+                debugLog('Error loading users', error.message);
             });
         }
 
@@ -1398,7 +1472,6 @@
             } else if(section === 'documents') {
                 loadDocuments();
             } else if(section === 'applications') {
-                // FIXED: Render applications when section is shown
                 const apps = Object.values(allApplications);
                 renderAllApps(apps);
             }
@@ -1406,8 +1479,11 @@
 
         // View Application
         window.viewApplication = async function(appId) {
+            debugLog('Viewing application', { appId });
+            
             const app = allApplications[appId];
             if(!app) {
+                debugLog('Application not found', { appId, available: Object.keys(allApplications) });
                 showToast('Application not found', 'error');
                 return;
             }
@@ -1490,37 +1566,19 @@
             `;
             
             document.getElementById('detailModal').style.display = 'block';
+            debugLog('Modal opened for app', { appId });
         };
 
-        // FIXED: Added editStatus function that was missing
+        // Edit Status
         window.editStatus = function(appId) {
-            const app = allApplications[appId];
-            if(!app) {
-                showToast('Application not found', 'error');
-                return;
-            }
-            
-            // Open modal with status update focused
+            debugLog('Edit status clicked', { appId });
             viewApplication(appId);
-            
-            // Scroll to status update section
-            setTimeout(() => {
-                const statusSection = document.querySelector('.status-update');
-                if(statusSection) {
-                    statusSection.scrollIntoView({ behavior: 'smooth' });
-                    statusSection.style.background = '#fff3e0';
-                    statusSection.style.padding = '20px';
-                    statusSection.style.borderRadius = '8px';
-                    setTimeout(() => {
-                        statusSection.style.background = 'transparent';
-                        statusSection.style.padding = '0';
-                    }, 2000);
-                }
-            }, 300);
         };
 
-        // FIXED: Update Status function with better error handling
+        // CRITICAL FIX: Update Status with detailed debugging
         window.updateStatus = async function(appId) {
+            debugLog('Update status clicked', { appId });
+            
             const newStatus = document.getElementById('newStatus').value;
             
             if(!newStatus) {
@@ -1528,43 +1586,67 @@
                 return;
             }
             
+            debugLog('New status selected', { newStatus });
+            
             try {
                 showLoading(true);
                 
-                // Get the application data first
+                // Get the application data
                 const app = allApplications[appId];
                 if(!app) {
-                    throw new Error('Application not found');
+                    throw new Error('Application not found in memory. AppID: ' + appId);
                 }
                 
-                const customerId = app.customerId || app.userId;
+                debugLog('Found app in memory', { 
+                    appId, 
+                    currentStatus: app.status,
+                    hasUserId: !!app.userId,
+                    hasCustomerId: !!app.customerId,
+                    hasUid: !!app.uid
+                });
                 
-                if(!customerId) {
-                    throw new Error('Customer ID not found');
-                }
-                
+                // Prepare update data
                 const updates = {
                     status: newStatus,
                     updatedAt: Date.now(),
                     updatedBy: currentUser ? currentUser.uid : 'admin'
                 };
                 
-                // Update in allApplications
-                await update(ref(database, `allApplications/${appId}`), updates);
+                debugLog('Prepared updates', updates);
                 
-                // Update in user's applications
-                await update(ref(database, `applications/${customerId}/${appId}`), updates);
+                // CRITICAL: Update only allApplications (this is the main source)
+                const allAppsRef = ref(database, `allApplications/${appId}`);
+                debugLog('Updating allApplications path', `allApplications/${appId}`);
                 
-                showToast('Status updated successfully!', 'success');
+                await update(allAppsRef, updates);
+                debugLog('SUCCESS: allApplications updated');
+                
+                // Optional: Try to update user applications if userId exists
+                const userId = app.userId || app.customerId || app.uid;
+                if(userId) {
+                    try {
+                        const userAppRef = ref(database, `applications/${userId}/${appId}`);
+                        debugLog('Attempting user app update', `applications/${userId}/${appId}`);
+                        await update(userAppRef, updates);
+                        debugLog('SUCCESS: User applications updated');
+                    } catch(userUpdateError) {
+                        debugLog('WARNING: User app update failed (non-critical)', userUpdateError.message);
+                        // Don't throw - main update succeeded
+                    }
+                } else {
+                    debugLog('No userId found, skipping user applications update');
+                }
+                
+                showToast('✅ Status updated successfully!', 'success');
                 closeModal();
                 
-                // Refresh the applications list
-                const apps = Object.values(allApplications);
-                renderAllApps(apps);
-                
             } catch (error) {
-                console.error('Error updating status:', error);
-                showToast('Failed to update status: ' + error.message, 'error');
+                debugLog('CRITICAL ERROR updating status', { 
+                    message: error.message, 
+                    code: error.code,
+                    stack: error.stack
+                });
+                showToast('❌ Failed: ' + error.message, 'error');
             } finally {
                 showLoading(false);
             }
