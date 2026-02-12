@@ -6,13 +6,6 @@
     <title>Customer Dashboard - Khan Jan Seva Kendra | खान जन सेवा केंद्र</title>
     <meta name="description" content="Khan Jan Seva Kendra Customer Dashboard - Apply for government services, track applications, and manage documents. 2018 से आपकी सेवा में।">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -76,38 +69,25 @@
             100% { transform: rotate(360deg); } 
         }
 
-        .toast-container {
+        .toast {
             position: fixed;
             top: 100px;
             right: 20px;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .toast {
             padding: 15px 25px;
             border-radius: 12px;
             color: white;
             font-weight: 600;
+            z-index: 10000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            animation: slideIn 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        @keyframes slideIn {
-            from { transform: translateX(400px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
+        .toast.show { transform: translateX(0); }
         .toast.success { background: linear-gradient(135deg, #4caf50, #45a049); }
         .toast.error { background: linear-gradient(135deg, #f44336, #d32f2f); }
         .toast.info { background: linear-gradient(135deg, #2196f3, #1976d2); }
-        .toast.warning { background: linear-gradient(135deg, #ff9800, #f57c00); }
 
         .customer-header {
             background: rgba(255, 255, 255, 0.95);
@@ -618,6 +598,10 @@
         .action-btn.download { 
             background: linear-gradient(135deg, #e8f5e9, #c8e6c9); 
             color: #4caf50; 
+        }
+        .action-btn.sync {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            color: #ff9800;
         }
         .action-btn:hover { 
             transform: scale(1.1) rotate(5deg);
@@ -1347,25 +1331,57 @@
             line-height: 1.5;
         }
 
+        /* File size warning */
         .file-size-warning {
             color: #f44336;
             font-size: 12px;
             margin-top: 5px;
             display: none;
-            align-items: center;
-            gap: 5px;
         }
-        .file-size-warning.show { display: flex; }
+        .file-size-warning.show { display: block; }
 
-        .error-message {
-            color: #f44336;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
+        .sync-banner {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border: 2px dashed #ff9800;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
         }
-        .error-message.show { display: block; }
+
+        .sync-banner p {
+            color: #e65100;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .sync-btn {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .sync-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+        }
+
+        .sync-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
     </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -1376,7 +1392,7 @@
     </div>
 
     <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
+    <div id="toastContainer"></div>
 
     <!-- Header -->
     <header class="customer-header">
@@ -1387,21 +1403,21 @@
                 <p style="font-size: 12px; color: #666;">Customer Portal</p>
             </div>
         </div>
-
+        
         <nav class="header-nav">
             <a href="#" class="active" id="nav-services" onclick="showSection('services')">Services</a>
             <a href="#" id="nav-applications" onclick="showSection('applications')">My Applications</a>
             <a href="#" id="nav-track" onclick="showSection('track')">Track Status</a>
             <a href="#" id="nav-support" onclick="showSection('support')">Support</a>
         </nav>
-
+        
         <div class="user-menu" onclick="toggleDropdown(event)">
             <div style="text-align: right;">
                 <p style="font-weight: 600;" id="userName">Loading...</p>
                 <p style="font-size: 12px; color: #4caf50;"><i class="fas fa-circle" style="font-size: 8px;"></i> Online</p>
             </div>
             <img src="shop.jpg" alt="User" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #4caf50;" onerror="this.src='https://via.placeholder.com/40'">
-
+            
             <div class="dropdown-menu" id="userDropdown">
                 <a href="#" onclick="showSection('profile'); return false;"><i class="fas fa-user"></i> My Profile</a>
                 <a href="#" onclick="viewDocuments(); return false;"><i class="fas fa-file-alt"></i> My Documents</a>
@@ -1475,6 +1491,15 @@
                         <div class="filter-tab" onclick="filterApplications('rejected')">Rejected</div>
                     </div>
                 </div>
+
+                <!-- Sync Banner -->
+                <div class="sync-banner" id="syncBanner" style="display: none;">
+                    <p><i class="fas fa-exclamation-triangle"></i> Some applications may not be showing. Click sync to refresh.</p>
+                    <button class="sync-btn" onclick="syncAllApplications()" id="syncBtn">
+                        <i class="fas fa-sync"></i> Sync Now
+                    </button>
+                </div>
+                
                 <div class="applications-grid" id="applicationsList"></div>
                 <div class="empty-state" id="emptyState" style="display: none;">
                     <i class="fas fa-inbox"></i>
@@ -1494,7 +1519,7 @@
                     <i class="fas fa-search-location" style="font-size: 64px; color: #2196f3; margin-bottom: 20px;"></i>
                     <h2 style="color: #333; margin-bottom: 10px;">Track Your Application</h2>
                     <p style="color: #666; margin-bottom: 30px;">Enter your Application ID to check the current status</p>
-
+                    
                     <div class="track-input-group">
                         <input type="text" class="track-input" id="trackAppId" placeholder="Enter Application ID (e.g., APP123456)">
                         <button class="track-btn" onclick="trackApplication()">
@@ -1502,7 +1527,7 @@
                         </button>
                     </div>
                 </div>
-
+                
                 <div class="tracking-result" id="trackingResult">
                     <h3 style="color: #333; margin-bottom: 20px;">Application Status</h3>
                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: left;">
@@ -1515,7 +1540,7 @@
                             <p id="remarksText"></p>
                         </div>
                     </div>
-
+                    
                     <div class="progress-bar" id="progressBar">
                         <div class="progress-step completed">
                             <div class="step-circle"><i class="fas fa-check"></i></div>
@@ -1534,7 +1559,7 @@
                             <span class="step-label">Completed</span>
                         </div>
                     </div>
-
+                    
                     <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; text-align: left;">
                         <p style="color: #1565c0; font-size: 14px;">
                             <i class="fas fa-info-circle"></i> <span id="statusMessage"></span>
@@ -1558,7 +1583,7 @@
                         <i class="fas fa-phone"></i> Call Now
                     </button>
                 </div>
-
+                
                 <div class="support-card">
                     <div class="support-icon" style="background: #e8f5e9; color: #4caf50;">
                         <i class="fab fa-whatsapp"></i>
@@ -1570,7 +1595,7 @@
                         <i class="fab fa-whatsapp"></i> Chat Now
                     </button>
                 </div>
-
+                
                 <div class="support-card">
                     <div class="support-icon" style="background: #fff3e0; color: #ff9800;">
                         <i class="fas fa-envelope"></i>
@@ -1582,7 +1607,7 @@
                         <i class="fas fa-envelope"></i> Send Email
                     </button>
                 </div>
-
+                
                 <div class="support-card">
                     <div class="support-icon" style="background: #f3e5f5; color: #9c27b0;">
                         <i class="fas fa-comments"></i>
@@ -1605,7 +1630,7 @@
                     <h2 id="profileNameDisplay">Customer Name</h2>
                     <p style="color: #666;" id="profileEmailDisplay">customer@email.com</p>
                 </div>
-
+                
                 <form class="profile-form" onsubmit="saveProfile(event)">
                     <div class="form-group">
                         <label>Full Name</label>
@@ -1672,7 +1697,7 @@
                 </div>
                 <button class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
             </div>
-
+            
             <div class="modal-body">
                 <!-- Personal Information -->
                 <div class="form-section">
@@ -1819,26 +1844,11 @@
         </div>
     </footer>
 
-    <script>
-        // Firebase Configuration - REPLACE WITH YOUR CONFIG
-        const firebaseConfig = {
-    apiKey: "AIzaSyACbkpT74plbA6REQnbF1775ZbwbnhJemk",
-    authDomain: "khan-jan-seva-kendra-ac2f2.firebaseapp.com",
-    databaseURL: "https://khan-jan-seva-kendra-ac2f2-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "khan-jan-seva-kendra-ac2f2",
-    storageBucket: "khan-jan-seva-kendra-ac2f2.firebasestorage.app",
-    messagingSenderId: "894379656916",
-    appId: "1:894379656916:web:a45feb916031b5a3afdd41",
-    measurementId: "G-6EKFZXQFCS"
-};
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        // Get Firebase services
-        const auth = firebase.auth();
-        const database = firebase.database();
-        const storage = firebase.storage();
+    <script type="module">
+        import { 
+            auth, database, storage, ref, set, get, push, update, onValue, query, orderByChild, equalTo,
+            storageRef, uploadBytes, getDownloadURL, signOut, onAuthStateChanged 
+        } from './firebase-config.js';
 
         // Service Data
         const servicesData = {
@@ -1922,42 +1932,30 @@
         let uploadedFiles = {};
         let currentFilter = 'all';
         let applicationsListener = null;
+        let allAppsListener = null;
 
         // Toast Notification System
-        function showToast(message, type = 'info') {
+        window.showToast = function(message, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-
-            const icon = type === 'success' ? 'fa-check-circle' : 
-                        type === 'error' ? 'fa-exclamation-circle' : 
-                        type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
-
-            toast.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
             container.appendChild(toast);
-
+            
+            setTimeout(() => toast.classList.add('show'), 10);
             setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(400px)';
+                toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 300);
             }, 5000);
-        }
+        };
 
         // Show/Hide Loading
-        function showLoading(show) {
+        window.showLoading = function(show) {
             document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
-        }
-
-        // Escape HTML to prevent XSS
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+        };
 
         // Check Auth State
-        auth.onAuthStateChanged((user) => {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
                 currentUser = user;
                 loadUserData();
@@ -1972,21 +1970,21 @@
         // Load User Data from Firebase
         async function loadUserData() {
             try {
-                const userRef = database.ref('users/' + currentUser.uid);
-                const snapshot = await userRef.once('value');
-
+                const userRef = ref(database, `users/${currentUser.uid}`);
+                const snapshot = await get(userRef);
+                
                 if (snapshot.exists()) {
                     const userData = snapshot.val();
                     document.getElementById('userName').textContent = userData.name || currentUser.displayName || 'Customer';
                     document.getElementById('welcomeName').textContent = userData.name || currentUser.displayName || 'Customer';
                     document.getElementById('profileNameDisplay').textContent = userData.name || currentUser.displayName || 'Customer';
                     document.getElementById('profileEmailDisplay').textContent = currentUser.email;
-
+                    
                     // Pre-fill form
                     document.getElementById('appName').value = userData.name || '';
                     document.getElementById('appMobile').value = userData.mobile || '';
                     document.getElementById('appEmail').value = currentUser.email || '';
-
+                    
                     // Load profile data
                     document.getElementById('profileName').value = userData.name || '';
                     document.getElementById('profileMobile').value = userData.mobile || '';
@@ -2005,48 +2003,243 @@
             }
         }
 
-        // Setup Real-time Listeners
+        // Setup Real-time Listeners - FIXED: Listen to both paths
         function setupRealtimeListeners() {
-            // Listen for applications changes
-            const appsRef = database.ref('applications/' + currentUser.uid);
-            appsRef.on('value', (snapshot) => {
-                console.log('Real-time update received:', snapshot.val());
-                updateStats();
-                // Always refresh applications list if section is active
-                if (document.getElementById('section-applications').classList.contains('active')) {
-                    loadMyApplications();
+            // Primary: Listen to user's own applications
+            const appsRef = ref(database, `applications/${currentUser.uid}`);
+            applicationsListener = onValue(appsRef, (snapshot) => {
+                let apps = {};
+                if (snapshot.exists()) {
+                    apps = snapshot.val();
                 }
+                
+                // Also check allApplications for any missing apps
+                checkAllApplications(apps);
+            });
+
+            // Backup: Listen to allApplications where customerId matches
+            const allAppsQuery = query(
+                ref(database, 'allApplications'),
+                orderByChild('customerId'),
+                equalTo(currentUser.uid)
+            );
+            
+            allAppsListener = onValue(allAppsQuery, (snapshot) => {
+                if (snapshot.exists()) {
+                    const allApps = snapshot.val();
+                    mergeAndDisplayApps(allApps);
+                }
+            }, (error) => {
+                console.log('allApplications query error (non-critical):', error);
+            });
+        }
+
+        // Check allApplications for user's apps
+        async function checkAllApplications(existingApps = {}) {
+            try {
+                const allAppsRef = ref(database, 'allApplications');
+                const snapshot = await get(allAppsRef);
+                
+                if (snapshot.exists()) {
+                    const allApps = snapshot.val();
+                    let foundNewApps = false;
+                    
+                    // Find apps belonging to current user
+                    Object.entries(allApps).forEach(([appId, app]) => {
+                        const appUserId = app.customerId || app.userId || app.uid;
+                        if (appUserId === currentUser.uid) {
+                            if (!existingApps[appId]) {
+                                // Found app in allApplications but not in user's apps
+                                existingApps[appId] = app;
+                                foundNewApps = true;
+                                
+                                // Sync back to user's applications
+                                const userAppRef = ref(database, `applications/${currentUser.uid}/${appId}`);
+                                set(userAppRef, app).catch(e => console.error('Sync error:', e));
+                            } else {
+                                // Check if status/remarks updated
+                                const existingApp = existingApps[appId];
+                                if (existingApp.status !== app.status || existingApp.remarks !== app.remarks) {
+                                    existingApps[appId] = app;
+                                    foundNewApps = true;
+                                }
+                            }
+                        }
+                    });
+                    
+                    if (foundNewApps) {
+                        updateApplicationsList(existingApps);
+                        updateStatsFromApps(Object.values(existingApps));
+                    } else {
+                        updateApplicationsList(existingApps);
+                        updateStatsFromApps(Object.values(existingApps));
+                    }
+                    
+                    // Show sync banner if discrepancies found
+                    const syncBanner = document.getElementById('syncBanner');
+                    if (foundNewApps && Object.keys(existingApps).length > 0) {
+                        syncBanner.style.display = 'flex';
+                    } else {
+                        syncBanner.style.display = 'none';
+                    }
+                } else {
+                    updateApplicationsList(existingApps);
+                    updateStatsFromApps(Object.values(existingApps));
+                }
+            } catch (error) {
+                console.error('Error checking allApplications:', error);
+                updateApplicationsList(existingApps);
+                updateStatsFromApps(Object.values(existingApps));
+            }
+        }
+
+        // Merge and display apps from allApplications
+        function mergeAndDisplayApps(allApps) {
+            const appsRef = ref(database, `applications/${currentUser.uid}`);
+            get(appsRef).then((snapshot) => {
+                let userApps = {};
+                if (snapshot.exists()) {
+                    userApps = snapshot.val();
+                }
+                
+                // Merge allApps into userApps (allApps takes precedence for updates)
+                Object.entries(allApps).forEach(([appId, app]) => {
+                    userApps[appId] = app;
+                });
+                
+                updateApplicationsList(userApps);
+                updateStatsFromApps(Object.values(userApps));
             });
         }
 
         // Update Statistics
-        async function updateStats() {
-            try {
-                const appsRef = database.ref('applications/' + currentUser.uid);
-                const snapshot = await appsRef.once('value');
-
-                if (snapshot.exists()) {
-                    const apps = Object.values(snapshot.val());
-                    document.getElementById('statTotal').textContent = apps.length;
-                    document.getElementById('statPending').textContent = apps.filter(a => a.status === 'pending').length;
-                    document.getElementById('statCompleted').textContent = apps.filter(a => a.status === 'completed').length;
-                    console.log('Stats updated - Total:', apps.length, 'Pending:', apps.filter(a => a.status === 'pending').length, 'Completed:', apps.filter(a => a.status === 'completed').length);
-                } else {
-                    document.getElementById('statTotal').textContent = '0';
-                    document.getElementById('statPending').textContent = '0';
-                    document.getElementById('statCompleted').textContent = '0';
-                }
-            } catch (error) {
-                console.error('Error updating stats:', error);
-            }
+        function updateStatsFromApps(apps) {
+            document.getElementById('statTotal').textContent = apps.length;
+            document.getElementById('statPending').textContent = apps.filter(a => a.status === 'pending').length;
+            document.getElementById('statCompleted').textContent = apps.filter(a => a.status === 'completed').length;
         }
 
+        // Update Applications List
+        function updateApplicationsList(apps) {
+            const container = document.getElementById('applicationsList');
+            const emptyState = document.getElementById('emptyState');
+            
+            let appsArray = Object.entries(apps).map(([key, value]) => ({
+                firebaseKey: key,
+                ...value
+            }));
+            
+            // Filter applications
+            if(currentFilter !== 'all') {
+                appsArray = appsArray.filter(a => a.status === currentFilter);
+            }
+            
+            if(appsArray.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            container.innerHTML = appsArray.sort((a, b) => b.submittedAt - a.submittedAt).map(app => {
+                const statusClass = {
+                    'pending': 'status-pending',
+                    'progress': 'status-progress',
+                    'completed': 'status-completed',
+                    'rejected': 'status-rejected'
+                }[app.status] || 'status-pending';
+                
+                const statusText = {
+                    'pending': 'Pending',
+                    'progress': 'In Progress',
+                    'completed': 'Completed',
+                    'rejected': 'Rejected'
+                }[app.status] || 'Pending';
+                
+                let remarksHtml = '';
+                if(app.remarks) {
+                    remarksHtml = `<div class="remarks-box ${app.status === 'rejected' ? 'rejected' : ''}" style="margin-top: 10px; font-size: 12px;">
+                        <strong>Remarks:</strong> ${escapeHtml(app.remarks)}
+                    </div>`;
+                }
+                
+                return `
+                    <div class="application-card">
+                        <div class="app-info">
+                            <h4>${escapeHtml(app.serviceName)}</h4>
+                            <p><i class="fas fa-hashtag"></i> Application ID: <strong>${app.firebaseKey}</strong></p>
+                            <p><i class="fas fa-calendar"></i> Applied: ${new Date(app.submittedAt).toLocaleDateString()}</p>
+                            ${remarksHtml}
+                        </div>
+                        <div style="text-align: center;">
+                            <span class="app-status ${statusClass}">${statusText}</span>
+                            <div class="app-actions" style="margin-top: 10px;">
+                                <button class="action-btn view" onclick="viewApplicationDetails('${app.firebaseKey}')" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn download" onclick="downloadApplication('${app.firebaseKey}')" title="Download Receipt">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="action-btn sync" onclick="syncApplication('${app.firebaseKey}')" title="Sync Status">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Sync specific application
+        window.syncApplication = async function(appId) {
+            try {
+                showLoading(true);
+                const allAppsRef = ref(database, `allApplications/${appId}`);
+                const snapshot = await get(allAppsRef);
+                
+                if(snapshot.exists()) {
+                    const appData = snapshot.val();
+                    const userAppRef = ref(database, `applications/${currentUser.uid}/${appId}`);
+                    await set(userAppRef, appData);
+                    showToast('Application synced successfully!', 'success');
+                } else {
+                    showToast('Application not found in central database', 'error');
+                }
+            } catch(error) {
+                console.error('Sync error:', error);
+                showToast('Failed to sync application', 'error');
+            } finally {
+                showLoading(false);
+            }
+        };
+
+        // Sync all applications
+        window.syncAllApplications = async function() {
+            const btn = document.getElementById('syncBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Syncing...';
+            showLoading(true);
+            
+            try {
+                await checkAllApplications();
+                showToast('All applications synced!', 'success');
+                document.getElementById('syncBanner').style.display = 'none';
+            } catch(error) {
+                showToast('Sync failed', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-sync"></i> Sync Now';
+                showLoading(false);
+            }
+        };
+
         // Render Services
-        function renderServices() {
+        window.renderServices = function() {
             renderCategory('taxOnline', servicesData.taxOnline);
             renderCategory('regOnline', servicesData.regOnline);
             renderCategory('billOnline', servicesData.billOnline);
-        }
+        };
 
         function renderCategory(elementId, services) {
             const container = document.getElementById(elementId);
@@ -2066,13 +2259,21 @@
             `).join('');
         }
 
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         // Section Navigation
-        function showSection(sectionName) {
+        window.showSection = function(sectionName) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.header-nav a').forEach(a => a.classList.remove('active'));
-
+            
             document.getElementById('section-' + sectionName).classList.add('active');
-
+            
             const navMap = {
                 'services': 'nav-services',
                 'applications': 'nav-applications',
@@ -2080,170 +2281,79 @@
                 'support': 'nav-support',
                 'profile': 'nav-services'
             };
-
+            
             if(navMap[sectionName]) {
                 document.getElementById(navMap[sectionName]).classList.add('active');
             }
-
+            
             document.getElementById('userDropdown').classList.remove('show');
-
+            
             if(sectionName === 'applications') {
-                loadMyApplications();
+                checkAllApplications();
             }
-        }
-
-        // Load My Applications from Firebase
-        async function loadMyApplications() {
-            try {
-                showLoading(true);
-                // Use once('value') for fresh data fetch every time
-                const appsRef = database.ref('applications/' + currentUser.uid);
-                const snapshot = await appsRef.once('value');
-                console.log('Loading applications, snapshot:', snapshot.val());
-
-                const container = document.getElementById('applicationsList');
-                const emptyState = document.getElementById('emptyState');
-
-                let apps = [];
-                if (snapshot.exists()) {
-                    apps = Object.entries(snapshot.val()).map(([key, value]) => ({
-                        firebaseKey: key,
-                        ...value
-                    }));
-                }
-
-                // Filter applications
-                let filteredApps = apps;
-                if(currentFilter !== 'all') {
-                    filteredApps = apps.filter(a => a.status === currentFilter);
-                }
-
-                if(filteredApps.length === 0) {
-                    container.innerHTML = '';
-                    emptyState.style.display = 'block';
-                    showLoading(false);
-                    return;
-                }
-
-                emptyState.style.display = 'none';
-
-                container.innerHTML = filteredApps.sort((a, b) => b.submittedAt - a.submittedAt).map(app => {
-                    const statusClass = {
-                        'pending': 'status-pending',
-                        'progress': 'status-progress',
-                        'completed': 'status-completed',
-                        'rejected': 'status-rejected'
-                    }[app.status] || 'status-pending';
-
-                    const statusText = {
-                        'pending': 'Pending',
-                        'progress': 'In Progress',
-                        'completed': 'Completed',
-                        'rejected': 'Rejected'
-                    }[app.status] || 'Pending';
-
-                    let remarksHtml = '';
-                    if(app.remarks) {
-                        remarksHtml = `<div class="remarks-box ${app.status === 'rejected' ? 'rejected' : ''}" style="margin-top: 10px; font-size: 12px;">
-                            <strong>Remarks:</strong> ${escapeHtml(app.remarks)}
-                        </div>`;
-                    }
-
-                    return `
-                        <div class="application-card">
-                            <div class="app-info">
-                                <h4>${escapeHtml(app.serviceName)}</h4>
-                                <p><i class="fas fa-hashtag"></i> Application ID: <strong>${app.firebaseKey}</strong></p>
-                                <p><i class="fas fa-calendar"></i> Applied: ${new Date(app.submittedAt).toLocaleDateString()}</p>
-                                ${remarksHtml}
-                            </div>
-                            <div style="text-align: center;">
-                                <span class="app-status ${statusClass}">${statusText}</span>
-                                <div class="app-actions" style="margin-top: 10px;">
-                                    <button class="action-btn view" onclick="viewApplicationDetails('${app.firebaseKey}')" title="View Details">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn download" onclick="downloadApplication('${app.firebaseKey}')" title="Download Receipt">
-                                        <i class="fas fa-download"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-
-                showLoading(false);
-            } catch (error) {
-                console.error('Error loading applications:', error);
-                showToast('Failed to load applications', 'error');
-                showLoading(false);
-            }
-        }
+        };
 
         // Filter Applications
-        function filterApplications(filter) {
+        window.filterApplications = function(filter) {
             currentFilter = filter;
             document.querySelectorAll('#section-applications .filter-tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
-            loadMyApplications();
-        }
+            checkAllApplications();
+        };
 
         // View Application Details
-        async function viewApplicationDetails(appKey) {
+        window.viewApplicationDetails = async function(appKey) {
             try {
-                const appRef = database.ref('applications/' + currentUser.uid + '/' + appKey);
-                const snapshot = await appRef.once('value');
-
+                // Try user's apps first, then allApplications
+                let appRef = ref(database, `applications/${currentUser.uid}/${appKey}`);
+                let snapshot = await get(appRef);
+                
+                if(!snapshot.exists()) {
+                    appRef = ref(database, `allApplications/${appKey}`);
+                    snapshot = await get(appRef);
+                }
+                
                 if(!snapshot.exists()) {
                     showToast('Application not found', 'error');
                     return;
                 }
-
+                
                 const app = snapshot.val();
-                let details = `Application Details:
-
-`;
-                details += `ID: ${appKey}
-`;
-                details += `Service: ${app.serviceName}
-`;
-                details += `Status: ${app.status.toUpperCase()}
-`;
+                let details = `Application Details:\n\n`;
+                details += `ID: ${appKey}\n`;
+                details += `Service: ${app.serviceName}\n`;
+                details += `Status: ${app.status.toUpperCase()}\n`;
                 if(app.remarks) {
-                    details += `Remarks: ${app.remarks}
-`;
+                    details += `Remarks: ${app.remarks}\n`;
                 }
-                details += `Applied: ${new Date(app.submittedAt).toLocaleString()}
-
-`;
-                details += `Personal Info:
-`;
-                details += `Name: ${app.personalInfo.name}
-`;
-                details += `Mobile: ${app.personalInfo.mobile}
-`;
-                details += `Email: ${app.personalInfo.email}
-`;
-                details += `Address: ${app.personalInfo.address}
-
-`;
+                details += `Applied: ${new Date(app.submittedAt).toLocaleString()}\n\n`;
+                details += `Personal Info:\n`;
+                details += `Name: ${app.personalInfo.name}\n`;
+                details += `Mobile: ${app.personalInfo.mobile}\n`;
+                details += `Email: ${app.personalInfo.email}\n`;
+                details += `Address: ${app.personalInfo.address}\n\n`;
                 details += `Documents: ${app.documents.map(d => d.name).join(', ')}`;
-
+                
                 alert(details);
             } catch (error) {
                 console.error('Error viewing application:', error);
                 showToast('Failed to load application details', 'error');
             }
-        }
+        };
 
         // Download Application Receipt
-        async function downloadApplication(appKey) {
+        window.downloadApplication = async function(appKey) {
             try {
-                const appRef = database.ref('applications/' + currentUser.uid + '/' + appKey);
-                const snapshot = await appRef.once('value');
-
+                let appRef = ref(database, `applications/${currentUser.uid}/${appKey}`);
+                let snapshot = await get(appRef);
+                
+                if(!snapshot.exists()) {
+                    appRef = ref(database, `allApplications/${appKey}`);
+                    snapshot = await get(appRef);
+                }
+                
                 if(!snapshot.exists()) return;
-
+                
                 const app = snapshot.val();
                 const receipt = `
 Khan Jan Seva Kendra - Application Receipt
@@ -2262,12 +2372,11 @@ Mobile: ${app.personalInfo.mobile}
 Email: ${app.personalInfo.email}
 
 Documents Submitted:
-${app.documents.map(d => `- ${d.name} (${d.url})`).join('
-')}
+${app.documents.map(d => `- ${d.name} (${d.url})`).join('\n')}
 
 Thank you for using our services!
                 `;
-
+                
                 const blob = new Blob([receipt], { type: 'text/plain' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -2275,78 +2384,74 @@ Thank you for using our services!
                 a.download = `Receipt_${appKey}.txt`;
                 a.click();
                 URL.revokeObjectURL(url);
-
+                
                 showToast('Receipt downloaded', 'success');
             } catch (error) {
                 console.error('Error downloading receipt:', error);
                 showToast('Failed to download receipt', 'error');
             }
-        }
+        };
 
-        // Track Application
-        async function trackApplication() {
+        // Track Application - FIXED
+        window.trackApplication = async function() {
             const appId = document.getElementById('trackAppId').value.trim().toUpperCase();
-
+            
             if(!appId) {
                 showToast('Please enter Application ID', 'error');
                 return;
             }
-
-            // Validate APP prefix
+            
             if(!appId.startsWith('APP')) {
                 showToast('Invalid Application ID format. Should start with APP', 'error');
                 return;
             }
-
+            
             try {
                 showLoading(true);
-
-                // First check in user's own applications (primary source)
-                const userAppsRef = database.ref('applications/' + currentUser.uid);
-                const userSnapshot = await userAppsRef.once('value');
-
+                
+                // Check both paths
                 let foundApp = null;
-
-                if (userSnapshot.exists()) {
-                    const userApps = userSnapshot.val();
-                    foundApp = userApps[appId];
-                }
-
-                // If not found in user's apps, check allApplications (backup)
-                if(!foundApp) {
-                    const allAppsRef = database.ref('allApplications');
-                    const allSnapshot = await allAppsRef.once('value');
-
-                    if (allSnapshot.exists()) {
-                        const allApps = allSnapshot.val();
-                        foundApp = allApps[appId];
+                
+                // Check user's apps
+                const userAppsRef = ref(database, `applications/${currentUser.uid}/${appId}`);
+                let snapshot = await get(userAppsRef);
+                
+                if (snapshot.exists()) {
+                    foundApp = snapshot.val();
+                } else {
+                    // Check allApplications
+                    const allAppsRef = ref(database, `allApplications/${appId}`);
+                    snapshot = await get(allAppsRef);
+                    
+                    if (snapshot.exists()) {
+                        foundApp = snapshot.val();
                     }
                 }
-
+                
                 if(!foundApp) {
                     showToast('Application not found. Please check the ID.', 'error');
                     document.getElementById('trackingResult').classList.remove('show');
                     showLoading(false);
                     return;
                 }
-
+                
                 // Show result
                 document.getElementById('resultAppId').textContent = appId;
                 document.getElementById('resultService').textContent = foundApp.serviceName || 'N/A';
                 document.getElementById('resultDate').textContent = foundApp.submittedAt ? new Date(foundApp.submittedAt).toLocaleDateString() : 'N/A';
-
+                
                 const statusColors = {
                     'pending': '#ff9800',
                     'progress': '#2196f3',
                     'completed': '#4caf50',
                     'rejected': '#f44336'
                 };
-
+                
                 const statusElement = document.getElementById('resultStatus');
                 const statusText = (foundApp.status || 'pending').toUpperCase();
                 statusElement.textContent = statusText;
                 statusElement.style.color = statusColors[foundApp.status] || '#666';
-
+                
                 // Show remarks if exists
                 const remarksBox = document.getElementById('resultRemarks');
                 if(foundApp.remarks) {
@@ -2356,14 +2461,14 @@ Thank you for using our services!
                 } else {
                     remarksBox.style.display = 'none';
                 }
-
+                
                 // Update progress bar
                 document.querySelectorAll('.progress-step').forEach(s => {
                     s.classList.remove('active', 'completed');
                 });
-
+                
                 document.querySelector('.progress-step').classList.add('completed');
-
+                
                 if(foundApp.status === 'pending') {
                     document.getElementById('stepReview').classList.add('active');
                 } else if(foundApp.status === 'progress') {
@@ -2376,29 +2481,29 @@ Thank you for using our services!
                 } else if(foundApp.status === 'rejected') {
                     document.getElementById('stepReview').classList.add('completed');
                 }
-
+                
                 const messages = {
                     'pending': 'Your application has been received and is pending review.',
                     'progress': 'Your application is currently being processed.',
                     'completed': 'Your application has been completed successfully!',
                     'rejected': 'Unfortunately, your application was rejected. Please check remarks or contact support.'
                 };
-
+                
                 document.getElementById('statusMessage').textContent = messages[foundApp.status] || 'Status unknown.';
                 document.getElementById('trackingResult').classList.add('show');
-
+                
                 showLoading(false);
             } catch (error) {
                 console.error('Error tracking application:', error);
                 showToast('Failed to track application: ' + error.message, 'error');
                 showLoading(false);
             }
-        }
+        };
 
         // Save Profile
-        async function saveProfile(e) {
+        window.saveProfile = async function(e) {
             e.preventDefault();
-
+            
             try {
                 showLoading(true);
                 const profileData = {
@@ -2414,15 +2519,15 @@ Thank you for using our services!
                     pan: document.getElementById('profilePan').value,
                     updatedAt: Date.now()
                 };
-
-                await database.ref('users/' + currentUser.uid).set(profileData);
-
+                
+                await set(ref(database, `users/${currentUser.uid}`), profileData);
+                
                 // Update display
                 document.getElementById('userName').textContent = profileData.name;
                 document.getElementById('welcomeName').textContent = profileData.name;
                 document.getElementById('profileNameDisplay').textContent = profileData.name;
                 document.getElementById('profileEmailDisplay').textContent = profileData.email;
-
+                
                 showToast('Profile updated successfully!', 'success');
                 showLoading(false);
             } catch (error) {
@@ -2430,28 +2535,28 @@ Thank you for using our services!
                 showToast('Failed to update profile', 'error');
                 showLoading(false);
             }
-        }
+        };
 
         // Service Modal Functions
-        function openServiceModal(serviceId) {
+        window.openServiceModal = function(serviceId) {
             let service = null;
             for(let cat in servicesData) {
                 service = servicesData[cat].find(s => s.id === serviceId);
                 if(service) break;
             }
-
+            
             if(!service) return;
             currentService = service;
-
+            
             document.getElementById('modalTitle').textContent = service.name;
             document.getElementById('modalSubtitle').textContent = service.desc + ' - Complete your application';
-
+            
             renderDocuments(service.docs);
             renderServiceFields(serviceId);
-
+            
             document.getElementById('serviceModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
-        }
+        };
 
         function renderDocuments(docList) {
             const container = document.getElementById('documentList');
@@ -2483,16 +2588,15 @@ Thank you for using our services!
 
         function renderServiceFields(serviceId) {
             const container = document.getElementById('serviceSpecificFields');
-            // Add service-specific fields as needed
             container.innerHTML = '<p style="color: #666; font-style: italic;">No additional information required for this service.</p>';
         }
 
         // File upload with 200KB limit
-        function handleFileUpload(docType, index, input) {
+        window.handleFileUpload = async function(docType, index, input) {
             if(input.files && input.files[0]) {
                 const file = input.files[0];
                 const maxSize = 200 * 1024; // 200KB in bytes
-
+                
                 // Check file size
                 if(file.size > maxSize) {
                     showToast(`File size too large! Maximum 200KB allowed. Your file: ${(file.size/1024).toFixed(1)}KB`, 'error');
@@ -2500,33 +2604,33 @@ Thank you for using our services!
                     input.value = '';
                     return;
                 }
-
+                
                 document.getElementById(`warning_${index}`).classList.remove('show');
                 uploadedFiles[docType] = file;
-
+                
                 const fileNameDiv = document.getElementById(`filename_${index}`);
                 fileNameDiv.querySelector('span').textContent = `${file.name} (${(file.size/1024).toFixed(1)}KB)`;
                 fileNameDiv.classList.add('show');
-
+                
                 showToast(`File "${file.name}" selected successfully`, 'success');
             }
-        }
+        };
 
-        function closeModal() {
+        window.closeModal = function() {
             document.getElementById('serviceModal').style.display = 'none';
             document.body.style.overflow = 'auto';
             uploadedFiles = {};
             currentService = null;
-        }
+        };
 
         // Submit Application to Firebase
-        async function submitApplication() {
+        window.submitApplication = async function() {
             const terms = document.getElementById('appTerms');
             if(!terms.checked) {
                 showToast('Please accept the terms and conditions', 'error');
                 return;
             }
-
+            
             // Validate required fields
             const requiredFields = ['appName', 'appFatherName', 'appDob', 'appGender', 'appMobile', 'appEmail', 'appAddress', 'appDistrict', 'appState', 'appPincode'];
             for(let fieldId of requiredFields) {
@@ -2537,7 +2641,7 @@ Thank you for using our services!
                     return;
                 }
             }
-
+            
             if(currentService && currentService.docs) {
                 const missingDocs = currentService.docs.filter(doc => !uploadedFiles[doc]);
                 if(missingDocs.length > 0) {
@@ -2545,21 +2649,21 @@ Thank you for using our services!
                     return;
                 }
             }
-
+            
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
             showLoading(true);
-
+            
             try {
                 // Upload files to Firebase Storage
                 const uploadedDocUrls = [];
-
+                
                 for (const [docType, file] of Object.entries(uploadedFiles)) {
                     try {
-                        const fileRef = storage.ref('documents/' + currentUser.uid + '/' + Date.now() + '_' + docType + '_' + file.name);
-                        const uploadResult = await fileRef.put(file);
-                        const downloadURL = await uploadResult.ref.getDownloadURL();
+                        const fileRef = storageRef(storage, `documents/${currentUser.uid}/${Date.now()}_${docType}_${file.name}`);
+                        const uploadResult = await uploadBytes(fileRef, file);
+                        const downloadURL = await getDownloadURL(uploadResult.ref);
                         uploadedDocUrls.push({
                             type: docType,
                             name: file.name,
@@ -2572,12 +2676,14 @@ Thank you for using our services!
                         throw uploadError;
                     }
                 }
-
+                
                 // Create application data
                 const applicationData = {
                     serviceId: currentService.id,
                     serviceName: currentService.name,
                     customerId: currentUser.uid,
+                    userId: currentUser.uid,
+                    uid: currentUser.uid,
                     customerEmail: currentUser.email,
                     personalInfo: {
                         name: document.getElementById('appName').value,
@@ -2600,60 +2706,59 @@ Thank you for using our services!
                     submittedAt: Date.now(),
                     updatedAt: Date.now()
                 };
-
+                
                 // Generate application ID
                 const appId = 'APP' + Date.now();
-
+                
                 // Save to customer's applications
-                await database.ref('applications/' + currentUser.uid + '/' + appId).set(applicationData);
-
+                await set(ref(database, `applications/${currentUser.uid}/${appId}`), applicationData);
+                
                 // Save to allApplications for admin access
-                await database.ref('allApplications/' + appId).set({
+                await set(ref(database, `allApplications/${appId}`), {
                     ...applicationData,
                     applicationId: appId
                 });
-
+                
                 showToast(`Application submitted successfully! ID: ${appId}`, 'success');
-
+                
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<span>Submit Application</span>';
-
+                
                 closeModal();
-                updateStats();
-
+                
                 // Switch to applications section
                 showSection('applications');
-
+                
             } catch (error) {
                 console.error('Error submitting application:', error);
                 showToast('Failed to submit application: ' + error.message, 'error');
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<span>Submit Application</span>';
             }
-
+            
             showLoading(false);
-        }
+        };
 
         // User Menu Functions
-        function toggleDropdown(event) {
+        window.toggleDropdown = function(event) {
             event.stopPropagation();
             document.getElementById('userDropdown').classList.toggle('show');
-        }
+        };
 
         // Logout
-        async function logout() {
+        window.logout = async function() {
             try {
-                await auth.signOut();
+                await signOut(auth);
                 window.location.href = '../login.html';
             } catch (error) {
                 console.error('Error signing out:', error);
                 showToast('Failed to logout', 'error');
             }
-        }
+        };
 
-        function viewDocuments() {
+        window.viewDocuments = function() {
             showSection('applications');
-        }
+        };
 
         // Close dropdown when clicking outside
         window.onclick = function(event) {
