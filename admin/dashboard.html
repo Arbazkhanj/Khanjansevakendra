@@ -900,7 +900,7 @@
         .justify-between { justify-content: space-between; }
         .items-center { align-items: center; }
     </style>
-<base target="_blank">
+<base target="_self">
 </head>
 <body>
     <!-- Loading Overlay -->
@@ -1615,28 +1615,24 @@
                 
                 debugLog('Prepared updates', updates);
                 
-                // CRITICAL: Update only allApplications (this is the main source)
-                const allAppsRef = ref(database, `allApplications/${appId}`);
-                debugLog('Updating allApplications path', `allApplications/${appId}`);
+                // CRITICAL FIX: Update BOTH locations - customer sees updates immediately
+                const userId = app.userId || app.customerId || app.uid;
                 
+                if(!userId) {
+                    throw new Error('Cannot find userId/customerId in application data');
+                }
+                
+                // 1. Update user applications (THIS IS WHERE CUSTOMER LISTENS)
+                const userAppRef = ref(database, `applications/${userId}/${appId}`);
+                debugLog('CRITICAL: Updating user applications', `applications/${userId}/${appId}`);
+                await update(userAppRef, updates);
+                debugLog('SUCCESS: User applications updated');
+                
+                // 2. Update allApplications (for admin view)
+                const allAppsRef = ref(database, `allApplications/${appId}`);
+                debugLog('CRITICAL: Updating allApplications', `allApplications/${appId}`);
                 await update(allAppsRef, updates);
                 debugLog('SUCCESS: allApplications updated');
-                
-                // Optional: Try to update user applications if userId exists
-                const userId = app.userId || app.customerId || app.uid;
-                if(userId) {
-                    try {
-                        const userAppRef = ref(database, `applications/${userId}/${appId}`);
-                        debugLog('Attempting user app update', `applications/${userId}/${appId}`);
-                        await update(userAppRef, updates);
-                        debugLog('SUCCESS: User applications updated');
-                    } catch(userUpdateError) {
-                        debugLog('WARNING: User app update failed (non-critical)', userUpdateError.message);
-                        // Don't throw - main update succeeded
-                    }
-                } else {
-                    debugLog('No userId found, skipping user applications update');
-                }
                 
                 showToast('✅ Status updated successfully!', 'success');
                 closeModal();
