@@ -2048,7 +2048,10 @@
                     Object.entries(allApps).forEach(([appId, app]) => {
                         const appUserId = app.customerId || app.userId || app.uid;
                         if (appUserId === currentUser.uid) {
-                            if (!existingApps[appId]) {
+                            const existingApp = existingApps[appId];
+                            
+                            // CRITICAL FIX: Always sync if status/remarks different or app missing
+                            if (!existingApp) {
                                 // Found app in allApplications but not in user's apps
                                 existingApps[appId] = app;
                                 foundNewApps = true;
@@ -2056,13 +2059,21 @@
                                 // Sync back to user's applications
                                 const userAppRef = ref(database, `applications/${currentUser.uid}/${appId}`);
                                 set(userAppRef, app).catch(e => console.error('Sync error:', e));
-                            } else {
-                                // Check if status/remarks updated
-                                const existingApp = existingApps[appId];
-                                if (existingApp.status !== app.status || existingApp.remarks !== app.remarks) {
-                                    existingApps[appId] = app;
-                                    foundNewApps = true;
-                                }
+                                console.log('[SYNC] New app synced from allApplications:', appId);
+                            } else if (existingApp.status !== app.status || existingApp.remarks !== app.remarks || existingApp.updatedAt !== app.updatedAt) {
+                                // CRITICAL: Status/remarks/updatedAt changed - update local copy
+                                existingApps[appId] = app;
+                                foundNewApps = true;
+                                
+                                // Sync back to user's applications to ensure consistency
+                                const userAppRef = ref(database, `applications/${currentUser.uid}/${appId}`);
+                                update(userAppRef, { 
+                                    status: app.status, 
+                                    remarks: app.remarks,
+                                    updatedAt: app.updatedAt,
+                                    updatedBy: app.updatedBy 
+                                }).catch(e => console.error('Sync update error:', e));
+                                console.log('[SYNC] Status updated from allApplications:', appId, 'Status:', app.status);
                             }
                         }
                     });
@@ -2289,7 +2300,23 @@
             document.getElementById('userDropdown').classList.remove('show');
             
             if(sectionName === 'applications') {
+                // Immediate sync when opening applications
                 checkAllApplications();
+                
+                // Start periodic sync every 30 seconds
+                if(window.appsSyncInterval) clearInterval(window.appsSyncInterval);
+                window.appsSyncInterval = setInterval(() => {
+                    if(document.getElementById('section-applications').classList.contains('active')) {
+                        console.log('[AUTO-SYNC] Checking for updates from admin...');
+                        checkAllApplications();
+                    }
+                }, 30000);
+            } else {
+                // Stop periodic sync when leaving applications section
+                if(window.appsSyncInterval) {
+                    clearInterval(window.appsSyncInterval);
+                    window.appsSyncInterval = null;
+                }
             }
         };
 
@@ -2409,22 +2436,44 @@ Thank you for using our services!
             try {
                 showLoading(true);
                 
-                // Check both paths
+                // Check both paths - PRIORITY: allApplications (admin updates here)
                 let foundApp = null;
+                let source = '';
                 
-                // Check user's apps
-                const userAppsRef = ref(database, `applications/${currentUser.uid}/${appId}`);
-                let snapshot = await get(userAppsRef);
+                // CRITICAL FIX: Check allApplications FIRST (admin updates this)
+                const allAppsRef = ref(database, `allApplications/${appId}`);
+                let snapshot = await get(allAppsRef);
                 
                 if (snapshot.exists()) {
                     foundApp = snapshot.val();
+                    source = 'allApplications';
+                    console.log('[TRACK] Found in allApplications:', foundApp.status);
+                    
+                    // Sync to user's apps for consistency
+                    const userAppRef = ref(database, `applications/${currentUser.uid}/${appId}`);
+                    const userSnapshot = await get(userAppRef);
+                    if (userSnapshot.exists()) {
+                        const userApp = userSnapshot.val();
+                        // If allApplications has newer data, update user's app
+                        if (foundApp.updatedAt > (userApp.updatedAt || 0)) {
+                            await update(userAppRef, {
+                                status: foundApp.status,
+                                remarks: foundApp.remarks,
+                                updatedAt: foundApp.updatedAt,
+                                updatedBy: foundApp.updatedBy
+                            });
+                            console.log('[TRACK] Synced newer data to user apps');
+                        }
+                    }
                 } else {
-                    // Check allApplications
-                    const allAppsRef = ref(database, `allApplications/${appId}`);
-                    snapshot = await get(allAppsRef);
+                    // Fallback to user's apps
+                    const userAppsRef = ref(database, `applications/${currentUser.uid}/${appId}`);
+                    snapshot = await get(userAppsRef);
                     
                     if (snapshot.exists()) {
                         foundApp = snapshot.val();
+                        source = 'userApps';
+                        console.log('[TRACK] Found in user apps:', foundApp.status);
                     }
                 }
                 
