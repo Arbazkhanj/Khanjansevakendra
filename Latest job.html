@@ -840,7 +840,55 @@
                 display: block;
             }
         }
-    </style>
+    
+    /* Online Tools Dropdown */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 250px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1001;
+      border-radius: 10px;
+      top: 100%;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s;
+      font-size: 14px;
+    }
+    
+    .dropdown-content a:hover {
+      background: #f5f5f5;
+      color: #667eea;
+    }
+    
+    .dropdown-content a i {
+      width: 20px;
+      color: #667eea;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .dropdown:hover .nav-item {
+      background: rgba(102, 126, 234, 0.1);
+    }
+</style>
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8237131770094477" crossorigin="anonymous"></script>
 </head>
@@ -875,7 +923,22 @@
                 <a href="contact.html" class="nav-item">
                     <i class="fas fa-envelope"></i> Contact
                 </a>
-                <a href="Latest job.html" class="nav-item active">
+                <div class="dropdown">
+        <a href="#" class="nav-item">
+          <i class="fas fa-tools"></i> Online Tools <i class="fas fa-chevron-down" style="font-size:10px;margin-left:3px;"></i>
+        </a>
+        <div class="dropdown-content">
+          <a href="Photoresizer.html"><i class="fas fa-image"></i> Photo Resizer</a>
+          <a href="image-to-pdf.html"><i class="fas fa-file-pdf"></i> Image to PDF</a>
+          <a href="pdf-editor.html"><i class="fas fa-edit"></i> PDF Editor</a>
+          <a href="pdf-compressor.html"><i class="fas fa-compress"></i> PDF Compressor</a>
+          <a href="background-remover.html"><i class="fas fa-magic"></i> Background Remover</a>
+          <a href="signature-bg-remover.html"><i class="fas fa-signature"></i> Signature BG Remover</a>
+          <a href="photo-text-overlay.html"><i class="fas fa-font"></i> Text on Photo</a>
+          <a href="age-calculator.html"><i class="fas fa-calculator"></i> Age Calculator</a>
+        </div>
+      </div>
+      <a href="Latest job.html" class="nav-item active">
                     <i class="fas fa-briefcase"></i> Latest Job
                 </a>
                 <a href="login.html" class="nav-item active">
@@ -950,7 +1013,22 @@
                 <p><a href="services.html"><i class="fas fa-cogs"></i> Our Services</a></p>
                 <p><a href="about.html"><i class="fas fa-users"></i> About Us</a></p>
                 <p><a href="contact.html"><i class="fas fa-phone"></i> Contact</a></p>
-                <p><a href="Latest job.html"><i class="fas fa-briefcase"></i> Latest Jobs</a></p>
+                <p><div class="dropdown">
+        <a href="#" class="nav-item">
+          <i class="fas fa-tools"></i> Online Tools <i class="fas fa-chevron-down" style="font-size:10px;margin-left:3px;"></i>
+        </a>
+        <div class="dropdown-content">
+          <a href="Photoresizer.html"><i class="fas fa-image"></i> Photo Resizer</a>
+          <a href="image-to-pdf.html"><i class="fas fa-file-pdf"></i> Image to PDF</a>
+          <a href="pdf-editor.html"><i class="fas fa-edit"></i> PDF Editor</a>
+          <a href="pdf-compressor.html"><i class="fas fa-compress"></i> PDF Compressor</a>
+          <a href="background-remover.html"><i class="fas fa-magic"></i> Background Remover</a>
+          <a href="signature-bg-remover.html"><i class="fas fa-signature"></i> Signature BG Remover</a>
+          <a href="photo-text-overlay.html"><i class="fas fa-font"></i> Text on Photo</a>
+          <a href="age-calculator.html"><i class="fas fa-calculator"></i> Age Calculator</a>
+        </div>
+      </div>
+      <a href="Latest job.html"><i class="fas fa-briefcase"></i> Latest Jobs</a></p>
             </div>
             
             <div class="footer-section">
