@@ -19,6 +19,94 @@
       min-height: 100vh;
     }
 
+    /* Video Popup Styles */
+    .video-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .video-popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .video-popup-container {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+    }
+
+    .video-popup-overlay.active .video-popup-container {
+      transform: scale(1);
+    }
+
+    .video-popup-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .video-close-btn {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: #fff;
+      border: none;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .video-close-btn:hover {
+      background: #ff4757;
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    /* Website blur effect when popup is active */
+    body.video-popup-open .main-header,
+    body.video-popup-open > *:not(.video-popup-overlay) {
+      filter: blur(3px);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .video-popup-container {
+        width: 95%;
+      }
+      .video-close-btn {
+        top: -35px;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+      }
+    }
+
     /* EXACT Header from Screenshot */
     .main-header {
       position: sticky;
@@ -2129,6 +2217,68 @@ window.onload = function() {
      data-full-width-responsive="true"></ins>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!-- Video Popup -->
+<div class="video-popup-overlay" id="videoPopup">
+  <div class="video-popup-container">
+    <button class="video-close-btn" onclick="closeVideoPopup()">
+      <i class="fas fa-times"></i>
+    </button>
+    <video id="popupVideo" controls autoplay playsinline>
+      <source src="video.mp4" type="video/mp4">
+      <!-- Fallback for older browsers -->
+      <object data="video.mp4" width="100%" height="auto">
+        <param name="autoplay" value="true">
+        <param name="controller" value="true">
+      </object>
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+
+<script>
+  // Video Popup Functions
+  function openVideoPopup() {
+    document.body.classList.add('video-popup-open');
+    document.getElementById('videoPopup').classList.add('active');
+    const video = document.getElementById('popupVideo');
+    video.volume = 1.0; // Full volume
+    video.muted = false; // Ensure unmuted
+    video.play().catch(function(error) {
+      console.log('Autoplay prevented:', error);
+    });
+  }
+
+  function closeVideoPopup() {
+    document.body.classList.remove('video-popup-open');
+    document.getElementById('videoPopup').classList.remove('active');
+    const video = document.getElementById('popupVideo');
+    video.pause();
+    video.currentTime = 0;
+  }
+
+  // Open video popup immediately when page loads
+  window.addEventListener('DOMContentLoaded', function() {
+    // Small delay to ensure page is fully rendered
+    setTimeout(function() {
+      openVideoPopup();
+    }, 500);
+  });
+
+  // Close popup when clicking outside the video
+  document.getElementById('videoPopup').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeVideoPopup();
+    }
+  });
+
+  // Close popup with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeVideoPopup();
+    }
+  });
 </script>
 
 </body>
