@@ -16,7 +16,6 @@
       font-family: 'Poppins', sans-serif; 
       margin: 0; 
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
     }
 
     /* Video Popup Styles */
@@ -89,10 +88,161 @@
 
     /* Website blur effect when popup is active */
     body.video-popup-open .main-header,
-    body.video-popup-open > *:not(.video-popup-overlay) {
+    body.video-popup-open > *:not(.video-popup-overlay),
+    body.pptx-popup-open .main-header,
+    body.pptx-popup-open > *:not(.pptx-popup-overlay):not(.video-popup-overlay) {
       filter: blur(3px);
       opacity: 0.8;
       pointer-events: none;
+    }
+
+    /* Ad Container Styles */
+    .ad-container {
+      width: 100%;
+      background: transparent;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Google Slides Popup Styles */
+    .pptx-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .pptx-popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .pptx-popup-container {
+      position: relative;
+      width: 95%;
+      max-width: 1100px;
+      height: 90vh;
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pptx-popup-overlay.active .pptx-popup-container {
+      transform: scale(1);
+    }
+
+    .pptx-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .pptx-title {
+      font-size: 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pptx-close-btn {
+      background: #ff4757;
+      border: none;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .pptx-close-btn:hover {
+      background: #ff6b81;
+      transform: rotate(90deg);
+    }
+
+    .pptx-viewer {
+      flex: 1;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+    }
+
+    .pptx-viewer iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .pptx-controls {
+      background: #333;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .pptx-nav-btn {
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pptx-nav-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 20px rgba(255, 71, 87, 0.5);
+    }
+
+    .pptx-page-info {
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .pptx-popup-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+      }
+      .pptx-title {
+        font-size: 14px;
+      }
     }
 
     @media (max-width: 768px) {
@@ -2208,16 +2358,18 @@ window.onload = function() {
 </script>
 
 
-<!-- AdSense Ad Unit -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-8237131770094477"
-     data-ad-slot="1234567890"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<!-- AdSense Ad Unit - Above Footer -->
+<div class="ad-container">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-8237131770094477"
+       data-ad-slot="1234567890"
+       data-ad-format="horizontal"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
 
 <!-- Video Popup -->
 <div class="video-popup-overlay" id="videoPopup">
@@ -2256,6 +2408,29 @@ window.onload = function() {
     const video = document.getElementById('popupVideo');
     video.pause();
     video.currentTime = 0;
+    
+    // Show Google Slides popup after video is closed
+    setTimeout(function() {
+      openPptxPopup();
+    }, 300);
+  }
+
+  function openPptxPopup() {
+    document.body.classList.add('pptx-popup-open');
+    document.getElementById('pptxPopup').classList.add('active');
+  }
+
+  function closePptxPopup() {
+    document.body.classList.remove('pptx-popup-open');
+    document.getElementById('pptxPopup').classList.remove('active');
+    
+    // Reload iframe to stop autoplay when closed
+    const iframe = document.getElementById('slidesIframe');
+    const currentSrc = iframe.src;
+    iframe.src = '';
+    setTimeout(() => {
+      iframe.src = currentSrc;
+    }, 100);
   }
 
   // Open video popup immediately when page loads
@@ -2276,7 +2451,50 @@ window.onload = function() {
   // Close popup with Escape key
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-      closeVideoPopup();
+      if (document.getElementById('pptxPopup').classList.contains('active')) {
+        closePptxPopup();
+      } else {
+        closeVideoPopup();
+      }
+    }
+  });
+</script>
+
+<!-- Google Slides Popup -->
+<div class="pptx-popup-overlay" id="pptxPopup">
+  <div class="pptx-popup-container">
+    <div class="pptx-header">
+      <div class="pptx-title"><i class="fab fa-google-drive"></i> Khan Jan Seva Kendra Presentation</div>
+      <button class="pptx-close-btn" onclick="closePptxPopup()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="pptx-viewer" id="pptxViewer" style="padding: 0; background: #000;">
+      <iframe 
+        id="slidesIframe"
+        src="https://docs.google.com/presentation/d/1oZGHFa4ZfIIN4KTrACu8_oWOb4pkVFFvoQ-_ZuytOfE/embed?start=true&loop=true&delayms=3000" 
+        frameborder="0" 
+        width="100%" 
+        height="100%" 
+        allowfullscreen="true" 
+        mozallowfullscreen="true" 
+        webkitallowfullscreen="true">
+      </iframe>
+    </div>
+    <div class="pptx-controls" style="justify-content: center; gap: 30px;">
+      <span class="pptx-page-info" style="color: #43e97b;"><i class="fas fa-sync-alt fa-spin"></i> Auto-sliding every 3 seconds</span>
+      <button class="pptx-nav-btn" onclick="closePptxPopup()">
+        <i class="fas fa-times-circle"></i> Close Presentation
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Close slides popup when clicking outside -->
+<script>
+  document.getElementById('pptxPopup').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closePptxPopup();
     }
   });
 </script>
