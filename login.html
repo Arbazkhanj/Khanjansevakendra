@@ -232,6 +232,65 @@
     .links a{color:#667eea;text-decoration:none;font-weight:600;}
     .links a:hover{text-decoration:underline;}
     
+    /* Social Login */
+    .social-login {
+      margin-top: 20px;
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .divider span {
+      padding: 0 15px;
+      color: #999;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .google-btn {
+      width: 100%;
+      padding: 12px 20px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .google-btn:hover {
+      background: #f8f9fa;
+      border-color: #bbb;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .google-btn:active {
+      transform: scale(0.98);
+    }
+    
+    .google-btn img {
+      width: 20px;
+      height: 20px;
+    }
+    
     /* Signup Link */
     .signup-link{
       text-align:center;margin-top:25px;padding-top:20px;
@@ -543,6 +602,17 @@
           </button>
         </form>
         
+        <!-- Google Login Button -->
+        <div class="social-login">
+          <div class="divider">
+            <span>OR</span>
+          </div>
+          <button type="button" class="google-btn" onclick="loginWithGoogle()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+            <span>Sign in with Google</span>
+          </button>
+        </div>
+        
         <div class="signup-link">
           <p>New Customer?</p>
           <a href="#" onclick="showSignup()"><i class="fas fa-user-plus"></i> Create Account</a>
@@ -685,7 +755,9 @@
       signOut,
       onAuthStateChanged,
       updateProfile,
-      sendPasswordResetEmail
+      sendPasswordResetEmail,
+      GoogleAuthProvider,
+      signInWithPopup
     } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { 
       getDatabase, 
@@ -710,6 +782,7 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const database = getDatabase(app);
+    const googleProvider = new GoogleAuthProvider();
 
     // Global Variables
     let currentMode = 'customer';
@@ -761,6 +834,65 @@
     window.togglePassword = function(fieldId) {
       const field = document.getElementById(fieldId);
       field.type = field.type === 'password' ? 'text' : 'password';
+    };
+
+    // Google Login
+    window.loginWithGoogle = async function() {
+      showLoading(true);
+      
+      try {
+        const result = await signInWithPopup(auth, googleProvider);
+        const user = result.user;
+        
+        // Check if user exists in database
+        const userRef = ref(database, `users/${user.uid}`);
+        const snapshot = await get(userRef);
+        
+        if(snapshot.exists()) {
+          const userData = snapshot.val();
+          
+          if(userData.role !== 'customer') {
+            showToast('This account is not registered as customer!', 'error');
+            await signOut(auth);
+            showLoading(false);
+            return;
+          }
+          
+          showToast(`Welcome back, ${userData.name}!`, 'success');
+          setTimeout(() => {
+            window.location.href = 'customer/dashboard.html';
+          }, 1500);
+        } else {
+          // New Google user - create customer record
+          const userData = {
+            name: user.displayName || 'Google User',
+            email: user.email,
+            mobile: user.phoneNumber || '',
+            role: 'customer',
+            createdAt: new Date().toISOString(),
+            photoURL: user.photoURL || '',
+            provider: 'google'
+          };
+          
+          await set(userRef, userData);
+          showToast(`Welcome, ${userData.name}! Account created successfully.`, 'success');
+          
+          setTimeout(() => {
+            window.location.href = 'customer/dashboard.html';
+          }, 1500);
+        }
+      } catch (error) {
+        console.error('Google login error:', error);
+        let errorMsg = 'Google login failed!';
+        if(error.code === 'auth/popup-closed-by-user') errorMsg = 'Login cancelled by user';
+        else if(error.code === 'auth/popup-blocked') errorMsg = 'Popup blocked! Please allow popups';
+        else if(error.code === 'auth/account-exists-with-different-credential') errorMsg = 'Account exists with different login method';
+        else errorMsg = error.message;
+        
+        showToast(errorMsg, 'error');
+      }
+      
+      showLoading(false);
     };
 
     // Customer Login
